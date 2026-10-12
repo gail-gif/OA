@@ -1,0 +1,511 @@
+<title>OA Follow-Ups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a working to-do list. Controls and counts on top, then Overdue / Today / Coming up, each a list of follow-up rows with a Done button. */
+:root {
+  --bg: #f5f6f3;
+  --surface: #ffffff;
+  --sunk: #eef0ec;
+  --ink: #17201c;
+  --ink-2: #4b5651;
+  --ink-3: #75807a;
+  --line: #dde2dc;
+  --accent: #0c6a5c;
+  --accent-ink: #ffffff;
+  --t-pre: #75807a;
+  --t-noshow: #eb6834;
+  --t-prop: #2a78d6;
+  --t-nurture: #6250d6;
+  --t-onb: #1baf7a;
+  --good: #1d7f47;
+  --warn: #a8690f;
+  --crit: #c13c35;
+  --font-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101513; --surface: #171e1b; --sunk: #1d2522; --ink: #e8eeea; --ink-2: #b2bcb7; --ink-3: #87938d; --line: #2a3430;
+    --accent: #46b9a5; --accent-ink: #0b1411; --t-pre: #87938d; --t-noshow: #d95926; --t-prop: #3987e5; --t-nurture: #9085e9; --t-onb: #199e70;
+    --good: #52c487; --warn: #e2aa4c; --crit: #ef6e66; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101513; --surface: #171e1b; --sunk: #1d2522; --ink: #e8eeea; --ink-2: #b2bcb7; --ink-3: #87938d; --line: #2a3430;
+  --accent: #46b9a5; --accent-ink: #0b1411; --t-pre: #87938d; --t-noshow: #d95926; --t-prop: #3987e5; --t-nurture: #9085e9; --t-onb: #199e70;
+  --good: #52c487; --warn: #e2aa4c; --crit: #ef6e66; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.45; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 20px 56px; display: grid; gap: 18px; }
+a { color: inherit; }
+h1, h2 { font-family: var(--font-display); margin: 0; text-wrap: balance; }
+h1 { font-size: 26px; letter-spacing: -0.01em; }
+h2 { font-size: 17px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-3); font-weight: 600; }
+.small { font-size: 12px; color: var(--ink-3); }
+
+.top { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; }
+.top .sub { color: var(--ink-2); margin-top: 2px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.seg { display: inline-flex; flex-wrap: wrap; background: var(--sunk); border-radius: 8px; padding: 3px; gap: 2px; }
+.seg button { border: 0; background: transparent; color: var(--ink-2); font: 500 13px var(--font-body); padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); }
+button:focus-visible, summary:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 600 13px var(--font-body); padding: 7px 12px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-3); }
+.btn:disabled { opacity: .55; cursor: default; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.ghost { border-color: transparent; background: transparent; color: var(--ink-2); padding-inline: 8px; }
+.status-line { font-size: 12px; color: var(--ink-3); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); display: inline-block; }
+.dot.busy { background: var(--warn); }
+.dot.err { background: var(--crit); }
+
+.counts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.counts > div { background: var(--surface); padding: 12px 16px; display: grid; gap: 2px; }
+.counts .v { font-family: var(--font-display); font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.counts .crit .v { color: var(--crit); }
+
+.tracks { display: flex; flex-wrap: wrap; gap: 6px; }
+.tracks button { border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); font: 500 12px var(--font-body); border-radius: 999px; padding: 4px 10px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.tracks button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); font-weight: 600; }
+.sw { width: 9px; height: 9px; border-radius: 2px; display: inline-block; flex: none; }
+
+.group { display: grid; gap: 8px; }
+.group-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.count { background: var(--sunk); color: var(--ink-2); border-radius: 999px; padding: 0 8px; font: 600 12px var(--font-body); font-variant-numeric: tabular-nums; }
+.list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
+.item { display: grid; grid-template-columns: 4px minmax(0, 1fr) auto; gap: 12px; padding: 12px 14px 12px 0; border-top: 1px solid var(--line); align-items: start; }
+.item:first-child { border-top: 0; }
+.item .stripe { align-self: stretch; border-radius: 0 3px 3px 0; }
+.item .main { min-width: 0; display: grid; gap: 3px; }
+.item .line1 { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.item .who { font-weight: 700; text-decoration: none; }
+.item .who:hover { text-decoration: underline; }
+.item .step { font-weight: 600; }
+.item .meta { font-size: 12px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; padding: 0 8px; border-radius: 999px; white-space: nowrap; border: 1px solid var(--line); color: var(--ink-2); }
+.chip.crit { color: var(--crit); border-color: currentColor; }
+.chip.warn { color: var(--warn); border-color: currentColor; }
+.chip.good { color: var(--good); border-color: currentColor; }
+.actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: end; }
+.item.done { opacity: .6; }
+.item.done .step { text-decoration: line-through; }
+.item details { margin-top: 4px; }
+.item summary { cursor: pointer; font-size: 12px; color: var(--accent); font-weight: 600; width: fit-content; }
+.script { margin-top: 6px; background: var(--sunk); border-radius: 8px; padding: 10px 12px; font-size: 13px; color: var(--ink-2); white-space: pre-wrap; max-width: 70ch; }
+.script-actions { margin-top: 6px; display: flex; gap: 8px; align-items: center; }
+.err-msg { font-size: 12px; color: var(--crit); }
+.empty { padding: 16px 14px; color: var(--ink-3); font-size: 13px; }
+.notice { border: 1px solid var(--line); border-left: 4px solid var(--warn); background: var(--surface); padding: 14px 16px; border-radius: 8px; }
+.notice.crit { border-left-color: var(--crit); }
+.notice p { margin: 4px 0 0; color: var(--ink-2); max-width: 70ch; }
+.guide { font-size: 13px; color: var(--ink-2); }
+.guide summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 14px; margin-top: 12px; }
+.guide-grid h3 { margin: 0 0 4px; font-size: 13px; display: flex; gap: 6px; align-items: center; }
+.guide-grid ol { margin: 0; padding-left: 18px; }
+.skeleton { color: var(--ink-3); padding: 24px 14px; }
+@media (max-width: 600px) {
+  .counts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .item { grid-template-columns: 4px minmax(0, 1fr); }
+  .item .actions { grid-column: 2; justify-content: start; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>OA Follow-Ups</h1>
+      <div class="sub">Who to contact, how, and why. Ticking Done saves the step to the Sales Calendar in Notion.</div>
+      <div class="status-line"><span class="dot busy" id="dot"></span><span id="statusText">Connecting to Notion…</span></div>
+    </div>
+    <div class="controls">
+      <div class="seg" id="consSeg" role="group" aria-label="Consultant">
+        <button type="button" data-c="All" aria-pressed="true">Everyone</button>
+        <button type="button" data-c="Gail">Gail</button>
+        <button type="button" data-c="Heidi">Heidi</button>
+        <button type="button" data-c="Linh">Linh</button>
+      </div>
+      <button type="button" class="btn" id="refreshBtn">Refresh</button>
+    </div>
+  </header>
+
+  <div id="notice" hidden></div>
+
+  <section class="counts" aria-label="Follow-up counts">
+    <div class="crit"><span class="label">Overdue</span><span class="v" id="n-over">–</span></div>
+    <div><span class="label">Due today</span><span class="v" id="n-today">–</span></div>
+    <div><span class="label">Next 7 days</span><span class="v" id="n-soon">–</span></div>
+    <div><span class="label">Done this session</span><span class="v" id="n-done">0</span></div>
+  </section>
+
+  <div class="tracks" id="tracks" role="group" aria-label="Follow-up type"></div>
+
+  <section class="group" aria-labelledby="h-over"><div class="group-head"><h2 id="h-over">Overdue <span class="count" id="c-over">–</span></h2><span class="small">Oldest first</span></div><div class="list" id="l-over"><div class="skeleton">Loading follow-ups…</div></div></section>
+  <section class="group" aria-labelledby="h-today"><div class="group-head"><h2 id="h-today">Today <span class="count" id="c-today">–</span></h2></div><div class="list" id="l-today"><div class="skeleton">Loading…</div></div></section>
+  <section class="group" aria-labelledby="h-soon"><div class="group-head"><h2 id="h-soon">Coming up <span class="count" id="c-soon">–</span></h2><span class="small">Next 7 days</span></div><div class="list" id="l-soon"><div class="skeleton">Loading…</div></div></section>
+
+  <details class="guide panel-guide">
+    <summary>How the follow-up tracks work</summary>
+    <div class="guide-grid" id="guide"></div>
+    <p class="small" style="margin-top:12px">Each lead sits in one track at a time, picked from its Sales Calendar dates. Done records the step in “Follow-Up Timeline” and today's date in “Last Follow-Up”, and the next step appears on its due date. Internal test bookings are left out.</p>
+  </details>
+</div>
+
+<script>
+(() => {
+  const VIEW_URL = "view://3f7b691b-e059-8141-9db4-000c164bcce5"; // Sales Calendar → "Follow-Ups (dashboard)"
+  const SERVER = "Notion";
+  const READ_TOOL = "notion-query-data-sources";
+  const WRITE_TOOL = "notion-update-page";
+  const MAX_PAGES = 8;
+  const LOOKBACK_DAYS = 200;
+  const AUTO_REFRESH_MS = 10 * 60 * 1000;
+
+  // ---------- the follow-up structure ----------
+  const TRACKS = {
+    pre: { name: "Before the call", color: "var(--t-pre)", steps: [
+      { label: "Pre-call – Confirmation sent", short: "Confirm the booking", channel: "Email", script: "Hi {first},\n\nThanks for booking a discovery call with Outsourcing Angel for {when}. To make the most of our time, could you reply with the 2–3 tasks you'd most like a VA to take off your plate?\n\nTalk soon,\n{me}" },
+      { label: "Pre-call – 24h reminder", short: "24-hour reminder", channel: "Email + SMS", script: "Hi {first}, just a reminder of our call tomorrow ({when}). The meeting link is in your calendar invite. Looking forward to it! – {me}, Outsourcing Angel" },
+      { label: "Pre-call – 1h reminder", short: "1-hour reminder", channel: "SMS", script: "Hi {first}, looking forward to chatting at {time} today. The link is in your invite. – {me}" },
+    ]},
+    noshow: { name: "No-show or cancelled", color: "var(--t-noshow)", steps: [
+      { label: "No-show – Same-day rebook", short: "Send a rebooking link", channel: "Email + SMS", script: "Hi {first},\n\nSorry we missed each other today. Things come up! Here's my calendar to pick a new time that suits: [booking link]\n\n{me}" },
+      { label: "No-show – Day 2 call", short: "Call to rebook", channel: "Phone", script: "Call {first}. Keep it light: \"Just making sure you got my rebooking link. Is getting help with [their tasks] still a priority?\" If no answer, leave a short voicemail and send an SMS with the link." },
+      { label: "No-show – Day 5 final", short: "Last attempt", channel: "Email", script: "Hi {first},\n\nI haven't been able to reconnect, so I'll assume now isn't the right time. Should I close your file for now? If you'd still like a VA, just reply and I'll find a time.\n\n{me}" },
+    ], finalAction: { short: "Mark as lost (no response)", why: "All rebooking attempts done" }},
+    prop: { name: "After the proposal", color: "var(--t-prop)", steps: [
+      { label: "Day 1 – Proposal sent", short: "Send proposal + call recap", channel: "Email", offset: 0, script: "Hi {first},\n\nThanks again for the call. As promised, here's your proposal for {offer}. Quick recap of what you told me you need help with:\n• [goal 1]\n• [goal 2]\n\nHappy to answer any questions.\n\n{me}" },
+      { label: "Day 2 – Confirmation message", short: "\"Any questions?\" check-in", channel: "Phone or SMS", offset: 2, script: "Hi {first}, just checking the proposal came through OK and whether any questions have come up. Happy to jump on a quick call. – {me}" },
+      { label: "Day 4 – Objection-handling email", short: "Handle the likely objection", channel: "Email", offset: 4, script: "Hi {first},\n\nA question I often get at this stage is [cost / time to train / time zones]. Here's how a client in a similar business handled it: [short case study].\n\nWould that work for you?\n\n{me}" },
+      { label: "Day 7 – Offer short follow-up call", short: "Offer a 10-minute call", channel: "Phone", offset: 7, script: "Call {first}: \"Would a quick 10 minutes help to finalise the role and get recruitment started?\" Offer two specific times." },
+      { label: "Day 10 – Close-the-loop message", short: "Close the loop", channel: "Email", offset: 10, script: "Hi {first},\n\nI haven't heard back, so I'm guessing the timing isn't right. Should I close this off for now, or would you like to keep it open?\n\nEither is completely fine.\n\n{me}" },
+    ], finalAction: { short: "Decide: won, lost or nurture", why: "All proposal follow-ups done" }},
+    nurture: { name: "Nurture", color: "var(--t-nurture)", steps: [
+      { label: "Nurture – Day 30 value", short: "Share something useful", channel: "Email", offset: 30, script: "Hi {first},\n\nI came across this and thought of you: [tip / case study / VA quiz link]. No need to reply, just something useful.\n\n{me}" },
+      { label: "Nurture – Day 60 check-in", short: "Check in on timing", channel: "Email or LinkedIn", offset: 60, script: "Hi {first}, it's been a couple of months. How are things going? Is getting extra help still on the cards for this quarter? – {me}" },
+      { label: "Nurture – Day 90 re-engage", short: "Re-engagement offer", channel: "Phone", offset: 90, script: "Call {first}: catch up on their business and mention any current offer. If they're ready, book a fresh discovery call." },
+    ]},
+    onb: { name: "After the deposit", color: "var(--t-onb)", steps: [
+      { label: "Onboarding – Recruitment update", short: "Weekly recruitment update", channel: "Email", script: "Hi {first},\n\nQuick update on recruitment for your {offer}: [stage, e.g. shortlisting / interviews booked]. Next step: [what happens next].\n\n{me}" },
+      { label: "Onboarding – Day 7 check-in", short: "\"How's it going?\" check-in", channel: "Phone", offset: 7, script: "Call {first}: How is the first week with your VA going? Any early tweaks we can help with?" },
+      { label: "Onboarding – Day 30 review & referral", short: "30-day review + ask for a referral", channel: "Phone", offset: 30, script: "Call {first}: review the first month. If they're happy, ask: \"Who else do you know who's stretched thin and could use a VA?\"" },
+    ]},
+  };
+  const TRACK_ORDER = ["pre", "noshow", "prop", "nurture", "onb"];
+  const LABEL_TRACK = {};
+  TRACK_ORDER.forEach(k => TRACKS[k].steps.forEach((s, i) => { LABEL_TRACK[s.label] = { track: k, idx: i }; }));
+
+  const state = { consultant: "All", track: "all", rows: [], loading: false, done: 0, pending: {}, recent: {}, errors: {} };
+  try { const s = JSON.parse(localStorage.getItem("oa-followups") || "{}"); if (s.consultant) state.consultant = s.consultant; if (s.track) state.track = s.track; } catch (e) {}
+  const save = () => { try { localStorage.setItem("oa-followups", JSON.stringify({ consultant: state.consultant, track: state.track })); } catch (e) {} };
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+  // ---------- dates ----------
+  const pad = n => String(n).padStart(2, "0");
+  const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const parseYmd = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const addDays = (s, n) => { const d = parseYmd(s); d.setDate(d.getDate() + n); return ymd(d); };
+  const diffDays = (a, b) => Math.round((parseYmd(b) - parseYmd(a)) / 86400000);
+  const today = () => ymd(new Date());
+  const dayOf = iso => !iso ? null : iso.length <= 10 ? iso : (isNaN(new Date(iso)) ? iso.slice(0, 10) : ymd(new Date(iso)));
+  const fmtDate = s => s ? parseYmd(s).toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" }) : "";
+
+  // ---------- rows ----------
+  const list = v => { if (!v) return []; if (Array.isArray(v)) return v; try { const j = JSON.parse(v); return Array.isArray(j) ? j : [String(j)]; } catch (e) { return String(v).split(",").map(x => x.trim()).filter(Boolean); } };
+  const isTest = r => /\btest\b|test$|mochi/i.test(r.name || "") || /@outsourcingangel\.com\.au$/i.test(r.email || "");
+  function norm(r) {
+    const url = r.url || "";
+    const id = (url.match(/([0-9a-f]{32})(?:\?|$)/i) || [])[1] || url.split("/").pop();
+    return {
+      id, url, name: r["Name"] || "(no name)", email: r["Email"] || "",
+      dcRaw: r["date:Discovery Call Booked:start"] || null, dc: dayOf(r["date:Discovery Call Booked:start"]),
+      dcHasTime: r["date:Discovery Call Booked:is_datetime"] === 1,
+      outcome: r["Discovery Call Outcome"] || null, status: r["Status"] || null, consultant: r["Consultant"] || null,
+      proposal: list(r["Proposal"]), ps: dayOf(r["date:Proposal Sent:start"]),
+      dep: dayOf(r["date:VA Deposit Date:start"]), ddr: dayOf(r["date:VA DDR Setup:start"]),
+      lost: dayOf(r["date:Closed Lost Date:start"]),
+      lostReasons: [...list(r["Lost Reason"]), ...list(r["Lost Reason (1)"])],
+      fu: r["Follow-Up Timeline"] || null, lastFu: dayOf(r["date:Last Follow-Up:start"]),
+    };
+  }
+
+  // Lost reasons that are worth nurturing (timing, silence, budget). "Not a fit" and "chose someone else" are not.
+  function nurturable(reasons) {
+    if (!reasons.length) return false;
+    return reasons.some(s => {
+      const x = s.toLowerCase();
+      if (/qualif|not a lead|job|partnership|unable to provide|ideal|too small|project|gambling|duplicate|test|hired|competitor|agency|in-house|internal|platform|local/.test(x)) return false;
+      return /no (reply|response)|cold|not ready|on hold|no longer|timing|later|budget|price|financ|not enough work|direction|interest|status quo/.test(x);
+    });
+  }
+
+  // Where is this lead in the structure, and what's the next step?
+  function stepsDone(r, track, anchor, legacyOk) {
+    const m = LABEL_TRACK[r.fu];
+    if (!m || m.track !== track) return -1;
+    if (r.lastFu) return r.lastFu >= anchor ? m.idx : -1;
+    return legacyOk ? m.idx : -1;
+  }
+  function nextAction(r) {
+    const t = today();
+    const closed = s => s === "Lead - Lost" || s === "Lead - Won" || s === "DEAD LEAD";
+    if (r.status === "DEAD LEAD") return null;
+    // 5. After the deposit
+    if (r.dep && r.status !== "Lead - Lost") {
+      if (!r.ddr) {
+        if (r.dep < addDays(t, -120)) return null;
+        const last = r.fu === TRACKS.onb.steps[0].label && r.lastFu && r.lastFu >= r.dep ? r.lastFu : r.dep;
+        return { track: "onb", idx: 0, due: addDays(last, 7), why: `Deposit paid ${fmtDate(r.dep)}, VA not started yet` };
+      }
+      if (r.ddr < addDays(t, -75)) return null;
+      const done = Math.max(0, stepsDone(r, "onb", r.ddr, false));
+      const idx = done + 1;
+      if (idx >= TRACKS.onb.steps.length) return null;
+      return { track: "onb", idx, due: addDays(r.ddr, TRACKS.onb.steps[idx].offset), why: `VA started ${fmtDate(r.ddr)}` };
+    }
+    // 3. After the proposal
+    if (r.ps && !closed(r.status)) {
+      const age = diffDays(r.ps, t);
+      const done = stepsDone(r, "prop", r.ps, true);
+      const idx = done + 1;
+      if (idx >= TRACKS.prop.steps.length || age > 21) return { track: "prop", idx: "final", due: addDays(r.ps, 14), why: `Proposal sent ${fmtDate(r.ps)} (${age} days ago)` };
+      return { track: "prop", idx, due: addDays(r.ps, TRACKS.prop.steps[idx].offset), why: `Proposal sent ${fmtDate(r.ps)} (${age === 0 ? "today" : age + " days ago"})` };
+    }
+    // 1. Before the call
+    if (r.dc && r.dc >= t && !closed(r.status)) {
+      const done = stepsDone(r, "pre", addDays(t, -45), false);
+      const idx = done + 1;
+      if (idx >= TRACKS.pre.steps.length) return null;
+      const due = idx === 0 ? t : idx === 1 ? addDays(r.dc, -1) : r.dc;
+      return { track: "pre", idx, due: due < t ? t : due, why: `Call booked ${fmtDate(r.dc)}${r.dcHasTime ? " " + new Date(r.dcRaw).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }) : ""}` };
+    }
+    // 2. No-show or cancelled
+    if (r.dc && r.dc < t && r.dc >= addDays(t, -21) && !closed(r.status) && /no show|cancel|rescheduled/i.test(r.outcome || "")) {
+      const done = stepsDone(r, "noshow", r.dc, false);
+      const idx = done + 1;
+      const offs = [0, 2, 5];
+      if (idx >= 3) return { track: "noshow", idx: "final", due: addDays(r.dc, 7), why: `${r.outcome} on ${fmtDate(r.dc)}` };
+      return { track: "noshow", idx, due: addDays(r.dc, offs[idx]), why: `${r.outcome} on ${fmtDate(r.dc)}` };
+    }
+    // 4. Nurture
+    if (r.status === "Lead - Lost" && nurturable(r.lostReasons)) {
+      const anchor = r.lost || r.dc;
+      if (!anchor || anchor < addDays(t, -100)) return null;
+      const done = stepsDone(r, "nurture", anchor, false);
+      const idx = done + 1;
+      if (idx >= TRACKS.nurture.steps.length) return null;
+      return { track: "nurture", idx, due: addDays(anchor, TRACKS.nurture.steps[idx].offset), why: `Lost ${fmtDate(anchor)}: ${r.lostReasons[0].trim()}` };
+    }
+    return null;
+  }
+
+  // ---------- Notion connector ----------
+  let mcp = null;
+  const setStatus = (kind, text) => { $("dot").className = "dot" + (kind === "busy" ? " busy" : kind === "err" ? " err" : ""); $("statusText").textContent = text; };
+  function showNotice(kind, title, body) { const n = $("notice"); n.hidden = false; n.className = "notice" + (kind === "crit" ? " crit" : ""); n.innerHTML = `<h2>${esc(title)}</h2><p>${body}</p>`; }
+  function errorCopy(e) {
+    switch (e && e.code) {
+      case "server_not_connected": case "selection_required": return ["Notion isn't connected", "Add the Notion connector in claude.ai under Settings → Connectors, then press Refresh."];
+      case "needs_reauth": return ["Reconnect Notion", "Your Notion connection has expired. Reconnect it in claude.ai under Settings → Connectors, then press Refresh."];
+      case "not_in_manifest": case "approval_required": case "consent_required": return ["Allow Notion access", "This page needs permission to read and update the Sales Calendar through your Notion connector. Press Refresh and choose Allow."];
+      case "blocked_by_policy": return ["Notion access is blocked", "Your organisation's settings don't allow this page to use Notion. Ask your claude.ai admin."];
+      case "server_unavailable": case "rate_limited": return ["Notion didn't answer", "Notion was slow or unavailable. Press Refresh to try again."];
+      case "tool_error": return ["Notion couldn't run the request", esc(e.message || "Notion reported an error.") + " Check you still have access to the Sales Calendar."];
+      default: return ["Something went wrong", esc((e && e.message) || "Couldn't reach Notion.") + " Press Refresh to try again."];
+    }
+  }
+
+  async function load(fresh) {
+    if (!mcp || state.loading) return;
+    state.loading = true; $("refreshBtn").disabled = true;
+    setStatus("busy", "Reading the Sales Calendar…");
+    const cutoff = addDays(today(), -LOOKBACK_DAYS);
+    const rows = []; let cursor = null, pages = 0, oldest = null;
+    try {
+      do {
+        const data = { mode: "view", view_url: VIEW_URL, page_size: 100 };
+        if (cursor) data.start_cursor = cursor;
+        const res = await mcp.callTool(SERVER, READ_TOOL, { data }, { cache: fresh ? false : { staleTime: 60000, gcTime: 3600000 } });
+        let p = res.payload;
+        if (typeof p === "string") { try { p = JSON.parse(p); } catch (e) { throw { code: "tool_error", message: p.slice(0, 200) }; } }
+        if (!p || !Array.isArray(p.results)) throw { code: "tool_error", message: "Unexpected reply from Notion." };
+        p.results.forEach(r => rows.push(norm(r)));
+        const last = rows.length ? rows[rows.length - 1].dc : null; if (last) oldest = last;
+        cursor = p.has_more ? p.next_cursor : null; pages++;
+      } while (cursor && pages < MAX_PAGES && (!oldest || oldest >= cutoff));
+      state.rows = rows.filter(r => !isTest(r));
+      $("notice").hidden = true;
+      render();
+      setStatus("ok", `Updated ${new Date().toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })} · refreshes every 10 min`);
+    } catch (e) {
+      const [title, body] = errorCopy(e);
+      setStatus("err", title);
+      showNotice(state.rows.length ? "warn" : "crit", title, body + (state.rows.length ? " Showing the last list that loaded." : ""));
+    } finally { state.loading = false; $("refreshBtn").disabled = false; }
+  }
+
+  async function writeProps(row, props) {
+    const res = await mcp.callTool(SERVER, WRITE_TOOL, { page_id: row.id, command: "update_properties", properties: props, allow_async: false });
+    return res;
+  }
+
+  // ---------- actions ----------
+  async function markDone(row, act) {
+    const t = today();
+    const step = TRACKS[act.track].steps[act.idx];
+    const before = { fu: row.fu, lastFu: row.lastFu };
+    state.pending[row.id] = true; delete state.errors[row.id]; render();
+    try {
+      await writeProps(row, { "Follow-Up Timeline": step.label, "date:Last Follow-Up:start": t, "date:Last Follow-Up:is_datetime": 0 });
+      row.fu = step.label; row.lastFu = t;
+      state.recent[row.id] = { act, kind: "done", text: `${step.short} done`, undo: { "Follow-Up Timeline": before.fu, "date:Last Follow-Up:start": before.lastFu }, before };
+      state.done++;
+    } catch (e) { state.errors[row.id] = writeError(e); }
+    delete state.pending[row.id]; render();
+  }
+  async function markLost(row, act) {
+    const t = today();
+    const before = { status: row.status, lost: row.lost, lostReasons: row.lostReasons.slice() };
+    state.pending[row.id] = true; delete state.errors[row.id]; render();
+    try {
+      await writeProps(row, { "Status": "Lead - Lost", "date:Closed Lost Date:start": t, "date:Closed Lost Date:is_datetime": 0, "Lost Reason": JSON.stringify(["No response"]) });
+      row.status = "Lead - Lost"; row.lost = t; row.lostReasons = ["No response"];
+      state.recent[row.id] = { act, kind: "lost", text: "Marked as lost. It moves to the nurture track (first touch in 30 days).", undo: { "Status": before.status, "date:Closed Lost Date:start": before.lost, "Lost Reason": before.lostReasons.length ? JSON.stringify(before.lostReasons) : null }, before };
+      state.done++;
+    } catch (e) { state.errors[row.id] = writeError(e); }
+    delete state.pending[row.id]; render();
+  }
+  async function undo(row) {
+    const rec = state.recent[row.id]; if (!rec) return;
+    state.pending[row.id] = true; render();
+    try {
+      await writeProps(row, rec.undo);
+      if (rec.kind === "done") { row.fu = rec.before.fu; row.lastFu = rec.before.lastFu; }
+      else { row.status = rec.before.status; row.lost = rec.before.lost; row.lostReasons = rec.before.lostReasons; }
+      delete state.recent[row.id]; state.done = Math.max(0, state.done - 1);
+    } catch (e) { state.errors[row.id] = writeError(e); }
+    delete state.pending[row.id]; render();
+  }
+  function writeError(e) {
+    const code = e && e.code;
+    if (code === "approval_required" || code === "not_in_manifest" || code === "consent_required") return "Notion needs your OK to update records. Press the button again and choose Allow.";
+    if (code === "cancelled") return "Cancelled. Nothing was saved.";
+    if (code === "server_unavailable" || code === "upstream_error") return "Couldn't confirm the save. Press Refresh to check before trying again.";
+    if (code === "needs_reauth" || code === "server_not_connected") return "Reconnect Notion in claude.ai Settings → Connectors, then try again.";
+    return "Notion didn't save this: " + ((e && e.message) || "unknown error") + ".";
+  }
+
+  // ---------- rendering ----------
+  function fill(tpl, row, act) {
+    const first = (row.name || "").trim().split(/\s+/)[0] || "there";
+    const when = row.dcRaw ? (row.dcHasTime ? new Date(row.dcRaw).toLocaleString(undefined, { weekday: "long", day: "numeric", month: "long", hour: "numeric", minute: "2-digit" }) : fmtDate(row.dc)) : "your call";
+    const time = row.dcRaw && row.dcHasTime ? new Date(row.dcRaw).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }) : "our call time";
+    return tpl.replace(/\{first\}/g, first.charAt(0).toUpperCase() + first.slice(1)).replace(/\{when\}/g, when).replace(/\{time\}/g, time)
+      .replace(/\{offer\}/g, row.proposal.join(" + ") || "a VA").replace(/\{me\}/g, row.consultant || "[your name]");
+  }
+
+  function itemHtml(it) {
+    const { row, act } = it;
+    const tr = TRACKS[act.track];
+    const t = today();
+    const final = act.idx === "final";
+    const step = final ? null : tr.steps[act.idx];
+    const recent = state.recent[row.id];
+    const pending = state.pending[row.id];
+    const overdue = act.due < t ? diffDays(act.due, t) : 0;
+    const dueChip = act.due < t ? `<span class="chip crit">${overdue} day${overdue === 1 ? "" : "s"} overdue</span>` : act.due === t ? `<span class="chip warn">Due today</span>` : `<span class="chip">Due ${fmtDate(act.due)}</span>`;
+    const stepTxt = final ? tr.finalAction.short : step.short;
+    const stepNo = final ? "" : ` · step ${act.idx + 1} of ${tr.steps.length}`;
+    let actions = "";
+    if (recent) {
+      actions = `<span class="chip good">✓ ${esc(recent.text)}</span><button type="button" class="btn ghost" data-act="undo" data-id="${row.id}" ${pending ? "disabled" : ""}>Undo</button>`;
+    } else if (final) {
+      actions = `<button type="button" class="btn" data-act="lost" data-id="${row.id}" ${pending ? "disabled" : ""}>${pending ? "Saving…" : "Mark lost → nurture"}</button><a class="btn ghost" href="${esc(row.url)}" target="_blank" rel="noopener">Open in Notion</a>`;
+    } else {
+      actions = `<button type="button" class="btn primary" data-act="done" data-id="${row.id}" ${pending ? "disabled" : ""}>${pending ? "Saving…" : "✓ Done"}</button>`;
+    }
+    const script = !final && !recent ? `<details><summary>Suggested message</summary><div class="script" id="s-${row.id}">${esc(fill(step.script, row, act))}</div><div class="script-actions"><button type="button" class="btn" data-act="copy" data-id="${row.id}">Copy</button><span class="small" id="cp-${row.id}"></span></div></details>` : "";
+    const finalHint = final ? `<div class="small">${act.track === "prop" ? "No deposit yet. If they've gone quiet, mark lost so they move to nurture. If you're still talking, update Notion and log the next step." : "Rebooking attempts are done. Mark as lost so they move to nurture."}</div>` : "";
+    return `<div class="item${recent ? " done" : ""}"><span class="stripe" style="background:${tr.color}"></span>
+      <div class="main">
+        <div class="line1"><a class="who" href="${esc(row.url)}" target="_blank" rel="noopener">${esc(row.name)}</a><span class="step">${esc(stepTxt)}</span>${final ? "" : `<span class="chip">${esc(step.channel)}</span>`}${recent ? "" : dueChip}</div>
+        <div class="meta"><span><i class="sw" style="background:${tr.color}"></i> ${esc(tr.name)}${stepNo}</span><span>${esc(act.why)}</span><span>${row.consultant ? esc(row.consultant) : "Unassigned"}</span>${row.fu ? `<span>Last logged: ${esc(row.fu)}${row.lastFu ? " on " + fmtDate(row.lastFu) : ""}</span>` : ""}</div>
+        ${finalHint}${script}${state.errors[row.id] ? `<div class="err-msg">${esc(state.errors[row.id])}</div>` : ""}
+      </div>
+      <div class="actions">${actions}</div></div>`;
+  }
+
+  function render() {
+    const t = today(), soon = addDays(t, 7);
+    const items = [];
+    state.rows.forEach(row => {
+      if (state.consultant !== "All" && row.consultant !== state.consultant) return;
+      const rec = state.recent[row.id];
+      // a just-completed item stays in place (showing Undo) instead of jumping to its next step
+      const act = rec ? rec.act : nextAction(row);
+      if (!act) return;
+      if (!rec) { if (act.due > soon) return; }
+      items.push({ row, act });
+    });
+    const byTrack = state.track === "all" ? items : items.filter(i => i.act.track === state.track);
+    const groups = { over: [], today: [], soon: [] };
+    byTrack.forEach(i => { const d = i.act.due; (d < t ? groups.over : d === t ? groups.today : groups.soon).push(i); });
+    const sorter = (a, b) => a.act.due < b.act.due ? -1 : a.act.due > b.act.due ? 1 : a.row.name.localeCompare(b.row.name);
+    Object.values(groups).forEach(g => g.sort(sorter));
+    const live = g => g.filter(i => !state.recent[i.row.id]).length;
+    $("n-over").textContent = live(groups.over); $("n-today").textContent = live(groups.today); $("n-soon").textContent = live(groups.soon); $("n-done").textContent = state.done;
+    $("c-over").textContent = groups.over.length; $("c-today").textContent = groups.today.length; $("c-soon").textContent = groups.soon.length;
+    const emptyMsg = { over: "Nothing overdue. Nice work.", today: "Nothing else due today.", soon: "Nothing scheduled for the next 7 days." };
+    ["over", "today", "soon"].forEach(k => { $("l-" + k).innerHTML = groups[k].length ? groups[k].map(itemHtml).join("") : `<div class="empty">${emptyMsg[k]}</div>`; });
+    // track filter chips with counts
+    const counts = {}; items.forEach(i => { if (!state.recent[i.row.id]) counts[i.act.track] = (counts[i.act.track] || 0) + 1; });
+    $("tracks").innerHTML = `<button type="button" data-t="all" aria-pressed="${state.track === "all"}">All types</button>` +
+      TRACK_ORDER.map(k => `<button type="button" data-t="${k}" aria-pressed="${state.track === k}"><i class="sw" style="background:${TRACKS[k].color}"></i>${TRACKS[k].name} <span class="count">${counts[k] || 0}</span></button>`).join("");
+  }
+
+  function renderGuide() {
+    const when = { pre: ["On booking", "24 hours before", "1 hour before"], noshow: ["Same day", "Day 2", "Day 5"], prop: ["Day 0", "Day 2", "Day 4", "Day 7", "Day 10"], nurture: ["Day 30", "Day 60", "Day 90"], onb: ["Weekly until the VA starts", "7 days after start", "30 days after start"] };
+    $("guide").innerHTML = TRACK_ORDER.map(k => `<div><h3><i class="sw" style="background:${TRACKS[k].color}"></i>${TRACKS[k].name}</h3><ol>${TRACKS[k].steps.map((s, i) => `<li><b>${when[k][i]}:</b> ${esc(s.short)} <span class="small">(${esc(s.channel)})</span></li>`).join("")}</ol></div>`).join("");
+  }
+
+  // ---------- events ----------
+  document.addEventListener("click", async e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.closest("#consSeg")) { state.consultant = b.dataset.c; document.querySelectorAll("#consSeg button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); save(); render(); return; }
+    if (b.closest("#tracks")) { state.track = b.dataset.t; save(); render(); return; }
+    if (b.id === "refreshBtn") { state.recent = {}; state.errors = {}; load(true); return; }
+    const id = b.dataset.id; if (!id) return;
+    const row = state.rows.find(r => r.id === id); if (!row) return;
+    if (b.dataset.act === "copy") {
+      const el = $("s-" + id), msg = $("cp-" + id);
+      try { await navigator.clipboard.writeText(el.textContent); msg.textContent = "Copied"; }
+      catch (err) { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = "Selected. Press Ctrl/Cmd + C to copy."; }
+      return;
+    }
+    if (!mcp || state.pending[id]) return;
+    const act = nextAction(row);
+    if (b.dataset.act === "done" && act && act.idx !== "final") await markDone(row, act);
+    else if (b.dataset.act === "lost" && act) await markLost(row, act);
+    else if (b.dataset.act === "undo") { await undo(row); }
+  });
+
+  document.querySelectorAll("#consSeg button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.c === state.consultant)));
+  renderGuide();
+
+  async function boot() {
+    if (!window.claude || typeof window.claude.use !== "function") { setStatus("err", "Live data unavailable here"); showNotice("crit", "Open this page in claude.ai", "It reads and updates your Sales Calendar through your own Notion connector, which only works inside claude.ai or the Claude app."); return; }
+    mcp = await window.claude.use("mcp");
+    if (!mcp) { setStatus("err", "Live data unavailable here"); showNotice("crit", "Connector access isn't available in this view", "Open the page in claude.ai or the Claude app with the Notion connector added, then press Refresh."); return; }
+    await load(false);
+    setInterval(() => { if (document.visibilityState === "visible" && !Object.keys(state.pending).length) load(true); }, AUTO_REFRESH_MS);
+  }
+  boot();
+})();
+</script>
