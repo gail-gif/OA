@@ -1,0 +1,703 @@
+<title>OA Sales Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: control bar, then KPI strip, then "what needs doing" lists, then trend + funnel, then sources / team / lost reasons, then data health. */
+:root {
+  --bg: #f5f6f3;
+  --surface: #ffffff;
+  --sunk: #eef0ec;
+  --ink: #17201c;
+  --ink-2: #4b5651;
+  --ink-3: #75807a;
+  --line: #dde2dc;
+  --accent: #0c6a5c;
+  --accent-ink: #ffffff;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --bar: #2a78d6;
+  --good: #1d7f47;
+  --warn: #a8690f;
+  --crit: #c13c35;
+  --font-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101513; --surface: #171e1b; --sunk: #1d2522; --ink: #e8eeea; --ink-2: #b2bcb7; --ink-3: #87938d;
+    --line: #2a3430; --accent: #46b9a5; --accent-ink: #0b1411; --s1: #3987e5; --s2: #d95926; --s3: #199e70; --bar: #3987e5;
+    --good: #52c487; --warn: #e2aa4c; --crit: #ef6e66; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101513; --surface: #171e1b; --sunk: #1d2522; --ink: #e8eeea; --ink-2: #b2bcb7; --ink-3: #87938d;
+  --line: #2a3430; --accent: #46b9a5; --accent-ink: #0b1411; --s1: #3987e5; --s2: #d95926; --s3: #199e70; --bar: #3987e5;
+  --good: #52c487; --warn: #e2aa4c; --crit: #ef6e66; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.45; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: 20px; padding-block: 20px 48px; display: grid; gap: 18px; }
+a { color: inherit; }
+h1, h2 { font-family: var(--font-display); margin: 0; text-wrap: balance; }
+h1 { font-size: 26px; letter-spacing: -0.01em; }
+h2 { font-size: 16px; font-weight: 600; }
+.num { font-variant-numeric: tabular-nums; }
+.muted { color: var(--ink-3); }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-3); font-weight: 600; }
+
+/* header */
+.top { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; }
+.top .sub { color: var(--ink-2); margin-top: 2px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.seg { display: inline-flex; flex-wrap: wrap; background: var(--sunk); border-radius: 8px; padding: 3px; gap: 2px; }
+.seg button { border: 0; background: transparent; color: var(--ink-2); font: 500 13px var(--font-body); padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); }
+.seg button:focus-visible, .btn:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 600 13px var(--font-body); padding: 7px 12px; border-radius: 8px; cursor: pointer; }
+.btn:hover { border-color: var(--ink-3); }
+.status-line { font-size: 12px; color: var(--ink-3); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); display: inline-block; }
+.dot.busy { background: var(--warn); }
+.dot.err { background: var(--crit); }
+
+/* panels */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; min-width: 0; display: grid; gap: 12px; align-content: start; }
+.panel-head { display: flex; justify-content: space-between; gap: 8px 16px; align-items: baseline; flex-wrap: wrap; }
+.panel-head p { margin: 0; font-size: 12px; color: var(--ink-3); }
+.grid-2 { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); }
+
+/* KPIs */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 165px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.kpi { background: var(--surface); padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.kpi .v { font-family: var(--font-display); font-size: 30px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .d { font-size: 12px; color: var(--ink-3); }
+.delta { font-weight: 600; }
+.delta.up { color: var(--good); }
+.delta.down { color: var(--crit); }
+
+/* action lists */
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.tabs button { border: 0; background: none; font: 600 13px var(--font-body); color: var(--ink-3); padding: 8px 10px; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.count { background: var(--sunk); color: var(--ink-2); border-radius: 999px; padding: 0 7px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
+td a { text-decoration: none; font-weight: 600; }
+td a:hover { text-decoration: underline; }
+.chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; white-space: nowrap; border: 1px solid currentColor; }
+.chip.good { color: var(--good); }
+.chip.warn { color: var(--warn); }
+.chip.crit { color: var(--crit); }
+.chip.neutral { color: var(--ink-2); }
+.small { font-size: 12px; color: var(--ink-3); }
+.empty { padding: 18px 8px; color: var(--ink-3); font-size: 13px; }
+
+/* charts */
+.chart { position: relative; }
+.chart { overflow-x: auto; }
+.chart svg { display: block; width: 100%; min-width: 460px; height: auto; overflow: visible; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 4px 14px rgb(0 0 0 / 0.14); min-width: 150px; z-index: 2; }
+.tip b { display: block; margin-bottom: 4px; }
+.tip div { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+
+.hbars { display: grid; gap: 10px; }
+.hbar { display: grid; grid-template-columns: minmax(0, 150px) 1fr auto; gap: 10px; align-items: center; font-size: 13px; }
+.hbar .name { color: var(--ink-2); overflow-wrap: anywhere; }
+.hbar .track { height: 14px; background: var(--sunk); border-radius: 0 4px 4px 0; position: relative; }
+.hbar .fill { position: absolute; inset: 0 auto 0 0; background: var(--bar); border-radius: 0 4px 4px 0; min-width: 2px; }
+.hbar .val { font-variant-numeric: tabular-nums; font-weight: 600; text-align: right; min-width: 64px; }
+.hbar .val small { font-weight: 400; color: var(--ink-3); }
+.step { font-size: 11px; color: var(--ink-3); padding-left: 160px; margin-top: -6px; }
+
+.speed { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.speed .v { font-family: var(--font-display); font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.health { display: grid; gap: 8px; }
+.health details { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.health summary { cursor: pointer; display: flex; gap: 10px; align-items: center; list-style: none; }
+.health summary::-webkit-details-marker { display: none; }
+.health summary .t { flex: 1; min-width: 0; }
+.health summary .t small { display: block; color: var(--ink-3); font-size: 12px; }
+.health ul { margin: 10px 0 0; padding-left: 18px; columns: 2 220px; font-size: 13px; }
+.health li { break-inside: avoid; }
+
+.notice { border: 1px solid var(--line); border-left: 4px solid var(--warn); background: var(--surface); padding: 14px 16px; border-radius: 8px; }
+.notice.crit { border-left-color: var(--crit); }
+.notice h2 { margin-bottom: 4px; }
+.notice p { margin: 4px 0 0; color: var(--ink-2); max-width: 70ch; }
+.skeleton { color: var(--ink-3); padding: 24px 0; text-align: center; }
+@media (max-width: 520px) {
+  .hbar { grid-template-columns: minmax(0, 100px) 1fr auto; }
+  .step { padding-left: 110px; }
+  .kpi .v { font-size: 26px; }
+  .speed { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fill { transition: width .4s ease; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>OA Sales Pulse</h1>
+      <div class="sub">Live from the Notion Sales Calendar</div>
+      <div class="status-line" id="status"><span class="dot busy" id="dot"></span><span id="statusText">Connecting to Notion…</span></div>
+    </div>
+    <div class="controls">
+      <div class="seg" id="periodSeg" role="group" aria-label="Period">
+        <button type="button" data-p="week">This week</button>
+        <button type="button" data-p="month" aria-pressed="true">This month</button>
+        <button type="button" data-p="lastmonth">Last month</button>
+        <button type="button" data-p="quarter">This quarter</button>
+        <button type="button" data-p="ytd">Year to date</button>
+      </div>
+      <div class="seg" id="consSeg" role="group" aria-label="Consultant">
+        <button type="button" data-c="All" aria-pressed="true">Everyone</button>
+        <button type="button" data-c="Gail">Gail</button>
+        <button type="button" data-c="Heidi">Heidi</button>
+        <button type="button" data-c="Linh">Linh</button>
+      </div>
+      <button type="button" class="btn" id="refreshBtn">Refresh</button>
+    </div>
+  </header>
+
+  <div id="notice" hidden></div>
+
+  <section class="kpis" id="kpis" aria-label="Headline numbers">
+    <div class="kpi"><span class="label">Discovery calls</span><span class="v">–</span><span class="d">Loading…</span></div>
+    <div class="kpi"><span class="label">Show-up rate</span><span class="v">–</span><span class="d">&nbsp;</span></div>
+    <div class="kpi"><span class="label">Qualified</span><span class="v">–</span><span class="d">&nbsp;</span></div>
+    <div class="kpi"><span class="label">Proposals sent</span><span class="v">–</span><span class="d">&nbsp;</span></div>
+    <div class="kpi"><span class="label">Deposits paid</span><span class="v">–</span><span class="d">&nbsp;</span></div>
+    <div class="kpi"><span class="label">VAs started</span><span class="v">–</span><span class="d">&nbsp;</span></div>
+  </section>
+
+  <section class="panel" aria-labelledby="todoH">
+    <div class="panel-head"><h2 id="todoH">What needs doing</h2><p>Open records across all dates, filtered by consultant</p></div>
+    <div class="tabs" role="tablist" id="tabs">
+      <button role="tab" aria-selected="true" data-tab="proposals">Proposals awaiting decision <span class="count" id="c-proposals">–</span></button>
+      <button role="tab" aria-selected="false" data-tab="calls">Upcoming calls <span class="count" id="c-calls">–</span></button>
+      <button role="tab" aria-selected="false" data-tab="ddr">Deposits waiting for VA start <span class="count" id="c-ddr">–</span></button>
+      <button role="tab" aria-selected="false" data-tab="hot">Hot &amp; warm leads <span class="count" id="c-hot">–</span></button>
+    </div>
+    <div class="tbl-wrap" id="todoBody"><div class="skeleton">Loading records…</div></div>
+  </section>
+
+  <div class="grid-2">
+    <section class="panel" aria-labelledby="trendH">
+      <div class="panel-head"><h2 id="trendH">Monthly activity</h2><p>Last 12 months, each counted on its own date</p></div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--s1)"></i>Calls booked</span>
+        <span><i class="sw" style="background:var(--s2)"></i>Proposals sent</span>
+        <span><i class="sw" style="background:var(--s3)"></i>Deposits paid</span>
+      </div>
+      <div class="chart" id="trend"><div class="skeleton">Loading…</div></div>
+    </section>
+    <section class="panel" aria-labelledby="funnelH">
+      <div class="panel-head"><h2 id="funnelH">Where this period's calls got to</h2><p id="funnelSub">Calls booked in the period</p></div>
+      <div class="hbars" id="funnel"><div class="skeleton">Loading…</div></div>
+      <div>
+        <div class="label" style="margin-bottom:8px">Speed, median days (last 90 days)</div>
+        <div class="speed" id="speed"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="grid-2">
+    <section class="panel" aria-labelledby="srcH">
+      <div class="panel-head"><h2 id="srcH">Lead sources that convert</h2><p>Last 6 months</p></div>
+      <div class="tbl-wrap" id="sources"><div class="skeleton">Loading…</div></div>
+    </section>
+    <section class="panel" aria-labelledby="teamH">
+      <div class="panel-head"><h2 id="teamH">Team scoreboard</h2><p id="teamSub">Selected period</p></div>
+      <div class="tbl-wrap" id="team"><div class="skeleton">Loading…</div></div>
+    </section>
+  </div>
+
+  <div class="grid-2">
+    <section class="panel" aria-labelledby="lostH">
+      <div class="panel-head"><h2 id="lostH">Why deals are lost</h2><p>Last 6 months, grouped</p></div>
+      <div class="hbars" id="lost"><div class="skeleton">Loading…</div></div>
+    </section>
+    <section class="panel" aria-labelledby="healthH">
+      <div class="panel-head"><h2 id="healthH">Data health</h2><p>Fixing these in Notion keeps every number accurate</p></div>
+      <div class="health" id="health"><div class="skeleton">Loading…</div></div>
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+  const VIEW_URL = "view://2b9b691b-e059-808d-af44-000cac1377b0"; // Sales Calendar → "DC Bookings Info" (sorted newest call first)
+  const SERVER = "Notion";
+  const TOOL = "notion-query-data-sources";
+  const MAX_PAGES = 15;
+  const AUTO_REFRESH_MS = 10 * 60 * 1000;
+
+  const CLOSED = new Set(["Lead - Lost", "Lead - Won", "DEAD LEAD"]);
+  const FU_STAGES = ["Day 1", "Day 2", "Day 4", "Day 7", "Day 10"];
+  const FU_LABEL = {"Day 1": "Proposal sent", "Day 2": "Confirmation message", "Day 4": "Objection-handling email", "Day 7": "Offer short follow-up call", "Day 10": "Close-the-loop message"};
+
+  const STALE_PROPOSAL_DAYS = 45;
+  const state = { period: "month", consultant: "All", tab: "proposals", rows: [], tests: [], loadedAt: null, loading: false, showStale: false };
+  try { const s = JSON.parse(localStorage.getItem("oa-pulse") || "{}"); Object.assign(state, pick(s, ["period", "consultant", "tab"])); } catch (e) {}
+  function pick(o, ks) { const r = {}; ks.forEach(k => { if (o && o[k]) r[k] = o[k]; }); return r; }
+  function save() { try { localStorage.setItem("oa-pulse", JSON.stringify({ period: state.period, consultant: state.consultant, tab: state.tab })); } catch (e) {} }
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+  // ---------- dates (all as local YYYY-MM-DD strings) ----------
+  const pad = n => String(n).padStart(2, "0");
+  const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const parseYmd = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const addDays = (s, n) => { const d = parseYmd(s); d.setDate(d.getDate() + n); return ymd(d); };
+  const addMonths = (s, n) => { const d = parseYmd(s); d.setMonth(d.getMonth() + n); return ymd(d); };
+  const diffDays = (a, b) => Math.round((parseYmd(b) - parseYmd(a)) / 86400000);
+  const today = () => ymd(new Date());
+  function dayOf(iso) {
+    if (!iso) return null;
+    if (iso.length <= 10) return iso;
+    const d = new Date(iso);
+    return isNaN(d) ? iso.slice(0, 10) : ymd(d);
+  }
+  const fmtDate = s => s ? parseYmd(s).toLocaleDateString(undefined, { day: "numeric", month: "short" }) : "";
+  const fmtMonth = s => parseYmd(s + "-01").toLocaleDateString(undefined, { month: "short" });
+
+  function periodRange(p) {
+    const t = today(), d = parseYmd(t);
+    let a, b, prevA, name, prevName;
+    if (p === "week") { const dow = (d.getDay() + 6) % 7; a = addDays(t, -dow); b = addDays(a, 7); prevA = addDays(a, -7); name = "this week"; prevName = "same point last week"; }
+    else if (p === "lastmonth") { a = ymd(new Date(d.getFullYear(), d.getMonth() - 1, 1)); b = ymd(new Date(d.getFullYear(), d.getMonth(), 1)); prevA = addMonths(a, -1); name = "last month"; prevName = "the month before"; }
+    else if (p === "quarter") { const q = Math.floor(d.getMonth() / 3) * 3; a = ymd(new Date(d.getFullYear(), q, 1)); b = addMonths(a, 3); prevA = addMonths(a, -3); name = "this quarter"; prevName = "same point last quarter"; }
+    else if (p === "ytd") { a = `${d.getFullYear()}-01-01`; b = `${d.getFullYear() + 1}-01-01`; prevA = `${d.getFullYear() - 1}-01-01`; name = "this year"; prevName = "same point last year"; }
+    else { a = ymd(new Date(d.getFullYear(), d.getMonth(), 1)); b = addMonths(a, 1); prevA = addMonths(a, -1); name = "this month"; prevName = "same point last month"; }
+    const end = b < addDays(t, 1) ? b : addDays(t, 1); // elapsed part of the period
+    const len = diffDays(a, end);
+    let prevB = addDays(prevA, len);
+    if (prevB > a) prevB = a;
+    return { a, b, end, prevA, prevB, name, prevName };
+  }
+  const inR = (s, a, b) => !!s && s >= a && s < b;
+
+  // ---------- row normalisation ----------
+  function list(v) {
+    if (!v) return [];
+    if (Array.isArray(v)) return v;
+    try { const j = JSON.parse(v); return Array.isArray(j) ? j : [String(j)]; } catch (e) { return String(v).split(",").map(x => x.trim()).filter(Boolean); }
+  }
+  // Internal test bookings: "test" in the name, or booked with an OA email address.
+  const isTest = r => /\btest\b|test$|mochi/i.test(r.name || "") || /@outsourcingangel\.com\.au$/i.test(r.email || "");
+  function norm(r) {
+    const dcRaw = r["date:Discovery Call Booked:start"] || null;
+    return {
+      name: r["Name"] || "(no name)",
+      email: r["Email"] || "",
+      url: r["url"] || "",
+      dcRaw,
+      dc: dayOf(dcRaw),
+      dcHasTime: r["date:Discovery Call Booked:is_datetime"] === 1 || (dcRaw && dcRaw.length > 10),
+      outcome: r["Discovery Call Outcome"] || null,
+      status: r["Status"] || null,
+      consultant: r["Consultant"] || null,
+      source: r["Original Source"] || null,
+      acq: r["Aquisition"] || null,
+      proposal: list(r["Proposal"]),
+      ps: dayOf(r["date:Proposal Sent:start"]),
+      dep: dayOf(r["date:VA Deposit Date:start"]),
+      ddr: dayOf(r["date:VA DDR Setup:start"]),
+      won: dayOf(r["date:Closed Won Date:start"]),
+      lost: dayOf(r["date:Closed Lost Date:start"]),
+      lostReasons: [...list(r["Lost Reason"]), ...list(r["Lost Reason (1)"])],
+      fu: r["Follow-Up Timeline"] || null,
+    };
+  }
+  const held = o => !!o && o.startsWith("Connected");
+  const noShow = o => o === "No show" || o === "No Show - VA";
+  const qualified = o => o === "Connected & Qualified";
+
+  // ---------- data loading via the viewer's Notion connector ----------
+  let mcp = null;
+  function setStatus(kind, text) { $("dot").className = "dot" + (kind === "busy" ? " busy" : kind === "err" ? " err" : ""); $("statusText").textContent = text; }
+  function showNotice(kind, title, body) {
+    const n = $("notice");
+    n.hidden = false;
+    n.className = "notice" + (kind === "crit" ? " crit" : "");
+    n.innerHTML = `<h2>${esc(title)}</h2><p>${body}</p>`;
+  }
+  function hideNotice() { $("notice").hidden = true; }
+
+  function errorCopy(e) {
+    const code = e && e.code;
+    switch (code) {
+      case "server_not_connected":
+      case "selection_required":
+        return ["Notion isn't connected", "Add the Notion connector in claude.ai under Settings → Connectors, then press Refresh. The dashboard reads your Sales Calendar with your own Notion access."];
+      case "needs_reauth":
+        return ["Reconnect Notion", "Your Notion connection has expired. Reconnect Notion in claude.ai under Settings → Connectors, then press Refresh."];
+      case "not_in_manifest":
+      case "approval_required":
+      case "consent_required":
+        return ["Allow Notion access for this page", "This dashboard needs permission to read the Sales Calendar through your Notion connector. Press Refresh and choose Allow when asked."];
+      case "blocked_by_policy":
+        return ["Notion access is blocked", "Your organisation's settings don't allow this page to use the Notion connector. Ask your claude.ai admin to allow it."];
+      case "server_unavailable":
+      case "rate_limited":
+        return ["Notion didn't answer", "Notion was slow or unavailable just now. The dashboard will try again automatically, or press Refresh."];
+      case "tool_error":
+        return ["Notion couldn't run the query", esc(e.message || "Notion reported an error reading the Sales Calendar.") + " Check that you still have access to the Sales Calendar's “DC Bookings Info” view."];
+      default:
+        return ["Couldn't load the Sales Calendar", esc((e && e.message) || "Something went wrong reading from Notion.") + " Press Refresh to try again."];
+    }
+  }
+
+  async function fetchPage(cursor, fresh) {
+    const data = { mode: "view", view_url: VIEW_URL, page_size: 100 };
+    if (cursor) data.start_cursor = cursor;
+    const res = await mcp.callTool(SERVER, TOOL, { data }, { cache: fresh ? { staleTime: 0, gcTime: 3600000, refresh: true } : { staleTime: 120000, gcTime: 3600000 } });
+    let p = res.payload;
+    if (typeof p === "string") { try { p = JSON.parse(p); } catch (e) { throw { code: "tool_error", message: p.slice(0, 200) }; } }
+    if (!p || !Array.isArray(p.results)) throw { code: "tool_error", message: "Unexpected reply from Notion." };
+    return { rows: p.results, next: p.has_more ? p.next_cursor : null, storedAt: res.cache && res.cache.storedAt };
+  }
+
+  async function load(fresh) {
+    if (!mcp || state.loading) return;
+    state.loading = true;
+    $("refreshBtn").disabled = true;
+    setStatus("busy", "Reading the Sales Calendar…");
+    // Enough history for 12-month trends, 6-month tables and year-on-year comparison.
+    const t = today();
+    const cutoff = [addMonths(t, -13), periodRange("ytd").prevA].sort()[0];
+    const all = []; let cursor = null, pages = 0, oldest = null, storedAt = null;
+    try {
+      do {
+        const pg = await fetchPage(cursor, fresh);
+        pages++;
+        if (pg.storedAt && (!storedAt || pg.storedAt < storedAt)) storedAt = pg.storedAt;
+        pg.rows.forEach(r => all.push(norm(r)));
+        const last = all.length ? all[all.length - 1].dc : null;
+        if (last) oldest = last;
+        cursor = pg.next;
+        setStatus("busy", `Reading the Sales Calendar… ${all.length} records`);
+      } while (cursor && pages < MAX_PAGES && (!oldest || oldest >= cutoff));
+      state.tests = all.filter(isTest);
+      state.rows = all.filter(r => !isTest(r));
+      state.oldest = oldest;
+      state.loadedAt = storedAt || Date.now();
+      hideNotice();
+      render();
+      const when = new Date(state.loadedAt).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+      setStatus("ok", `Updated ${when} · ${state.rows.length} records since ${fmtDate(oldest)} ${oldest ? oldest.slice(0, 4) : ""} · refreshes every 10 min`);
+    } catch (e) {
+      const [title, body] = errorCopy(e);
+      setStatus("err", title);
+      if (state.rows.length) { showNotice("warn", title, body + " Showing the last data that loaded."); }
+      else { showNotice("crit", title, body); }
+      if (e && e.retryable && !load.retried) { load.retried = true; setTimeout(() => { state.loading = false; load(false); }, (e.retryAfterMs || 3000) + Math.random() * 2000); }
+    } finally {
+      state.loading = false;
+      $("refreshBtn").disabled = false;
+    }
+  }
+
+  // ---------- rendering ----------
+  const pct = (n, d) => d ? Math.round((n / d) * 100) : null;
+  const byCons = r => state.consultant === "All" || r.consultant === state.consultant;
+  function deltaHtml(cur, prev, prevName, isRate) {
+    if (prev == null || cur == null) return `<span class="muted">no comparison</span>`;
+    const diff = cur - prev;
+    if (diff === 0) return `<span class="muted">same as ${prevName}</span>`;
+    const cls = diff > 0 ? "up" : "down";
+    const sign = diff > 0 ? "▲" : "▼";
+    const txt = isRate ? `${Math.abs(diff)} pts` : `${Math.abs(diff)}`;
+    return `<span class="delta ${cls}">${sign} ${txt}</span> <span class="muted">vs ${prevName} (${isRate ? prev + "%" : prev})</span>`;
+  }
+
+  function metrics(rows, a, b) {
+    const calls = rows.filter(r => inR(r.dc, a, b));
+    const h = calls.filter(r => held(r.outcome)).length;
+    const ns = calls.filter(r => noShow(r.outcome)).length;
+    return {
+      booked: calls.length,
+      held: h,
+      showRate: pct(h, h + ns),
+      qual: calls.filter(r => qualified(r.outcome)).length,
+      props: rows.filter(r => inR(r.ps, a, b)).length,
+      deps: rows.filter(r => inR(r.dep, a, b)).length,
+      starts: rows.filter(r => inR(r.ddr, a, b)).length,
+    };
+  }
+
+  function renderKpis(rows, R) {
+    const cur = metrics(rows, R.a, R.end), prev = metrics(rows, R.prevA, R.prevB);
+    const scheduled = rows.filter(r => inR(r.dc, R.end, R.b)).length;
+    const tiles = [
+      ["Discovery calls", cur.booked, deltaHtml(cur.booked, prev.booked, R.prevName) + (scheduled ? `<br><span class="muted">+${scheduled} more booked later ${R.name}</span>` : "")],
+      ["Show-up rate", cur.showRate == null ? "–" : cur.showRate + "%", cur.showRate == null ? `<span class="muted">no calls held yet</span>` : deltaHtml(cur.showRate, prev.showRate, R.prevName, true)],
+      ["Qualified", cur.qual, (cur.held ? `<span class="muted">${pct(cur.qual, cur.held)}% of calls held · </span>` : "") + deltaHtml(cur.qual, prev.qual, R.prevName)],
+      ["Proposals sent", cur.props, deltaHtml(cur.props, prev.props, R.prevName)],
+      ["Deposits paid", cur.deps, (cur.props ? `<span class="muted">${pct(cur.deps, cur.props)}% of proposals · </span>` : "") + deltaHtml(cur.deps, prev.deps, R.prevName)],
+      ["VAs started", cur.starts, deltaHtml(cur.starts, prev.starts, R.prevName)],
+    ];
+    $("kpis").innerHTML = tiles.map(([l, v, d]) => `<div class="kpi"><span class="label">${l}</span><span class="v">${v}</span><span class="d">${d}</span></div>`).join("");
+  }
+
+  // Follow-up cadence: where a proposal *should* be by its age vs what's recorded.
+  function expectedStage(age) { return age >= 9 ? 4 : age >= 6 ? 3 : age >= 3 ? 2 : age >= 1 ? 1 : 0; }
+  function recordedStage(fu) { if (!fu) return -1; const i = FU_STAGES.findIndex(s => fu.startsWith(s)); return i; }
+
+  function todoData(rows) {
+    const t = today();
+    const proposals = rows.filter(r => r.ps && !r.dep && !CLOSED.has(r.status)).map(r => {
+      const age = diffDays(r.ps, t);
+      const exp = expectedStage(age), rec = recordedStage(r.fu);
+      return { ...r, age, exp, rec };
+    }).sort((x, y) => x.age - y.age);
+    const until = addDays(t, 15);
+    const calls = rows.filter(r => r.dc && r.dc >= t && r.dc < until).sort((x, y) => (x.dcRaw < y.dcRaw ? -1 : 1));
+    const ddr = rows.filter(r => r.dep && !r.ddr && r.status !== "Lead - Lost" && r.status !== "DEAD LEAD").map(r => ({ ...r, wait: diffDays(r.dep, t) })).sort((x, y) => y.wait - x.wait);
+    const hot = rows.filter(r => r.status === "HOT LEAD" || r.status === "WARM LEAD");
+    return { proposals, calls, ddr, hot };
+  }
+
+  const nameCell = r => `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)}</a>`;
+  const consCell = r => r.consultant ? esc(r.consultant) : `<span class="muted">Unassigned</span>`;
+
+  function renderTodo(rows) {
+    const d = todoData(rows);
+    $("c-proposals").textContent = d.proposals.length;
+    $("c-calls").textContent = d.calls.length;
+    $("c-ddr").textContent = d.ddr.length;
+    $("c-hot").textContent = d.hot.length;
+    document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === state.tab)));
+    let html = "";
+    if (state.tab === "proposals") {
+      const live = d.proposals.filter(r => r.age <= STALE_PROPOSAL_DAYS), stale = d.proposals.length - live.length;
+      const shown = state.showStale ? d.proposals : live;
+      const foot = stale ? `<div class="small" style="padding:10px 8px">${stale} proposal${stale === 1 ? " is" : "s are"} older than ${STALE_PROPOSAL_DAYS} days and still open. Mark them won or lost in Notion. <button type="button" class="btn" id="staleBtn" style="margin-left:6px">${state.showStale ? "Hide them" : "Show them"}</button></div>` : "";
+      html = (shown.length ? `<table><thead><tr><th>Lead</th><th>Offer</th><th>Consultant</th><th class="r">Sent</th><th>Follow-up</th></tr></thead><tbody>` +
+        shown.map(r => {
+          let chip;
+          if (r.age > 21) chip = `<span class="chip crit">${r.age} days · close the loop or mark lost</span>`;
+          else if (r.rec < r.exp) chip = `<span class="chip warn">Due: ${FU_LABEL[FU_STAGES[r.exp]]}</span>`;
+          else chip = `<span class="chip good">On track</span>`;
+          const recTxt = r.fu ? `Last logged: ${esc(r.fu)}` : "No follow-up logged";
+          return `<tr><td>${nameCell(r)}</td><td>${esc(r.proposal.join(", ") || "–")}</td><td>${consCell(r)}</td><td class="r">${fmtDate(r.ps)}<div class="small">${r.age}d ago</div></td><td>${chip}<div class="small">${recTxt}</div></td></tr>`;
+        }).join("") + `</tbody></table>` : `<div class="empty">No proposals sent in the last ${STALE_PROPOSAL_DAYS} days are waiting on a decision.</div>`) + foot;
+    } else if (state.tab === "calls") {
+      html = d.calls.length ? `<table><thead><tr><th>When</th><th>Lead</th><th>Consultant</th><th>Source</th><th>Status</th></tr></thead><tbody>` +
+        d.calls.map(r => {
+          const when = r.dcHasTime ? new Date(r.dcRaw).toLocaleString(undefined, { weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }) : parseYmd(r.dc).toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" });
+          const isToday = r.dc === today();
+          return `<tr><td class="num">${isToday ? `<span class="chip good">Today</span> ` : ""}${esc(when)}</td><td>${nameCell(r)}</td><td>${consCell(r)}</td><td>${esc(r.source || r.acq || "–")}</td><td>${esc(r.outcome || r.status || "–")}</td></tr>`;
+        }).join("") + `</tbody></table>` : `<div class="empty">No discovery calls booked in the next two weeks.</div>`;
+    } else if (state.tab === "ddr") {
+      html = d.ddr.length ? `<table><thead><tr><th>Client</th><th>Offer</th><th>Consultant</th><th class="r">Deposit</th><th>Waiting</th></tr></thead><tbody>` +
+        d.ddr.map(r => {
+          const cls = r.wait > 45 ? "crit" : r.wait > 30 ? "warn" : "good";
+          return `<tr><td>${nameCell(r)}</td><td>${esc(r.proposal.join(", ") || "–")}</td><td>${consCell(r)}</td><td class="r">${fmtDate(r.dep)}</td><td><span class="chip ${cls}">${r.wait} days</span></td></tr>`;
+        }).join("") + `</tbody></table>` : `<div class="empty">Every paid deposit has a VA start date.</div>`;
+    } else {
+      html = d.hot.length ? `<table><thead><tr><th>Lead</th><th>Temperature</th><th>Consultant</th><th class="r">Call</th><th>Outcome</th></tr></thead><tbody>` +
+        d.hot.map(r => `<tr><td>${nameCell(r)}</td><td><span class="chip ${r.status === "HOT LEAD" ? "crit" : "warn"}">${r.status === "HOT LEAD" ? "Hot" : "Warm"}</span></td><td>${consCell(r)}</td><td class="r">${fmtDate(r.dc)}</td><td>${esc(r.outcome || "–")}</td></tr>`).join("") + `</tbody></table>`
+        : `<div class="empty">No leads are marked hot or warm.</div>`;
+    }
+    $("todoBody").innerHTML = html;
+    const sb = $("staleBtn");
+    if (sb) sb.addEventListener("click", () => { state.showStale = !state.showStale; renderTodo(state.rows.filter(byCons)); });
+  }
+
+  function renderTrend(rows) {
+    const t = today();
+    const months = [];
+    for (let i = 11; i >= 0; i--) months.push(addMonths(t.slice(0, 7) + "-01", -i).slice(0, 7));
+    const series = [
+      { key: "dc", name: "Calls booked", color: "var(--s1)" },
+      { key: "ps", name: "Proposals sent", color: "var(--s2)" },
+      { key: "dep", name: "Deposits paid", color: "var(--s3)" },
+    ].map(s => ({ ...s, vals: months.map(m => rows.filter(r => r[s.key] && r[s.key].slice(0, 7) === m && (s.key !== "dc" || r.dc <= t)).length) }));
+    const W = 560, H = 230, L = 30, Rr = 14, T = 12, B = 26;
+    const max = Math.max(5, ...series.flatMap(s => s.vals));
+    const step = max > 40 ? 20 : max > 20 ? 10 : 5;
+    const top = Math.ceil(max / step) * step;
+    const x = i => L + (i * (W - L - Rr)) / (months.length - 1);
+    const y = v => T + (H - T - B) * (1 - v / top);
+    let g = "";
+    for (let v = 0; v <= top; v += step) g += `<line x1="${L}" x2="${W - Rr}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--ink-3)">${v}</text>`;
+    months.forEach((m, i) => { if (i % 2 === (months.length - 1) % 2) g += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--ink-3)">${fmtMonth(m)}</text>`; });
+    let lines = "";
+    series.forEach(s => {
+      const pts = s.vals.map((v, i) => `${x(i)},${y(v)}`);
+      lines += `<polyline points="${pts.slice(0, -1).join(" ")}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+      lines += `<polyline points="${pts.slice(-2).join(" ")}" fill="none" stroke="${s.color}" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"/>`;
+      const li = s.vals.length - 1;
+      lines += `<circle cx="${x(li)}" cy="${y(s.vals[li])}" r="4" fill="${s.color}" stroke="var(--surface)" stroke-width="2"/>`;
+    });
+    $("trend").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Monthly calls booked, proposals sent and deposits paid over the last 12 months">${g}${lines}<line id="xh" x1="0" x2="0" y1="${T}" y2="${H - B}" stroke="var(--ink-3)" stroke-width="1" visibility="hidden"/><rect id="hit" x="${L}" y="0" width="${W - L - Rr}" height="${H}" fill="transparent"/></svg><div class="tip" id="tip" hidden></div><div class="small">The current month is still in progress (dashed).</div>`;
+    const svg = $("trend").querySelector("svg"), tip = $("tip"), xh = $("xh");
+    const move = ev => {
+      const rect = svg.getBoundingClientRect();
+      const px = ((ev.clientX - rect.left) / rect.width) * W;
+      const i = Math.max(0, Math.min(months.length - 1, Math.round(((px - L) / (W - L - Rr)) * (months.length - 1))));
+      xh.setAttribute("x1", x(i)); xh.setAttribute("x2", x(i)); xh.setAttribute("visibility", "visible");
+      const label = parseYmd(months[i] + "-01").toLocaleDateString(undefined, { month: "long", year: "numeric" });
+      tip.innerHTML = `<b>${label}${i === months.length - 1 ? " (to date)" : ""}</b>` + series.map(s => `<div><span><i class="sw" style="background:${s.color}"></i> ${s.name}</span><span>${s.vals[i]}</span></div>`).join("");
+      tip.hidden = false;
+      const left = (x(i) / W) * rect.width;
+      tip.style.left = Math.min(Math.max(0, left + 12), rect.width - tip.offsetWidth) + "px";
+      tip.style.top = "8px";
+    };
+    svg.addEventListener("pointermove", move);
+    svg.addEventListener("pointerleave", () => { tip.hidden = true; xh.setAttribute("visibility", "hidden"); });
+  }
+
+  function bars(items, fmtVal) {
+    const max = Math.max(1, ...items.map(i => i.v));
+    return items.map(i => `<div class="hbar"><span class="name">${esc(i.name)}</span><span class="track"><span class="fill" style="width:${(i.v / max) * 100}%"></span></span><span class="val">${fmtVal(i)}</span></div>${i.step ? `<div class="step">${i.step}</div>` : ""}`).join("");
+  }
+
+  function renderFunnel(rows, R) {
+    const c = rows.filter(r => inR(r.dc, R.a, R.end));
+    const stages = [
+      ["Calls booked", c.length],
+      ["Showed up", c.filter(r => held(r.outcome)).length],
+      ["Qualified", c.filter(r => qualified(r.outcome)).length],
+      ["Proposal sent", c.filter(r => r.ps).length],
+      ["Deposit paid", c.filter(r => r.dep).length],
+      ["VA started", c.filter(r => r.ddr).length],
+    ];
+    $("funnelSub").textContent = `Calls booked ${R.name} (${fmtDate(R.a)} – ${fmtDate(addDays(R.end, -1))})`;
+    if (!c.length) { $("funnel").innerHTML = `<div class="empty">No calls booked ${R.name} yet.</div>`; }
+    else $("funnel").innerHTML = bars(stages.map(([name, v], i) => ({ name, v, step: i > 0 && stages[i - 1][1] ? `${pct(v, stages[i - 1][1])}% of previous step` : "" })), i => `${i.v} <small>${pct(i.v, stages[0][1])}%</small>`);
+    const t = today(), since = addDays(t, -90);
+    const median = arr => { if (!arr.length) return null; const s = arr.slice().sort((a, b) => a - b); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+    const sp = [
+      ["Call → proposal", rows.filter(r => r.ps && r.dc && r.ps >= since).map(r => diffDays(r.dc, r.ps)).filter(n => n >= 0)],
+      ["Proposal → deposit", rows.filter(r => r.dep && r.ps && r.dep >= since).map(r => diffDays(r.ps, r.dep)).filter(n => n >= 0)],
+      ["Deposit → VA start", rows.filter(r => r.ddr && r.dep && r.ddr >= since).map(r => diffDays(r.dep, r.ddr)).filter(n => n >= 0)],
+    ];
+    $("speed").innerHTML = sp.map(([l, arr]) => { const m = median(arr); return `<div><div class="v">${m == null ? "–" : (Math.round(m * 10) / 10)}</div><div class="small">${l}${arr.length ? ` · ${arr.length} deals` : ""}</div></div>`; }).join("");
+  }
+
+  function renderSources(rows) {
+    const since = addMonths(today(), -6);
+    const c = rows.filter(r => r.dc && r.dc >= since && r.dc <= today());
+    const m = new Map();
+    c.forEach(r => { const k = r.source || "Not recorded"; const o = m.get(k) || { name: k, calls: 0, qual: 0, deps: 0 }; o.calls++; if (qualified(r.outcome)) o.qual++; if (r.dep) o.deps++; m.set(k, o); });
+    const arr = [...m.values()].sort((a, b) => b.deps - a.deps || b.calls - a.calls).slice(0, 10);
+    if (!arr.length) { $("sources").innerHTML = `<div class="empty">No calls in the last 6 months.</div>`; return; }
+    const pretty = s => s.replace(/_/g, " ").toLowerCase().replace(/^\w/, ch => ch.toUpperCase()).replace(/\bai\b/gi, "AI").replace(/\b(oa|eo|bni|bdm|li|ig|fb|yt|sap|va)\b/gi, w => w.toUpperCase());
+    $("sources").innerHTML = `<table><thead><tr><th>Source</th><th class="r">Calls</th><th class="r">Qualified</th><th class="r">Deposits</th><th class="r">Call → deposit</th></tr></thead><tbody>` +
+      arr.map(o => { const cv = pct(o.deps, o.calls); return `<tr><td>${esc(/[a-z]/.test(o.name) ? o.name : pretty(o.name))}</td><td class="r">${o.calls}</td><td class="r">${o.qual}</td><td class="r">${o.deps}</td><td class="r">${cv}%</td></tr>`; }).join("") + `</tbody></table>`;
+  }
+
+  function renderTeam(rowsAll, R) {
+    $("teamSub").textContent = `Calls, proposals and deposits ${R.name}`;
+    const names = ["Gail", "Heidi", "Linh", null];
+    const out = names.map(n => {
+      const rows = rowsAll.filter(r => r.consultant === n);
+      const m = metrics(rows, R.a, R.end);
+      return { name: n || "Unassigned", ...m };
+    }).filter(o => o.booked || o.props || o.deps);
+    if (!out.length) { $("team").innerHTML = `<div class="empty">No activity ${R.name} yet.</div>`; return; }
+    $("team").innerHTML = `<table><thead><tr><th>Consultant</th><th class="r">Calls</th><th class="r">Show-up</th><th class="r">Qualified</th><th class="r">Proposals</th><th class="r">Deposits</th></tr></thead><tbody>` +
+      out.map(o => `<tr><td>${o.name === "Unassigned" ? `<span class="muted">Unassigned</span>` : esc(o.name)}</td><td class="r">${o.booked}</td><td class="r">${o.showRate == null ? "–" : o.showRate + "%"}</td><td class="r">${o.qual}</td><td class="r">${o.props}</td><td class="r">${o.deps}</td></tr>`).join("") + `</tbody></table>`;
+  }
+
+  function lostBucket(s) {
+    const x = s.toLowerCase();
+    if (/test deal/.test(x)) return null;
+    if (/qualif|not a lead|looking for a job|va'?s? look|partnership|unable to provide|ideal|too small|project|start-?up|pre-revenue|gambling|time ?zone|philippines|duplicate|double booking|10 hours|few hours|trained in/.test(x)) return "Not a fit for OA";
+    if (/no (reply|response)|no\. reply|cold|ghost|bounc|no show|rescheduling/.test(x)) return "Went quiet / no response";
+    if (/budget|price|cheap|financ|afford|hourly|income/.test(x)) return "Budget or price";
+    if (/hired|competitor|agency|another|local|in-house|internal|platform|online ?jobs|alternative|other option|physical office/.test(x)) return "Chose another option";
+    if (/not ready|on hold|no longer|not enough work|direction|status quo|not to hire|different approach|interest|strategy|personal|1 month/.test(x)) return "Not ready / timing";
+    return "Other";
+  }
+  function renderLost(rows) {
+    const since = addMonths(today(), -6);
+    const m = new Map();
+    let total = 0;
+    rows.filter(r => r.status === "Lead - Lost" && (r.lost || r.dc) >= since).forEach(r => {
+      const bs = new Set(r.lostReasons.map(lostBucket).filter(Boolean));
+      if (!bs.size) bs.add("No reason recorded");
+      total++;
+      bs.forEach(b => m.set(b, (m.get(b) || 0) + 1));
+    });
+    const arr = [...m.entries()].map(([name, v]) => ({ name, v })).sort((a, b) => b.v - a.v);
+    $("lost").innerHTML = arr.length ? bars(arr, i => `${i.v} <small>${pct(i.v, total)}%</small>`) + `<div class="small">${total} lost leads. A lead can have more than one reason.</div>` : `<div class="empty">No lost leads in the last 6 months.</div>`;
+  }
+
+  function renderHealth(rows) {
+    const t = today(), d90 = addDays(t, -90);
+    const checks = [
+      { title: "Past calls still marked “Pending DC”", hint: "Update the outcome and status after each call", kind: "warn", items: rows.filter(r => r.status === "Lead - Pending DC" && r.dc && r.dc < addDays(t, -2)) },
+      { title: "Past calls with no outcome recorded", hint: "Pick an outcome: connected, no show, cancelled…", kind: "warn", items: rows.filter(r => !r.outcome && r.dc && r.dc < t) },
+      { title: "Deposit paid but status isn't “Lead - Won”", hint: "Move these to Won so the board matches revenue", kind: "warn", items: rows.filter(r => r.dep && r.status !== "Lead - Won" && r.status !== "Lead - Lost") },
+      { title: "Follow-up stage behind schedule", hint: "Log the latest step in Follow-Up Timeline", kind: "warn", items: todoData(rows).proposals.filter(r => r.rec < r.exp) },
+      { title: "Recent calls with no consultant", hint: "Calls in the last 90 days without an owner", kind: "warn", items: rows.filter(r => !r.consultant && r.dc && r.dc >= d90 && r.dc <= t) },
+      { title: "Test records in the live calendar", hint: "Left out of every number above; delete or archive them in Notion", kind: "neutral", items: state.tests.filter(byCons) },
+    ];
+    $("health").innerHTML = checks.map(c => {
+      const n = c.items.length;
+      const chip = n === 0 ? `<span class="chip good">All clear</span>` : `<span class="chip ${c.kind}">${n} to fix</span>`;
+      const listHtml = n ? `<ul>${c.items.slice(0, 40).map(r => `<li>${nameCell(r)} <span class="small">${r.dc ? fmtDate(r.dc) : ""}</span></li>`).join("")}${n > 40 ? `<li class="small">and ${n - 40} more</li>` : ""}</ul>` : "";
+      return `<details><summary><span class="t">${c.title}<small>${c.hint}</small></span>${chip}</summary>${listHtml}</details>`;
+    }).join("") + (state.oldest ? `<div class="small">Checked across records with calls since ${fmtDate(state.oldest)} ${state.oldest.slice(0, 4)}.</div>` : "");
+  }
+
+  function render() {
+    if (!state.rows.length && !state.loadedAt) return;
+    const R = periodRange(state.period);
+    const rows = state.rows.filter(byCons);
+    renderKpis(rows, R);
+    renderTodo(rows);
+    renderTrend(rows);
+    renderFunnel(rows, R);
+    renderSources(rows);
+    renderTeam(state.rows, R);
+    renderLost(rows);
+    renderHealth(rows);
+  }
+
+  // ---------- controls ----------
+  function syncControls() {
+    document.querySelectorAll("#periodSeg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.p === state.period)));
+    document.querySelectorAll("#consSeg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.c === state.consultant)));
+  }
+  $("periodSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state.period = b.dataset.p; save(); syncControls(); render(); });
+  $("consSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state.consultant = b.dataset.c; save(); syncControls(); render(); });
+  $("tabs").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state.tab = b.dataset.tab; save(); renderTodo(state.rows.filter(byCons)); });
+  $("refreshBtn").addEventListener("click", () => { load.retried = false; load(true); });
+  syncControls();
+
+  // ---------- boot ----------
+  async function boot() {
+    if (!window.claude || typeof window.claude.use !== "function") {
+      setStatus("err", "Live data unavailable here");
+      showNotice("crit", "Open this dashboard in claude.ai", "The dashboard reads your Notion Sales Calendar through your own Notion connector, which only works when the page is opened in claude.ai or the Claude app.");
+      return;
+    }
+    mcp = await window.claude.use("mcp");
+    if (!mcp) {
+      setStatus("err", "Live data unavailable here");
+      showNotice("crit", "Connector access isn't available in this view", "Open the dashboard in claude.ai or the Claude app with the Notion connector added, then press Refresh.");
+      return;
+    }
+    await load(false);
+    setInterval(() => { if (document.visibilityState === "visible") { load.retried = false; load(true); } }, AUTO_REFRESH_MS);
+  }
+  boot();
+})();
+</script>
