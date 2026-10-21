@@ -1,6 +1,6 @@
 ---
 name: lost-leads
-description: Pull lost leads from HubSpot (deals in the "Closed Lost (Leads)" stage) for a given year, add them to Gail's HubSpot_Lost_Leads Google Sheet, and create a personalised re-engagement draft in Gmail for each one. Use when Gail asks to extract, export or follow up lost leads from HubSpot, or types /lost-leads. Arguments (all optional) - year, number of leads, sheet link. Example - "/lost-leads 2025 30".
+description: Pull lost leads from HubSpot (deals in the "Closed Lost (Leads)" stage) for a given year, add them to Gail's "Lost Leads Data" Google Sheet, and create a personalised re-engagement draft in Gmail for each one. Use when Gail asks to extract, export or follow up lost leads from HubSpot, or types /lost-leads. Arguments (all optional) - year, number of leads, sheet link. Example - "/lost-leads 2025 30".
 ---
 
 # Lost leads: HubSpot → Google Sheet → Gmail drafts
@@ -14,9 +14,11 @@ Read these from the arguments, or use the defaults:
 
 | Input | Default |
 |---|---|
-| Year the deal was lost | The year Gail names. If none, ask. |
+| Year the deal was lost | The year Gail names. If none, read the sheet first and pick the most recent year that isn't in it yet, and say which year you picked. |
 | Number of leads | 30 |
-| Sheet | https://docs.google.com/spreadsheets/d/1s3hB5gsD1wC4POeO2EUEWqNZBBJ-zhMKgbjOTI1aaO4 (title "HubSpot_Lost_Leads", tab "Lost leads") |
+| Sheet | https://docs.google.com/spreadsheets/d/174oyOjj3QzDf_92_D3106hI-EamoACXrxvrrodVSAEs (title "Lost Leads Data", tab `Hubspot Lost leads ` — note the trailing space in the tab name) |
+
+The old sheet (1s3hB5gsD1wC4POeO2EUEWqNZBBJ-zhMKgbjOTI1aaO4, tab `Lost leads`) holds the same early rows. Use it only if Gail asks.
 
 Never send email. Only create drafts.
 
@@ -32,7 +34,9 @@ Never send email. Only create drafts.
    - Reasons that make outreach pointless, such as a government role that must stay local, or a lead referred to a partner.
    - Duplicates. One person can have several deals ("2nd VA", "2nd FT ADV"). Keep one row per person.
    - Anyone already in the sheet, or anyone Gail is actively working in Gmail this month.
-   - Leads with reasons like "rescheduled" and nothing else.
+   - Leads with reasons like "rescheduled", "duplicate booking" or "double booking" and nothing else.
+   - Current or paused clients, and anyone who left on bad terms ("unable to provide service", "bad response on the last call", "lost trust").
+   Deal names sometimes mention past offers ("$1500 credit", "50% off", "10% EO discount"). Never repeat these in the email.
    Prefer warm reasons: not ready, pre-revenue, budget or price, held off, "check in later", hired locally, not enough work. Then "no response".
 4. Fetch contacts with one `CONTACT` search using `associatedWith` deals `IN` [the deal IDs]. Properties: `firstname`, `lastname`, `email`, `phone`, `company`.
    - Match contacts to deals by name. If a deal has two contacts (for example, a second person at the same company), use the one whose name matches the deal.
@@ -41,9 +45,9 @@ Never send email. Only create drafts.
 
 ## Step 2. Add them to the sheet
 
-Columns on tab `Lost leads`: Name | Email | Phone | Business name | Deal lost on | Lost reason | Check
+Columns on tab `Hubspot Lost leads ` (no header row): Name | Email | Phone | Business name | Deal lost on | Lost reason | Check
 
-- One `append_values` call to range `'Lost leads'!A1:G1` with all the rows.
+- One `append_values` call to range `'Hubspot Lost leads '!A1:G1` with all the rows.
 - **Phone:** prefix with an apostrophe (`'+61 415 121 335`). Without it, Sheets reads a leading `+` as a formula.
 - **Deal lost on:** `YYYY-MM-DD` from `closedate`.
 - **Business name:** the HubSpot `company`. If that's empty or junk (for example "Owner/ Manager" or "Less than $1000 per month."), use the business from the email domain with "(from email)", or leave it blank.
