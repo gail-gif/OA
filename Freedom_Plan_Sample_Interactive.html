@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample Freedom Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400..700&family=Lato:wght@400;700&display=swap">
+<style>
+:root{
+  --navy:#1B2430;--navy2:#243041;--bg:#FAFBF9;--card:#FFFFFF;--tint:#E4F2EC;--grey:#F1F4F2;--line:#DDE4E0;
+  --green:#187A5E;--deep:#11604A;--mint:#3CC29A;--body:#4A5563;--muted:#6B7480;--amber:#9A5A08;--amberBg:#FFF6E8;--amberLine:#D9A35A;
+  --serif:'Source Serif 4',Georgia,serif;--sans:'Lato',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--navy);font:16px/1.55 var(--sans)}
+a{color:var(--green)}
+h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.15}
+p{margin:0}
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(250,251,249,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1180px;margin:auto;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.12em;font-size:12px;text-transform:uppercase;color:var(--green);white-space:nowrap}
+.progress{flex:1;min-width:140px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.track{flex:1;height:8px;background:var(--grey);border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--green);transition:width .3s}
+.btn{border:0;border-radius:99px;padding:8px 14px;font:700 13px var(--sans);cursor:pointer;background:var(--green);color:#fff}
+.btn.ghost{background:var(--grey);color:var(--navy)}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+/* layout */
+.wrap{max-width:1180px;margin:auto;padding:0 16px;display:grid;grid-template-columns:220px 1fr;gap:32px}
+nav.side{position:sticky;top:70px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;padding:24px 0;font-size:14px}
+nav.side b{display:block;margin:14px 0 6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+nav.side a{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;border-radius:8px;color:var(--navy);text-decoration:none}
+nav.side a:hover{background:var(--grey)}
+nav.side a.on{background:var(--tint);color:var(--deep);font-weight:700}
+nav.side a .dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex:none;margin-top:7px}
+nav.side a.done .dot{background:var(--green)}
+main{padding:24px 0 80px;min-width:0}
+/* hero */
+.hero{background:var(--navy);color:#F4F6F3;border-radius:20px;padding:48px 44px;position:relative;overflow:hidden;margin-bottom:28px}
+.hero:after{content:"";position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;background:var(--navy2)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.hero .eyebrow{color:var(--mint)}
+.hero h1{font-size:clamp(36px,6vw,60px);margin:12px 0 10px}
+.hero h1 span{color:var(--mint)}
+.hero .for{font-size:20px}
+.hero p.lead{color:#BFC9D3;max-width:640px;margin-top:12px}
+.sample{display:inline-block;background:#F4D58D;color:#3B2A00;border-radius:99px;padding:3px 12px;font-size:12px;font-weight:700;letter-spacing:.06em;margin-left:8px;vertical-align:middle}
+/* sections */
+section.s{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px;margin-bottom:22px}
+section.s>header{margin-bottom:20px}
+section.s h2{font-size:30px;margin:6px 0 6px}
+.sub{color:var(--body)}
+.part{margin:36px 0 14px;font:700 13px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card.tint{background:var(--tint);border-color:var(--tint)}
+.card.grey{background:var(--grey);border-color:var(--grey)}
+.card.dark{background:var(--navy);border-color:var(--navy);color:#F4F6F3}
+.card h3{font-size:19px;margin-bottom:8px}
+.label{font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:8px;display:block}
+.note{font-size:14px;color:var(--muted)}
+ul.clean{margin:0;padding-left:20px}
+ul.clean li{margin:4px 0}
+/* inputs */
+.field{display:block;margin-top:14px}
+.field>span{display:block;font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+textarea,input[type=text],input[type=date],select{width:100%;font:15px/1.5 var(--sans);color:var(--navy);background:var(--amberBg);border:1.5px dashed var(--amberLine);border-radius:10px;padding:10px 12px}
+textarea{min-height:84px;resize:vertical}
+textarea::placeholder,input::placeholder{color:#8E8676;font-style:italic}
+.choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.chip span{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1.5px solid var(--amberLine);border-radius:99px;font-size:14px;background:#fff;cursor:pointer;user-select:none}
+.chip span:before{content:"";width:14px;height:14px;border:1.5px solid var(--amberLine);border-radius:4px;background:#fff}
+.chip input[type=radio]+span:before{border-radius:50%}
+.chip input:checked+span{background:var(--green);border-color:var(--green);color:#fff}
+.chip input:checked+span:before{background:#fff;border-color:#fff;box-shadow:inset 0 0 0 3px var(--green)}
+.chip input:focus-visible+span{outline:3px solid var(--mint);outline-offset:2px}
+/* quotes */
+.quote{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.quote q{font:italic 17px var(--serif)}
+.quote small{display:block;color:var(--muted);margin-top:2px}
+/* stage */
+.stages{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:8px 0 18px 160px}
+.stage{text-align:center;padding:14px 8px;border-radius:14px;border:1px solid var(--line);background:#fff}
+.stage .n{width:46px;height:46px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;font-weight:700;border:2px solid var(--line);color:var(--body)}
+.stage.today .n{background:var(--navy);border-color:var(--navy);color:#fff}
+.stage.target .n{background:var(--green);border-color:var(--green);color:#fff}
+.stage h4{margin:0;font:700 15px var(--serif)}
+.stage p{font-size:12.5px;color:var(--muted);margin-top:4px}
+.stage .tag{font:700 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-top:6px;min-height:14px}
+.markrow{display:grid;grid-template-columns:150px repeat(5,1fr);gap:10px;align-items:center;margin-top:6px}
+.markrow>b{font-size:13px;color:var(--amber)}
+.markrow label{display:flex;justify-content:center}
+.markrow input{width:20px;height:20px;accent-color:var(--green)}
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl th{background:var(--green);color:#fff;text-align:left;padding:10px;font-size:13px}
+.tbl td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:middle}
+.tbl td input,.tbl td select{padding:7px 9px;font-size:14px}
+.tbl td.c{text-align:center}
+.tbl input[type=checkbox]{width:20px;height:20px;accent-color:var(--green)}
+.scroll{overflow-x:auto}
+/* flow */
+.flow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.flow div{flex:1;min-width:120px;background:var(--green);color:#fff;font-weight:700;text-align:center;padding:12px 18px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%,14px 50%)}
+.flow div:first-child{clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%)}
+.flow div:last-child{background:var(--deep)}
+/* ranges */
+.share{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:14px}
+.share span{white-space:nowrap}
+.share input{min-width:0}
+.grid2>*,.grid3>*,.board>*{min-width:0}
+.share input{flex:1;accent-color:var(--green)}
+.share output{font-weight:700;color:var(--green);min-width:44px;text-align:right}
+/* rating */
+.rate{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.stars{display:flex;gap:6px}
+.stars label{position:relative}
+.stars input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.stars span{display:grid;place-items:center;width:34px;height:34px;border-radius:8px;border:1.5px solid var(--amberLine);font-weight:700;color:var(--amber);background:#fff;cursor:pointer}
+.stars input:checked+span{background:var(--green);border-color:var(--green);color:#fff}
+.stars input:focus-visible+span{outline:3px solid var(--mint)}
+/* board */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.col{border-radius:14px;padding:14px;min-height:220px}
+.col h3{font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.item{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:8px;font-size:14px}
+.item span{flex:1}
+.item button{border:0;background:var(--grey);border-radius:6px;cursor:pointer;font-size:12px;padding:3px 7px;color:var(--navy)}
+.add{display:flex;gap:6px;margin-top:6px}
+.add input{padding:7px 9px;font-size:14px}
+/* misc */
+.goal{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+.goal .card.dark h3{font-size:30px;color:#F4F6F3;margin:6px 0 10px}
+.goal .card.dark p{color:#BFC9D3}
+.goal .eyebrow{color:var(--mint)}
+.out{display:flex;gap:12px;align-items:flex-start;margin:10px 0}
+.num{width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;flex:none;font-size:14px}
+.price{font:700 38px var(--serif);color:var(--green)}
+.saved{font-size:12px;color:var(--muted);white-space:nowrap}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 0}
+.howto{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  nav.side{display:none}
+  .grid2,.grid3,.board,.goal,.howto{grid-template-columns:1fr}
+  .stages{grid-template-columns:1fr 1fr;margin-left:0}
+  .markrow{grid-template-columns:110px repeat(5,1fr)}
+  section.s{padding:22px 18px}
+  .hero{padding:36px 22px}
+  .quote{grid-template-columns:1fr}
+}
+@media print{
+  .bar,nav.side,.btn,.add,.item button{display:none!important}
+  .wrap{display:block}
+  section.s{break-inside:avoid;border-color:#ccc}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">
+  <div class="brand">Outsourcing Angel · Freedom Plan™</div>
+  <div class="progress" aria-live="polite"><div class="track"><div class="fill" id="fill"></div></div><span id="pct">0% complete</span></div>
+  <span class="saved" id="saved">Not saved yet</span>
+  <button class="btn ghost" id="printBtn" type="button">Print / PDF</button>
+  <button class="btn" id="dlBtn" type="button">Download my answers</button>
+</div></div>
+
+<div class="wrap">
+<nav class="side" id="side" aria-label="Sections"></nav>
+<main id="main">
+
+<div class="hero">
+  <div class="eyebrow">Outsourcing Angel · Interactive edition <span class="sample">SAMPLE</span></div>
+  <h1>The Freedom <span>Plan™</span></h1>
+  <p class="for">Prepared for <b>Jordan Lee</b> | <b>Harbourline Supplies</b> (sample client)</p>
+  <p class="lead">A sample plan for a Customer Service &amp; Sales Support VA, built from a Freedom Audit and an Alignment Session. This page is yours to write in: add notes, tick what’s right, flag what isn’t, then download your answers and send them back.</p>
+</div>
+
+<section class="s" data-title="How to use this plan" id="howto">
+  <header><div class="eyebrow">Getting started</div><h2>How to use this interactive plan</h2><p class="sub">Four things to know. It takes two minutes.</p></header>
+  <div class="howto">
+    <div class="card"><div class="num">1</div><h3 style="margin-top:10px">Jump around</h3><p class="note">Use the menu on the left (or scroll) to move between sections.</p></div>
+    <div class="card"><div class="num">2</div><h3 style="margin-top:10px">Type your notes</h3><p class="note">Click any amber box and type. Your answers save automatically in this browser.</p></div>
+    <div class="card"><div class="num">3</div><h3 style="margin-top:10px">Tick and rate</h3><p class="note">Click the pill buttons, tick boxes and 1–5 ratings to answer.</p></div>
+    <div class="card"><div class="num">4</div><h3 style="margin-top:10px">Send it back</h3><p class="note">Click “Download my answers” at the top and email the file to your Outsourcing Angel consultant.</p></div>
+  </div>
+  <label class="field"><span>Try it: your first note</span><textarea data-k="howto.first" placeholder="Type anything here…"></textarea></label>
+</section>
+
+<div class="part">Part A · Our recommendation</div>
+
+<section class="s" data-title="The goal" id="goal">
+  <header><div class="eyebrow">Part A · 01</div><h2>The goal</h2><p class="sub">What this plan is for, in one line. Tell us if it says it the way you would.</p></header>
+  <div class="goal">
+    <div class="card dark"><div class="eyebrow">One accountable owner for every customer</div><h3>More time to grow Harbourline</h3><p>Not someone to just answer messages, but one accountable owner for every customer. Jordan stays the face of the business, while the VA keeps customers answered, orders accurate and invoices under control, and brings past customers back.</p></div>
+    <div class="card tint"><span class="label">Three outcomes we’re aiming for</span>
+      <div class="out"><div class="num">1</div><b>Every customer answered within two hours</b></div>
+      <div class="out"><div class="num">2</div><b>Orders right and overdue accounts under control</b></div>
+      <div class="out"><div class="num">3</div><b>10 past customers back ordering each month</b></div>
+    </div>
+  </div>
+  <div class="choices" data-k="goal.capture" data-type="radio" data-options="Yes, that’s the goal|Close, let’s reword it"></div>
+  <label class="field"><span>The goal in your own words</span><textarea data-k="goal.own" placeholder="In 6 months, I’d like…"></textarea></label>
+</section>
+
+<section class="s" data-title="What we heard" id="heard">
+  <header><div class="eyebrow">Part A · 02</div><h2>What we heard</h2><p class="sub">In your words, from our two calls. Tell us if we got any of it wrong.</p></header>
+  <div id="quotes"></div>
+  <div class="grid2">
+    <label class="field"><span>Anything we missed?</span><textarea data-k="heard.missed" placeholder="What else should your VA know about your business, customers or team?"></textarea></label>
+    <label class="field"><span>What’s changed since we spoke?</span><textarea data-k="heard.changed" placeholder="New products, team changes, busy periods…"></textarea></label>
+  </div>
+</section>
+
+<section class="s" data-title="Key observations" id="observations">
+  <header><div class="eyebrow">Part A · 03</div><h2>Key observations</h2><p class="sub">How the business runs today, and why this role exists.</p></header>
+  <p>Harbourline Supplies sells packaging and consumables to cafés and restaurants, with about 120 active customers. Customer service and sales already happen, but they’re spread across a small team who all juggle other work. As the business grows, Jordan wants one accountable owner.</p>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card"><span class="label">What we heard</span><p>Enquiries arrive by email, phone, the website chat and WhatsApp. Repeat orders are entered by hand. A handful of credit customers need follow-up, and around 400 past customers haven’t ordered in a while.</p>
+      <div class="choices" data-k="obs.heard" data-type="radio" data-options="Accurate|Needs a tweak"></div></div>
+    <div class="card"><span class="label">Hiring insight</span><p>Jordan manages the VA directly and wants someone careful and patient who catches the details, including what the customer actually needs, in place before the busy season.</p>
+      <div class="choices" data-k="obs.insight" data-type="radio" data-options="Accurate|Needs a tweak"></div></div>
+  </div>
+  <label class="field"><span>What would you add or change?</span><textarea data-k="obs.add" placeholder="Team members, customers, how things really work…"></textarea></label>
+</section>
+
+<section class="s" data-title="Leverage gap" id="gap">
+  <header><div class="eyebrow">Part A · 04</div><h2>Leverage gap analysis</h2><p class="sub">The biggest leverage point: one accountable person for customers, instead of tasks spread across the team.</p></header>
+  <div class="grid2">
+    <div class="card"><span class="label" style="color:var(--muted)">Today</span><div id="gapToday"></div></div>
+    <div class="card tint"><span class="label">Where we’re going</span><div id="gapGoing"></div></div>
+  </div>
+  <div class="grid2">
+    <label class="field"><span>Another gap we should close</span><textarea data-k="gap.another" placeholder="What else takes up your time or slips through?"></textarea></label>
+    <label class="field"><span>What would make the biggest difference first?</span><textarea data-k="gap.first" placeholder="If the VA could only fix one thing in month one…"></textarea></label>
+  </div>
+</section>
+
+<section class="s" data-title="Freedom Stage" id="stage">
+  <header><div class="eyebrow">Part A · 05</div><h2>Your Freedom Stage</h2><p class="sub">Where the business is today, and the path this plan takes. Mark where you are, and where you want to be.</p></header>
+  <div class="stages" id="stages"></div>
+  <div class="markrow" id="markToday"></div>
+  <div class="markrow" id="markTarget"></div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tint"><p>We aim for <b>Outcome Owner by Day 90</b> and <b>Freedom by Month 6</b>: a VA who owns customers, orders and follow-up, and escalates only what needs the team.</p></div>
+    <label class="field" style="margin-top:0"><span>What would “Freedom” look like for you?</span><textarea data-k="stage.freedom" placeholder="e.g. a week away without checking messages…"></textarea></label>
+  </div>
+</section>
+
+<section class="s" data-title="Your channels" id="channels">
+  <header><div class="eyebrow">Part A · 06</div><h2>Your customer channels</h2><p class="sub">Help us rank your channels and size the work.</p></header>
+  <div class="scroll"><table class="tbl"><thead><tr><th>Channel</th><th>What customers usually ask here</th><th>Messages a day</th><th>Priority</th><th>Day 1?</th></tr></thead><tbody id="chanBody"></tbody></table></div>
+  <label class="field"><span>Channel notes</span><textarea data-k="channels.notes" placeholder="e.g. Phone is busiest before 10am…"></textarea></label>
+</section>
+
+<section class="s" data-title="The role" id="role">
+  <header><div class="eyebrow">Part A · 07</div><h2>The role: three main jobs</h2><p class="sub">Agree or change each one, and set roughly how much of the week it should take.</p></header>
+  <div class="grid3" id="jobs"></div>
+</section>
+
+<section class="s" data-title="Close the loop" id="loop">
+  <header><div class="eyebrow">Part A · 08</div><h2>Close the loop: the escalation flow</h2><p class="sub">The VA doesn’t have to fix everything, but always goes back to the customer.</p></header>
+  <div class="flow"><div>Identify</div><div>Escalate</div><div>Follow up</div><div>Update customer</div><div>Close the loop</div></div>
+  <div class="grid3">
+    <label class="field"><span>Delivery issues go to…</span><input type="text" data-k="loop.delivery" placeholder="Name"></label>
+    <label class="field"><span>Special orders go to…</span><input type="text" data-k="loop.special" placeholder="Name"></label>
+    <label class="field"><span>The VA can fix alone…</span><input type="text" data-k="loop.alone" placeholder="e.g. resend tracking"></label>
+  </div>
+  <div class="choices" data-k="loop.ok" data-type="radio" data-options="This flow is right|Let’s adjust it"></div>
+</section>
+
+<section class="s" data-title="Success measures" id="measures">
+  <header><div class="eyebrow">Part A · 09</div><h2>Success measures</h2><p class="sub">Our suggested targets. Type your own in the amber column.</p></header>
+  <div class="scroll"><table class="tbl"><thead><tr><th>Measure</th><th>Suggested target</th><th>Your target</th><th>How to check</th></tr></thead><tbody id="kpiBody"></tbody></table></div>
+  <div class="choices" data-k="measures.ok" data-type="radio" data-options="These are the right measures|Add or change some"></div>
+  <label class="field"><span>Measures to add</span><textarea data-k="measures.add" placeholder="e.g. customer satisfaction, average order value…"></textarea></label>
+</section>
+
+<section class="s" data-title="Package & investment" id="package">
+  <header><div class="eyebrow">Part A · 10</div><h2>Package &amp; investment</h2><p class="sub">Choose the package that suits you. Sample figures, AUD, excl. GST.</p></header>
+  <div class="grid3">
+    <div class="card" style="border:2px solid var(--green)"><h3>Angel Managed</h3><p class="note">with CAX support</p><div class="price">$1,200</div><p class="note">agency fee / month</p>
+      <ul class="clean" style="margin-top:10px;font-size:14px"><li>Recruitment, payroll and HR support</li><li>Account Manager plus CAX team check-ins and coaching</li><li>Free replacement any time, with a 1-week trial</li></ul></div>
+    <div class="card"><h3>Angel Essential</h3><p class="note">light management</p><div class="price">$800</div><p class="note">agency fee / month</p>
+      <ul class="clean" style="margin-top:10px;font-size:14px"><li>Payroll and a monthly project manager check-in</li><li>No CAX team</li><li>Free replacement within the 3-month minimum</li></ul></div>
+    <div class="card tint"><span class="label">Plus your VA’s rate</span><div class="price" style="color:var(--navy);font-size:30px">$13–$16 / hr</div><p class="note">Indicative, full-time. Each candidate’s own rate is on their profile and paid to them in full.</p></div>
+  </div>
+  <div class="choices" data-k="package.choice" data-type="radio" data-options="Angel Managed|Angel Essential|I’d like to talk it through"></div>
+  <label class="field"><span>Questions about the investment</span><textarea data-k="package.q" placeholder="Anything you’d like us to walk through again?"></textarea></label>
+</section>
+
+<div class="part">Part B · Your playbook</div>
+
+<section class="s" data-title="Day 1 setup" id="dayone">
+  <header><div class="eyebrow">Part B · 01</div><h2>Day 1 setup checklist</h2><p class="sub">Assign an owner and a date to each item. Tick when done.</p></header>
+  <div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Owner</th><th>Done by</th><th class="c">Done</th></tr></thead><tbody id="setupBody"></tbody></table></div>
+</section>
+
+<section class="s" data-title="First 90 days" id="ninety">
+  <header><div class="eyebrow">Part B · 02</div><h2>First 90 days</h2><p class="sub">Learning, then owning, then operating. Set your own goal for each stage.</p></header>
+  <div class="grid3" id="ninetyCards"></div>
+</section>
+
+<section class="s" data-title="Working with you" id="working">
+  <header><div class="eyebrow">Part B · 03</div><h2>Working with Jordan</h2><p class="sub">Fill this in together with your VA in Week 1. It becomes their guide to you.</p></header>
+  <div class="grid3" id="workingGrid"></div>
+</section>
+
+<section class="s" data-title="Scorecard" id="scorecard">
+  <header><div class="eyebrow">Part B · 04</div><h2>Freedom Scorecard</h2><p class="sub">Fill this in together at each milestone review.</p></header>
+  <div class="scroll"><table class="tbl"><thead><tr><th>Measure</th><th>Start</th><th>Day 30</th><th>Day 90</th><th>Month 6</th><th>Month 12</th></tr></thead><tbody id="scoreBody"></tbody></table></div>
+</section>
+
+<section class="s" data-title="Delegation board" id="delegation">
+  <header><div class="eyebrow">Part B · 05</div><h2>Delegation board</h2><p class="sub">Add tasks and move them across as your VA takes them on.</p></header>
+  <div class="board" id="board"></div>
+</section>
+
+<div class="part">Over to you</div>
+
+<section class="s" data-title="Your feedback" id="feedback">
+  <header><div class="eyebrow">Over to you</div><h2>Your feedback on this plan</h2><p class="sub">Rate each part from 1 (not right yet) to 5 (spot on).</p></header>
+  <div id="ratings"></div>
+  <div class="grid2">
+    <label class="field"><span>What would you change?</span><textarea data-k="fb.change" placeholder="Anything that doesn’t fit how your business works…"></textarea></label>
+    <label class="field"><span>What did we miss?</span><textarea data-k="fb.miss" placeholder="Tasks, tools, people or busy periods…"></textarea></label>
+  </div>
+  <div class="choices" data-k="fb.ready" data-type="radio" data-options="Yes, let’s proceed|Let’s talk first"></div>
+  <div class="grid2">
+    <label class="field"><span>Your name</span><input type="text" data-k="fb.name" placeholder="Your name"></label>
+    <label class="field"><span>Date</span><input type="date" data-k="fb.date"></label>
+  </div>
+  <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn" type="button" onclick="download()">Download my answers</button>
+    <button class="btn ghost" type="button" onclick="window.print()">Print / Save as PDF</button>
+    <button class="btn ghost" type="button" id="resetBtn">Clear all answers</button>
+  </div>
+</section>
+
+<footer>Sample Freedom Plan · Outsourcing Angel · Names and figures are illustrative.</footer>
+</main>
+</div>
+
+<script>
+const KEY = 'oa-freedom-plan-sample-v1';
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { state = {}; }
+const $ = (s, r = document) => r.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// ---------- builders ----------
+function choices(k, type, opts) {
+  return `<div class="choices" data-k="${k}" data-type="${type}" data-options="${esc(opts.join('|'))}"></div>`;
+}
+function renderChoices(el) {
+  const k = el.dataset.k, type = el.dataset.type, opts = el.dataset.options.split('|');
+  el.setAttribute('role', type === 'radio' ? 'radiogroup' : 'group');
+  el.innerHTML = opts.map((o, i) => `<label class="chip"><input type="${type}" name="${k}" value="${esc(o)}" data-k="${type === 'radio' ? k : k + '.' + i}" ${type === 'checkbox' ? '' : ''}><span>${esc(o)}</span></label>`).join('');
+}
+const quotes = [
+  ['We’re a small team, so everyone does a bit of customer service.', 'Freedom Audit'],
+  ['We always want customers answered within two hours.', 'Freedom Audit'],
+  ['If we could win back ten old customers a month, that would be a win.', 'Freedom Audit'],
+  ['I need someone who looks at the details, including what the customer actually needs.', 'Alignment Session'],
+  ['Just tell me straight away if something goes wrong.', 'Alignment Session'],
+];
+$('#quotes').innerHTML = quotes.map(([q, s], i) => `<div class="quote"><div><q>${esc(q)}</q><small>${s} (sample)</small></div>${choices('heard.q' + i, 'radio', ['Spot on', 'Not quite', 'Let’s discuss'])}</div>`).join('');
+
+const today = ['Customer service spread across a small team who all have other jobs', 'Enquiries split across four channels, with no single owner', 'Around 400 past customers not yet contacted'];
+const going = ['One VA answers every enquiry within two hours, on every channel', 'Orders entered accurately; overdue accounts followed up', '10 past customers reactivated each month, tracked simply'];
+const gapRow = (t, k, lab) => `<div style="display:flex;gap:12px;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)"><span>${esc(t)}</span><label class="chip"><input type="checkbox" data-k="${k}"><span>${lab}</span></label></div>`;
+$('#gapToday').innerHTML = today.map((t, i) => gapRow(t, 'gap.t' + i, 'True today')).join('');
+$('#gapGoing').innerHTML = going.map((t, i) => gapRow(t, 'gap.g' + i, 'Agree')).join('');
+
+const stages = [['Task Delegator', 'You hand over tasks one at a time', 'Today', 'today'], ['Process Builder', 'Processes are written down', '', ''], ['Outcome Owner', 'The VA owns results, not just tasks', 'Day 90 target', 'target'], ['Operator', 'The VA runs the area day to day', '', ''], ['Freedom', 'It runs without you; you lead', 'Month 6 target', 'target']];
+$('#stages').innerHTML = stages.map(([t, d, tag, cls], i) => `<div class="stage ${cls}"><div class="n">${i + 1}</div><h4>${t}</h4><p>${d}</p><div class="tag">${tag}</div></div>`).join('');
+const markRow = (id, lab, k) => { $(id).innerHTML = `<b>${lab}</b>` + stages.map((s, i) => `<label title="${s[0]}"><input type="radio" name="${k}" value="${i + 1}" data-k="${k}" aria-label="${lab}: ${s[0]}"></label>`).join(''); };
+markRow('#markToday', 'You are here today', 'stage.today');
+markRow('#markTarget', 'Where you want to be by Month 6', 'stage.target');
+
+$('#chanBody').innerHTML = ['Email', 'Phone', 'Website chat', 'WhatsApp'].map((c, i) => `<tr><td><b>${c}</b></td><td><input type="text" data-k="ch.${i}.ask" placeholder="e.g. order status"></td><td><input type="text" data-k="ch.${i}.vol" placeholder="~"></td><td><select data-k="ch.${i}.pri"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td class="c"><input type="checkbox" data-k="ch.${i}.day1" aria-label="${c} from Day 1"></td></tr>`).join('');
+
+const jobs = [['Customer service & orders', ['Answer every enquiry within two hours', 'Enter orders accurately', 'Update customers on deliveries']], ['Follow-up & accounts', ['Chase open orders until complete', 'Follow up overdue accounts', 'Report what’s outstanding']], ['Win-back', ['Contact past customers', 'Track each one in a simple tracker', 'Aim for 10 back ordering each month']]];
+$('#jobs').innerHTML = jobs.map(([t, b], i) => `<div class="card"><div class="num">${i + 1}</div><h3 style="margin-top:10px">${t}</h3><ul class="clean">${b.map(x => `<li>${x}</li>`).join('')}</ul>${choices('role.j' + i, 'radio', ['Agree', 'Change it'])}<div class="share"><span>Share of week</span><input type="range" min="0" max="100" step="5" value="33" data-k="role.share${i}" aria-label="Share of week for ${t}"><output>33%</output></div><label class="field"><span>Changes</span><textarea data-k="role.c${i}" placeholder="Add or remove tasks…" style="min-height:64px"></textarea></label></div>`).join('');
+
+const kpis = [['Response time', 'Within 2 hours, every channel', 'Ask: what’s waiting for a reply?'], ['Order accuracy', 'No wrong items or quantities', 'Orders corrected this month'], ['Overdue accounts', 'Chased 3 days after due', 'Weekly report'], ['Win-back', '10 customers a month', 'Tracker count'], ['Weekly report', 'Sent every week, on time', 'Received on the agreed day']];
+$('#kpiBody').innerHTML = kpis.map(([m, t, h], i) => `<tr><td><b>${m}</b></td><td>${t}</td><td><input type="text" data-k="kpi.${i}" placeholder="Your target"></td><td class="note">${h}</td></tr>`).join('');
+
+$('#setupBody').innerHTML = ['Company email for the VA', 'Access to your order system', 'Messaging and phone access', 'Templates, product list and FAQs shared', 'Password manager for shared logins', 'Simple tracker for past customers'].map((t, i) => `<tr><td><b>${t}</b></td><td><input type="text" data-k="setup.${i}.o" placeholder="Owner"></td><td><input type="date" data-k="setup.${i}.d" aria-label="Done by"></td><td class="c"><input type="checkbox" data-k="setup.${i}.x" aria-label="${t} done"></td></tr>`).join('');
+
+const ninety = [['Days 1–30', 'Learn', 'Products, customers, channels and order processes. Start answering enquiries within two hours.'], ['Days 31–60', 'Own', 'Own enquiries and order entry. Follow up open orders and accounts; start win-back.'], ['Days 61–90', 'Operate', 'Most enquiries handled alone, clear escalation, steady progress to 10 win-backs a month.']];
+$('#ninetyCards').innerHTML = ninety.map(([d, t, x], i) => `<div class="card"><span class="label">${d}</span><h3>${t}</h3><p class="note">${x}</p><label class="field"><span>Your goal for this stage</span><textarea data-k="ninety.${i}" placeholder="What would make you happy?"></textarea></label><div class="choices" data-k="ninety.done${i}" data-type="checkbox" data-options="Achieved (tick at review)"></div></div>`).join('');
+
+$('#workingGrid').innerHTML = [['How you like updates', 'Format and time of day'], ['When to interrupt you', 'And when to wait'], ['Tone with customers', 'Sign-off, language'], ['Issues the VA can fix alone', 'Without asking first'], ['Pet peeves', 'Things to always avoid'], ['The VA’s own goals', 'For their first 6 months']]
+  .map(([t, p], i) => `<label class="field" style="margin-top:0"><span>${t}</span><textarea data-k="work.${i}" placeholder="${p}…"></textarea></label>`).join('');
+
+$('#scoreBody').innerHTML = ['Enquiries answered within 2 hours (%)', 'Past customers won back this month', 'Overdue accounts followed up on time (%)', 'Freedom Stage (1–5)', 'Your satisfaction (1–5)']
+  .map((m, i) => `<tr><td><b>${m}</b></td>${['s', '30', '90', 'm6', 'm12'].map(c => `<td><input type="text" data-k="score.${i}.${c}" aria-label="${m} ${c}"></td>`).join('')}</tr>`).join('');
+
+const ratings = ['The goal & what we heard', 'Leverage gap & Freedom Stage', 'The role', 'Success measures', 'Overall, does this feel like your business?'];
+$('#ratings').innerHTML = ratings.map((r, i) => `<div class="rate"><span>${r}</span><div class="stars" role="radiogroup" aria-label="${esc(r)}">${[1, 2, 3, 4, 5].map(n => `<label><input type="radio" name="fb.r${i}" value="${n}" data-k="fb.r${i}" aria-label="${n}"><span>${n}</span></label>`).join('')}</div></div>`).join('');
+
+// delegation board
+const COLS = [['Delegated', 'var(--tint)'], ['In progress', 'var(--grey)'], ['Next to delegate', '#fff']];
+if (!state.board) state.board = [['Customer enquiries, all channels', 'Order entry'], ['Open order follow-up', 'Overdue accounts'], ['Win-back calls', 'Weekly reporting']];
+function renderBoard() {
+  $('#board').innerHTML = COLS.map(([t, bg], c) => `<div class="col" style="background:${bg};border:1px solid var(--line)"><h3>${t}</h3>${state.board[c].map((it, j) =>
+    `<div class="item"><span>${esc(it)}</span>${c > 0 ? `<button type="button" data-mv="${c},${j},-1" aria-label="Move left">←</button>` : ''}${c < 2 ? `<button type="button" data-mv="${c},${j},1" aria-label="Move right">→</button>` : ''}<button type="button" data-rm="${c},${j}" aria-label="Remove">✕</button></div>`).join('')}
+    <div class="add"><input type="text" placeholder="Add a task…" data-add="${c}" aria-label="Add a task to ${t}"><button class="btn" type="button" data-addbtn="${c}">Add</button></div></div>`).join('');
+}
+$('#board').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.mv) { const [c, j, d] = b.dataset.mv.split(',').map(Number); const [it] = state.board[c].splice(j, 1); state.board[c + d].push(it); }
+  if (b.dataset.rm) { const [c, j] = b.dataset.rm.split(',').map(Number); state.board[c].splice(j, 1); }
+  if (b.dataset.addbtn) { const c = +b.dataset.addbtn, inp = $(`[data-add="${c}"]`); if (inp.value.trim()) state.board[c].push(inp.value.trim()); }
+  renderBoard(); save();
+});
+$('#board').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.dataset.add) { $(`[data-addbtn="${e.target.dataset.add}"]`).click(); } });
+
+// ---------- state ----------
+document.querySelectorAll('.choices[data-type]').forEach(renderChoices);
+renderBoard();
+const fields = () => [...document.querySelectorAll('[data-k]')].filter(el => el.matches('input,textarea,select'));
+function load() {
+  fields().forEach(el => {
+    const v = state[el.dataset.k];
+    if (v === undefined) return;
+    if (el.type === 'radio') el.checked = el.value === v;
+    else if (el.type === 'checkbox') el.checked = !!v;
+    else el.value = v;
+    if (el.type === 'range') el.nextElementSibling.value = v + '%';
+  });
+}
+let t;
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); $('#saved').textContent = 'Saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+  catch (e) { $('#saved').textContent = 'Use “Download” to keep answers'; }
+  progress();
+}
+document.addEventListener('input', e => {
+  const el = e.target; if (!el.dataset || !el.dataset.k) return;
+  if (el.type === 'radio') state[el.dataset.k] = el.value;
+  else if (el.type === 'checkbox') state[el.dataset.k] = el.checked;
+  else state[el.dataset.k] = el.value;
+  if (el.type === 'range') el.nextElementSibling.value = el.value + '%';
+  clearTimeout(t); t = setTimeout(save, 300);
+});
+function answered(sec) {
+  const fs = [...sec.querySelectorAll('[data-k]')].filter(el => el.matches('input,textarea,select') && el.type !== 'range');
+  const keys = [...new Set(fs.map(el => el.dataset.k))];
+  return keys.some(k => { const v = state[k]; return v !== undefined && v !== '' && v !== false; });
+}
+function progress() {
+  const secs = [...document.querySelectorAll('section.s')];
+  const done = secs.filter(answered).length;
+  const p = Math.round(done / secs.length * 100);
+  $('#fill').style.width = p + '%'; $('#pct').textContent = p + '% complete';
+  secs.forEach(s => { const a = $(`#side a[href="#${s.id}"]`); if (a) a.classList.toggle('done', answered(s)); });
+}
+// sidebar
+const side = $('#side'); let html = '', lastPart = '';
+document.querySelectorAll('main > .part, section.s').forEach(el => {
+  if (el.classList.contains('part')) html += `<b>${el.textContent.split('·').pop().trim()}</b>`;
+  else html += `<a href="#${el.id}"><span>${esc(el.dataset.title)}</span><i class="dot"></i></a>`;
+});
+side.innerHTML = '<b>Start</b>' + html;
+const obs = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { side.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id)); } }), { rootMargin: '-40% 0px -55% 0px' });
+document.querySelectorAll('section.s').forEach(s => obs.observe(s));
+
+// download & print
+function download() {
+  const rows = [];
+  document.querySelectorAll('section.s').forEach(sec => {
+    const title = sec.dataset.title; const items = [];
+    sec.querySelectorAll('.field').forEach(f => { const el = f.querySelector('[data-k]'); const v = el && state[el.dataset.k]; if (v) items.push([f.querySelector('span').textContent, v]); });
+    sec.querySelectorAll('.choices').forEach(c => { const k = c.dataset.k; const sel = c.dataset.type === 'radio' ? state[k] : c.dataset.options.split('|').filter((o, i) => state[k + '.' + i]).join(', '); if (sel) items.push([c.closest('.quote') ? c.closest('.quote').querySelector('q').textContent : 'Choice', sel]); });
+    sec.querySelectorAll('tbody tr').forEach(tr => { const vals = [...tr.querySelectorAll('[data-k]')].map(el => el.type === 'checkbox' ? (state[el.dataset.k] ? '✓' : '') : (state[el.dataset.k] || '')).filter(Boolean); if (vals.length) items.push([tr.cells[0].textContent, vals.join(' · ')]); });
+    sec.querySelectorAll('.stars').forEach((s, i) => { const v = state['fb.r' + i]; if (v) items.push([ratings[i], v + ' / 5']); });
+    sec.querySelectorAll('input[type=range]').forEach(r => { if (state[r.dataset.k] !== undefined) items.push([r.getAttribute('aria-label'), state[r.dataset.k] + '%']); });
+    if (sec.id === 'stage') { if (state['stage.today']) items.push(['Stage today', stages[state['stage.today'] - 1][0]]); if (state['stage.target']) items.push(['Month 6 target', stages[state['stage.target'] - 1][0]]); }
+    if (sec.id === 'delegation') COLS.forEach(([t], c) => items.push([t, state.board[c].join('; ') || '–']));
+    if (items.length) rows.push(`<h2>${esc(title)}</h2><table>${items.map(([a, b]) => `<tr><th>${esc(a)}</th><td>${esc(b)}</td></tr>`).join('')}</table>`);
+  });
+  const doc = `<!doctype html><html><head><meta charset="utf-8"><title>Freedom Plan answers</title><style>body{font:15px/1.5 Arial,sans-serif;max-width:800px;margin:30px auto;padding:0 16px;color:#1B2430}h1{color:#187A5E}h2{font-size:18px;margin-top:24px;color:#11604A}table{width:100%;border-collapse:collapse}th,td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid #DDE4E0}th{width:40%;font-weight:600}</style></head><body><h1>Freedom Plan: my answers</h1><p>${esc(state['fb.name'] || '')} ${esc(state['fb.date'] || '')}</p>${rows.join('') || '<p>No answers yet.</p>'}</body></html>`;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
+  a.download = 'Freedom_Plan_answers.html'; document.body.appendChild(a); a.click(); a.remove();
+}
+$('#dlBtn').onclick = download;
+$('#printBtn').onclick = () => window.print();
+$('#resetBtn').onclick = () => { if (confirm('Clear all your answers on this page?')) { state = {}; try { localStorage.removeItem(KEY); } catch (e) {} location.reload(); } };
+load(); progress();
+</script>
+</body>
+</html>
