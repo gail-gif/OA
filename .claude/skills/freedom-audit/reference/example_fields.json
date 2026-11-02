@@ -1,0 +1,74 @@
+{
+  "doc_title": "Angel Proposal - Matt Stone",
+  "footer_name": "Matt Stone",
+  "title": "Your Angel Proposal",
+  "subtitle": "An AI-savvy content producer to turn your podcasts into a steady stream of media.",
+  "prepared_for": "Matt Stone",
+  "heard": [
+    {"title": "Growing, and stretched on media", "body": "Your business is growing, and you can't produce the volume of media you need to bring in more inbound attention."},
+    {"title": "Two lanes of media", "body": "Client media, repurposing client interviews into clips, and your own: a daily audio podcast and a video podcast."},
+    {"title": "Months of untapped content", "body": "Your YouTube, audio episodes and monthly newsletter hold months of content ready to turn into shorts and clips."},
+    {"title": "A creative collaborator", "body": "Someone already skilled in Descript and AI tools, who brings their own ideas rather than waiting for exact instructions."}
+  ],
+  "role_title": "Your media engine, handled",
+  "steps": [
+    {"title": "Edit podcasts", "desc": "Run the editing plan for your podcasts in Descript."},
+    {"title": "Clip & repurpose", "desc": "Turn episodes into clips with Descript, Opus Clip and AI tools."},
+    {"title": "Optimise per platform", "desc": "Format for TikTok, Instagram, Facebook, Threads and Shorts."},
+    {"title": "Client media", "desc": "Help repurpose client interviews into clips."},
+    {"title": "Organise files", "desc": "Keep files, workflows and naming tidy."},
+    {"title": "Pitch ideas", "desc": "Suggest new ways to repurpose your content library."}
+  ],
+  "cards": [
+    {"title": "20 hrs / week", "desc": "Part-time to start, growing into a media team as revenue grows."},
+    {"title": "Reports to you", "desc": "You set the strategy; they bring creative ideas and execute."},
+    {"title": "AI-savvy creative", "desc": "3+ years' experience, skilled in Descript, Opus Clip and AI tools."}
+  ],
+  "packages": {
+    "label": "TWO WAYS TO WORK WITH US",
+    "title": "Choose the support level that fits you",
+    "left_title": "Angel Essential: you lead",
+    "left_items": [
+      "Candidate profiles with portfolios, work history and an intro video",
+      "Payroll, incentives and health vouchers handled for your Angel",
+      "A Project Manager checking in with you monthly",
+      "Your Freedom Plan blueprint, with suggested KPIs",
+      "You manage your Angel's performance day to day",
+      "Free replacement within the first 30 days, and a fee after"
+    ],
+    "right_title": "Angel Managed: we support you both",
+    "right_items": [
+      "Everything in Angel Essential",
+      "A Client and Angel Experience team supporting you both",
+      "Retraining and performance support for your Angel",
+      "Free replacements, whenever you need them"
+    ],
+    "note": "Start with either, and switch as your media team grows."
+  },
+  "pricing": {
+    "col1_label": "ANGEL ESSENTIAL",
+    "col1_value": "$720/mo",
+    "col1_desc": "The standard $800, with your 10% returning-client discount. Est. total $1,760–$2,020/mo at 20 hrs/week.",
+    "col2_label": "ANGEL MANAGED",
+    "col2_value": "$1,000/mo",
+    "col2_desc": "Adds your Client and Angel Experience team and free replacements. Est. total $2,040–$2,300/mo at 20 hrs/week.",
+    "col3_label": "YOUR ANGEL'S RATE",
+    "col3_value_line1": "$12–$15",
+    "col3_value_line2": "per hour",
+    "col3_desc": "Set by each candidate and shown on their profile. We take no cut of it.",
+    "begin_text": "a $500 USD refundable Freedom Plan deposit — explained on the next page",
+    "footnote": "All figures in USD, excl. tax. Totals are the agency fee plus your Angel's pay at 20 hrs/week, so they move with the rate you choose."
+  },
+  "freedom": {
+    "term_bullet": "3-month minimum, then 30 days' notice to cancel",
+    "choose_bullet": "You choose from 3–4 profiles with portfolios, with an optional creativity test first"
+  },
+  "next": {
+    "title": "Let's get your media moving",
+    "step1_desc": "The refundable $500 USD starts your Freedom Plan.",
+    "step2_desc": "We map your two media lanes, KPIs and a training plan.",
+    "step3_desc": "Typically 1–2 weeks, and sooner if we already have a match in our pool.",
+    "step4_desc": "Review 3–4 portfolios, run a creativity test, then interview.",
+    "deposit_link": "payments.outsourcingangel.com/service-deposit-form-usd/"
+  }
+}
