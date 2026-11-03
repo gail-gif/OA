@@ -30,8 +30,5 @@ Leave out test bookings. Flag data issues instead of silently fixing them.
 ## Comparisons
 For quarter-on-quarter, show calls booked, qualified (%), unqualified, no-show, cancelled, no-show + cancel rate, deposits and source mix, plus counts by month.
 
-## Dashboard (https://claude.ai/artifact/PbvZBGBM2DqZvX2KJPkf2x)
-- Read the artifact first, change only what's asked, then republish to the same URL.
-- Explain metrics in plain words. For example, "Not recorded" means Original Source is blank.
-- Data Health panel: Pending DC split into "call happened / rebooked / genuine no-shows", deposit-paid-not-Won, 90-day quiet leads.
-- Goal (Rock): one screen joining Claude + Notion + GHL, with lost reason and source on 100% of leads.
+## Dashboard
+For any change to the Sales Pulse dashboard, use the **`sales-dashboard`** skill.

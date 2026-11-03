@@ -19,7 +19,7 @@
 
 ---
 
-## PART 1: Your skills (19)
+## PART 1: Your skills (22)
 
 | # | Skill (type `/name`) | What it does | How often | Status |
 |---|---|---|---|---|
@@ -28,7 +28,7 @@
 | 3 | `/follow-up-sweep` | Find everyone who hasn't replied and draft nudges; inbox triage; "proposals sent this week". | Several a week | 🆕 New |
 | 4 | `/lost-leads` | HubSpot Closed Lost → "Lost Leads Data" sheet → personalised "It's been a while" drafts (30 a batch). | Almost daily | ✅ Existed, now on this branch |
 | 5 | `/bdm-leads` | Fill the BDM tab from HubSpot → re-engagement drafts (30 rows a batch). | Almost daily | ✅ Existed, now on this branch |
-| 6 | `/freedom-audit` | Before the call: Freedom Audit script. After the call: proposal deck + email + Notion card. **After the deposit: Alignment Call script + pre-call email + recap email + Recruitment brief.** | Every audit and alignment call | ✅ Existed, updated 3 Nov (Alignment Call added) |
+| 6 | `/freedom-audit` | Before the call: Freedom Audit script. After the call: proposal deck + email + Notion card. Hands off to `/alignment-call`. | Every audit | ✅ Existed, updated 3 Nov |
 | 7 | `/freedom-plan` | 30-slide Freedom Plan (Yasmine v2 design) + HTML / interactive version + email. | Every alignment call | 🆕 New |
 | 8 | `/candidate-profiles-email` | Warm email sending candidate profiles and/or the Freedom Plan after a call. | Every placement | 🆕 New |
 | 9 | `/ghl-notes` | Call → Notion card + paste-ready GHL opportunity and "Freedom Audit Summary" note. | Every deal | 🆕 New |
@@ -42,6 +42,9 @@
 | 17 | `/fractional-partner` | Fractional AI/Marketing partner pricing slides, framework, commission, emails. | As needed | 🆕 New |
 | 18 | `/message-to-linh` | Short WhatsApp-style or internal notes to Ms Linh / Ms Wendy. | Weekly | 🆕 New |
 | 19 | `/lead-gen-diagnosis` | Marketing/SEO "brain dump": why leads are low + 90-day plan. | As needed | 🆕 New |
+| 20 | `/alignment-call` | After the deposit: Alignment Call script + Freedom Plan capture sheet, pre-call email, recap email, Notion update, Recruitment brief. | Every alignment call | 🆕 New (3 Nov) |
+| 21 | `/sales-dashboard` | Look after the live OA Sales Pulse dashboard: explain numbers, change panels, data health, team walkthrough. | Weekly | 🆕 New (3 Nov) |
+| 22 | `/sales-calendar-notes` | Write the Notion Sales Calendar card notes: dated Notes / Status line, fields by stage, page notes in your 8-part format. | Every call / deal | 🆕 New (3 Nov) |
 
 ---
 
@@ -418,6 +421,6 @@ See Fractional Partner #9, #12, #17, #18 and Promotions #5.
 | `OA_Q2_Sales_Rock_Recap_Refined.pptx` | 12-slide Q2 recap + next-quarter Rocks |
 | `OA_Q2_Sales_Rock_Recap_Original_Updated.pptx` | Your original deck with the "10 ways to buy" tile |
 | `Yasmine_Johnson_Freedom_Plan_v2.pptx` | Living Freedom Plan template (30 slides) |
-| `.claude/skills/*` | The 19 skills above |
+| `.claude/skills/*` | The 22 skills above |
 
 Other client decks and Freedom Plans (May Ly, Hank Chu, Tom Warriner, Rob Zhang, Krystie Cekic, KayPark, Henry Young, Matt Stone, Kinsen Siu, Mariana, Dr Kelishadi, Jordan & Jennifer Smith, Fractional pricing) were saved on other `claude/…` branches of this repo.
