@@ -28,7 +28,7 @@
 | 3 | `/follow-up-sweep` | Find everyone who hasn't replied and draft nudges; inbox triage; "proposals sent this week". | Several a week | 🆕 New |
 | 4 | `/lost-leads` | HubSpot Closed Lost → "Lost Leads Data" sheet → personalised "It's been a while" drafts (30 a batch). | Almost daily | ✅ Existed, now on this branch |
 | 5 | `/bdm-leads` | Fill the BDM tab from HubSpot → re-engagement drafts (30 rows a batch). | Almost daily | ✅ Existed, now on this branch |
-| 6 | `/freedom-audit` | Before the call: Freedom Audit script. After the call: proposal deck + email + Notion card. | Every audit | ✅ Existed, now on this branch |
+| 6 | `/freedom-audit` | Before the call: Freedom Audit script. After the call: proposal deck + email + Notion card. **After the deposit: Alignment Call script + pre-call email + recap email + Recruitment brief.** | Every audit and alignment call | ✅ Existed, updated 3 Nov (Alignment Call added) |
 | 7 | `/freedom-plan` | 30-slide Freedom Plan (Yasmine v2 design) + HTML / interactive version + email. | Every alignment call | 🆕 New |
 | 8 | `/candidate-profiles-email` | Warm email sending candidate profiles and/or the Freedom Plan after a call. | Every placement | 🆕 New |
 | 9 | `/ghl-notes` | Call → Notion card + paste-ready GHL opportunity and "Freedom Audit Summary" note. | Every deal | 🆕 New |

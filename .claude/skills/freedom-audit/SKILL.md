@@ -1,13 +1,20 @@
 ---
 name: freedom-audit
-description: Gail's Outsourcing Angel Freedom Audit workflow. Before the call, writes a Freedom Audit call script. After the call, reads the Fathom recording and creates the client proposal deck (.pptx), a Gmail draft and the Notion Sales Calendar update. Use when Gail types /freedom-audit, or asks for a Freedom Audit script, proposal, proposal email or Sales Calendar update for a client.
+description: Gail's Outsourcing Angel Freedom Audit and Alignment Call workflow. Before the Freedom Audit, writes the call script. After it, reads the Fathom recording and creates the proposal deck (.pptx), a Gmail draft and the Notion Sales Calendar update. Once the client pays the deposit, writes the Alignment Call script, the pre-call email and the post-call recap email. Use when Gail types /freedom-audit, or asks for a Freedom Audit or Alignment Call script, proposal, proposal email, alignment email or Sales Calendar update for a client.
 ---
 
-# Freedom Audit
+# Freedom Audit and Alignment Call
 
-Gail Galima-Mendoza is the Freedom Plan Specialist at Outsourcing Angel (OA). OA places offshore virtual assistants ("Angels") from the Philippines. A Freedom Audit is OA's discovery call.
+Gail Galima-Mendoza is the Freedom Plan Specialist at Outsourcing Angel (OA). OA places offshore virtual assistants ("Angels") from the Philippines.
+- The **Freedom Audit** is OA's discovery call. It ends with a proposal.
+- The **Alignment Call** comes after the client pays the $500 Freedom Plan deposit. It collects everything needed to build their Freedom Plan and brief Recruitment.
 
-Arguments: the client's name, and optionally `script` or `proposal`. If Gail doesn't say which, check Fathom. If there's a recording with this client, do the **after the call** steps. If not, do **before the call**.
+The journey runs: Freedom Audit → proposal → deposit → **Alignment Call** → Freedom Plan + candidate profiles (1–2 weeks) → presentation / interviews.
+
+Arguments: the client's name, and optionally `script`, `proposal` or `alignment`. If Gail doesn't say which, work it out:
+- No Fathom recording with this client: **before the Freedom Audit**.
+- A Freedom Audit recording but no deposit yet: **after the Freedom Audit**.
+- Deposit paid (VA Deposit Date on the Notion card, or Gail says so), or Gail mentions alignment: **Alignment Call** (see the section near the end).
 
 Read `reference/offer.md` first, every time. It holds the packages, prices, terms, deposit links and the hours math. Never invent prices, policies or terms. Anything not in `offer.md` or the call goes in as a yellow `[CONFIRM: ...]` placeholder, and you list those for Gail.
 
@@ -107,6 +114,107 @@ Report briefly:
 - every `[CONFIRM]` placeholder
 - any gap between the prices she said on the call and the math in `offer.md`
 - what she still needs to attach or add before sending
+
+## Alignment Call: script, pre-call email and recap email
+
+Use this once the client has paid the deposit. The Alignment Call has one job: get everything the Freedom Plan and Recruitment need, in the client's own words. Offer.md says the Freedom Plan's KPIs, success metrics, do's and don'ts, skills checklist and training plan are "built in the alignment session", so the script must cover all of them.
+
+### 1. Gather context
+- The Freedom Audit Fathom transcript (read it in full), the proposal deck, and the proposal email thread.
+- The JD/PD if they sent one (Gmail attachments or Google Drive).
+- The Notion Sales Calendar card: package, deposit date, notes.
+- The Alignment Call date and time in Google Calendar.
+- If Gail has an alignment call structure doc, search Google Drive for "Alignment" and follow it.
+- Write down what is **already known** so the client isn't asked the same thing twice.
+
+### 2. Alignment Call script (Claude Doc)
+Title: "Alignment Call Script — <Client> (<Company>)". Warm, plain language, with scripted lines in quote blocks. Sections:
+
+1. **Pre-call cheat sheet**
+   - What we already know from the Freedom Audit: business, role, hours, package, rate range.
+   - What we still need: a table of gaps.
+   - Anything sensitive to handle carefully (payroll, banking, client data).
+   - Promises we made: sample profile, answers to emailed questions.
+2. **Opening (2 min)**
+   - Thank them for the deposit and the trust.
+   - Set the goal: "Today is about you and how you work, so we can build your Freedom Plan and find the right Angel."
+   - Confirm how long they have.
+3. **The goal and Freedom Stage**
+   - What freedom looks like for them in 90 days and 12 months.
+   - The baseline today: hours a week on admin, early starts or late nights, what they're missing out on.
+   - These numbers become the Freedom Scorecard "Start" column.
+4. **Role and tasks**
+   - Walk through the top tasks to hand over and rank them.
+   - For each task: how often, how long, which tools, and what "done well" looks like.
+   - Split them into Day 1 tasks, Month 1 tasks and later tasks. This becomes the Delegation List (Now and Next).
+5. **Ideal Angel**
+   - Must-have skills and experience, nice-to-haves, personality and communication style.
+   - Deal-breakers.
+   - Confirm any preference stated on the Freedom Audit (e.g. female preferred) and flag it for Recruitment.
+6. **Hours, time zone and communication**
+   - Start date, hours a week and working hours (their time and PHT).
+   - Comms tool: WhatsApp / Slack / Google Chat / Teams.
+   - Email first or phone? How they like updates; end-of-day report format.
+   - Who else the Angel will work with.
+7. **Tools and access (Day 1 setup checklist)**
+   - Every system, the permission level, and who sets it up.
+   - Sensitive data: Keeper or password manager, view-only bank access, NDA.
+8. **Success metrics and KPIs**
+   - 3–5 measurable KPIs, each with a "how will you check it?" question.
+   - What a great first 30 and 90 days look like.
+9. **Do's and don'ts, training plan**
+   - How they like things done, pet hates, brand voice.
+   - Existing SOPs, Looms or examples.
+   - Who teaches their process, and how much time they can give in weeks 1–2.
+   - Remind them: Angels are experienced, so the client only teaches their own process, not the skills.
+10. **Recruitment next steps and close**
+    - Profiles in 1–2 weeks (3–4 candidates), then interviews.
+    - Agree a date for the Freedom Plan presentation / profile review and book it on the call.
+    - Recap the 3 biggest points back to them.
+    - Ask: "Is there anything we haven't covered that would make this a perfect match?"
+
+End the script with a **Freedom Plan capture sheet**: one blank line per Freedom Plan section, so Gail can tick off what she has. The sections are: Goal, Key Observations, Leverage Gap, Freedom Stage, Role areas, Ideal hire, Investment, Hours and time zone, Working with <Client>, KPIs, Scorecard baselines, Skills checklist, Delegation list, Setup checklist, Training plan.
+
+### 3. Pre-call email (draft only)
+Send it after the deposit or when the call is booked. If there's an existing thread with the client, reply in it and keep the CC.
+- **Subject:** "Getting ready for your Alignment Call – <Company>"
+- **Content:**
+  - Thank them for the deposit (no re-introduction).
+  - Confirm the date and time in their time zone, plus the Google Meet link.
+  - One line on the purpose: to build their Freedom Plan and brief Recruitment.
+  - A short "to make the most of our time" list:
+    - the JD/PD if they have one
+    - their top tasks to hand over
+    - the tools the Angel will use
+    - examples of work done well
+    - preferred hours and communication tool
+    - any sensitive information we should plan for
+  - Optional: 3–4 quick questions on KPIs, success metrics and training, like Gail's KayPark email "Your Freedom Plan: a few quick questions + presentation".
+  - Close: "No need to have everything ready – we'll work through it together." Then "Warm regards," and Gail's sign-off.
+
+### 4. After the call
+1. **Read the Fathom transcript** of the Alignment Call. Fill the capture sheet and list any gaps as `[CONFIRM: ...]`.
+2. **Recap email (draft only)**, replying in the same thread:
+   - **Subject:** "Thank you – next steps for your Freedom Plan" (or keep the thread subject).
+   - Start warmly: "It was lovely chatting with you again!" Mention one specific thing about their business.
+   - 3–5 bullets of what we agreed, in their words: role focus, hours and start date, must-have skills, comms tool.
+   - Next steps:
+     - Freedom Plan and 3–4 candidate profiles within 1–2 weeks
+     - the presentation or interview date, if agreed
+     - anything they promised to send (JD, access list, SOPs)
+   - Close: "Looking forward to hearing your thoughts!" Then "Warm regards," and Gail's sign-off.
+3. **Notion Sales Calendar card:**
+   - Add a dated Notes / Status line, e.g. "11/03 - Alignment call done, profiles due <date>".
+   - Add an "Alignment Call" section to the page notes: Fathom link, agreed role, hours, start date, ideal Angel, KPIs, next steps checklist.
+4. **Recruitment brief (offer only):** a short paste-ready brief for Charyl covering role, hours and time zone, must-haves, deal-breakers, rate range and the date profiles are due.
+5. **Hand off to `/freedom-plan`**, which builds the plan from the capture sheet.
+
+### 5. Report back to Gail
+Report briefly:
+- links to the script doc and the drafts
+- every `[CONFIRM]` item
+- what she needs to attach or add
+- the profile due date
 
 ## When tools fail
 

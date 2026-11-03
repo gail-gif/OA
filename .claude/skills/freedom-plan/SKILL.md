@@ -9,6 +9,7 @@ Read `.claude/skills/oa-basics/SKILL.md` and `.claude/skills/freedom-audit/refer
 Template: `Yasmine_Johnson_Freedom_Plan_v2.pptx` in this repo (dark cover, green accents, Cambria headings, Calibri body). Keep the same design. **Do one client at a time.**
 
 ## 1. Gather
+- **Start with the Alignment Call capture sheet** from `/freedom-audit` (Alignment Call section). If there isn't one, offer to make the Alignment Call script first.
 - Fathom: the client's Freedom Audit **and** Alignment call. Read the full transcripts, not just the summary. Search by first name with `recorded_by: "anyone"`; find_person can miss people. Fix names Fathom garbles ("Elsewhere City Agile" = Outsourcing Angel, "Lynn" = Linh).
 - The JD (Google Drive or pasted), the Notion Sales Calendar / recruitment card, and any emailed handbooks or schedules.
 
