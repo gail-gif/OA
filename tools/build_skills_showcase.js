@@ -47,7 +47,7 @@ const LOGO = "image/png;base64," + fs.readFileSync("logo.png").toString("base64"
     ] });
 
   const I = {};
-  const names = ["FiMail","FiInbox","FiUserCheck","FiMessageCircle","FiRefreshCw","FiUsers","FiSearch","FiTarget","FiPhoneCall","FiFileText","FiClipboard","FiCalendar","FiBarChart2","FiSun","FiMonitor","FiEdit3","FiPieChart","FiFilter","FiFlag","FiGift","FiCpu","FiBookOpen","FiCheckSquare","FiShield","FiZap","FiArrowRight","FiCheckCircle","FiTerminal","FiSend","FiLink"];
+  const names = ["FiMail","FiInbox","FiUserCheck","FiMessageCircle","FiRefreshCw","FiUsers","FiSearch","FiTarget","FiPhoneCall","FiFileText","FiClipboard","FiCalendar","FiBarChart2","FiSun","FiMonitor","FiEdit3","FiPieChart","FiFilter","FiFlag","FiGift","FiCpu","FiBookOpen","FiCheckSquare","FiShield","FiZap","FiArrowRight","FiCheckCircle","FiTerminal","FiSend","FiLink","FiClock"];
   for (const n of names) { I[n] = await icon(n, "FFFFFF"); I[n + "_t"] = await icon(n, HEX.accent1); I[n + "_d"] = await icon(n, HEX.dk2); }
 
   function card(s, x, y, w, h, ic, name, cmd, desc, isNew, ds = 15) {
@@ -86,7 +86,7 @@ const LOGO = "image/png;base64," + fs.readFileSync("logo.png").toString("base64"
 
   // 2 At a glance
   s = content("Intro", "AT A GLANCE", "Four weeks of sales work, done with Claude");
-  const stats = [["23", "skills built"], ["17", "Claude work sessions"], ["~300", "tasks completed"], ["~700", "email drafts created"], ["~296", "lost leads reactivated"], ["~260", "BDM leads filled"]];
+  const stats = [["23", "skills built"], ["~170 h", "time saved"], ["~300", "tasks completed"], ["~700", "email drafts created"], ["~296", "lost leads reactivated"], ["~260", "BDM leads filled"]];
   stats.forEach(([v, l], i) => {
     const x = 0.6 + (i % 3) * 4.14, y = 1.85 + Math.floor(i / 3) * 2.45;
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w: 3.84, h: 2.15, rectRadius: 0.12, fill: { color: i === 0 ? C.text2 : C.background2 }, line: { type: "none" }, objectName: "Stat card " + l });
@@ -94,6 +94,20 @@ const LOGO = "image/png;base64," + fs.readFileSync("logo.png").toString("base64"
     s.addText(l, { x: x + 0.35, y: y + 1.4, w: 3.2, h: 0.5, fontSize: 18, color: i === 0 ? C.accent5 : C.text1, margin: 0, isTextBox: true, objectName: "Stat label " + l });
   });
   s.addNotes("17 work sessions and about 300 tasks. Around 700 email drafts, nearly 300 lost leads and 260 BDM leads worked through. Counts are rounded because some batches were partial.");
+
+  // 2b Time saved
+  s = content("Intro", "TIME SAVED · ESTIMATE", "About 170 hours handed to Claude in 4 weeks");
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.6, y: 1.85, w: 4.2, h: 4.9, rectRadius: 0.15, fill: { color: C.text2 }, line: { type: "none" }, objectName: "Saved panel" });
+  s.addImage({ data: I["FiClock"], x: 1.0, y: 2.25, w: 0.6, h: 0.6, altText: "Clock", objectName: "Saved icon" });
+  s.addText("~170", { x: 1.0, y: 2.95, w: 3.5, h: 1.3, fontSize: 80, bold: true, color: C.background1, margin: 0, valign: "middle", isTextBox: true, objectName: "Saved number" });
+  s.addText("hours saved", { x: 1.0, y: 4.25, w: 3.5, h: 0.45, fontSize: 22, color: C.accent5, margin: 0, isTextBox: true, objectName: "Saved label" });
+  s.addText("\u2248 4 full working weeks, about 40 hours a week back for calls, clients and closing", { x: 1.0, y: 4.9, w: 3.5, h: 1.4, fontSize: 16, color: C.background1, margin: 0, valign: "top", isTextBox: true, objectName: "Saved note" });
+  s.addChart(pres.charts.BAR, [{ name: "Hours saved", labels: ["Email drafts", "Freedom Plans", "Lost leads into sheet", "BDM leads filled", "Rocks, promos, partner docs", "Client proposals", "Notion records", "Reports & huddles", "Audit scripts"], values: [82, 21, 15, 13, 12, 10, 8, 7, 5] }], {
+    x: 5.1, y: 1.8, w: 7.6, h: 4.45, barDir: "bar", chartColors: [HEX.accent1], showValue: true, dataLabelPosition: "outEnd", dataLabelFontSize: 13, dataLabelColor: HEX.dk1, dataLabelFontFace: "+mn-lt", dataLabelFormatCode: '0" h"',
+    catAxisLabelColor: HEX.dk1, catAxisLabelFontSize: 13, catAxisLabelFontFace: "+mn-lt", valAxisHidden: true, valGridLine: { style: "none" }, catGridLine: { style: "none" }, showLegend: false,
+    showTitle: true, title: "Hours saved by type of work", titleFontSize: 16, titleColor: HEX.dk1, titleFontFace: "+mn-lt", catAxisOrientation: "maxMin", barGapWidthPct: 45, objectName: "Hours chart" });
+  s.addText("Estimate: manual time per task (e.g. 7 min per email, 3.5 h per Freedom Plan) minus my checking time. Volumes are approximate.", { x: 5.1, y: 6.3, w: 7.6, h: 0.45, fontSize: 12, italic: true, color: C.accent4, margin: 0, isTextBox: true, objectName: "Saved method" });
+  s.addNotes("This is an estimate. I took each type of work, how long it takes by hand, minus the few minutes I spend checking Claude's version. Email drafts are the biggest win at about 82 hours.");
 
   // 3 Journey
   s = content("Intro", "THE CLIENT JOURNEY", "A skill for every step, from first call to placed Angel");
