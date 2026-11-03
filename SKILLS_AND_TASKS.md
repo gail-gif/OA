@@ -19,7 +19,7 @@
 
 ---
 
-## PART 1: Your skills (22)
+## PART 1: Your skills (23)
 
 | # | Skill (type `/name`) | What it does | How often | Status |
 |---|---|---|---|---|
@@ -45,6 +45,7 @@
 | 20 | `/alignment-call` | After the deposit: Alignment Call script + Freedom Plan capture sheet, pre-call email, recap email, Notion update, Recruitment brief. | Every alignment call | 🆕 New (3 Nov) |
 | 21 | `/sales-dashboard` | Look after the live OA Sales Pulse dashboard: explain numbers, change panels, data health, team walkthrough. | Weekly | 🆕 New (3 Nov) |
 | 22 | `/sales-calendar-notes` | Write the Notion Sales Calendar card notes: dated Notes / Status line, fields by stage, page notes in your 8-part format. | Every call / deal | 🆕 New (3 Nov) |
+| 23 | `/call-analysis` | Analyse any Fathom call: summary, client needs in their words, coaching scorecard, objections, P.A.I.N., pricing check, promises, next steps; compare calls for patterns. | Every call | 🆕 New (3 Nov) |
 
 ---
 
@@ -421,6 +422,6 @@ See Fractional Partner #9, #12, #17, #18 and Promotions #5.
 | `OA_Q2_Sales_Rock_Recap_Refined.pptx` | 12-slide Q2 recap + next-quarter Rocks |
 | `OA_Q2_Sales_Rock_Recap_Original_Updated.pptx` | Your original deck with the "10 ways to buy" tile |
 | `Yasmine_Johnson_Freedom_Plan_v2.pptx` | Living Freedom Plan template (30 slides) |
-| `.claude/skills/*` | The 22 skills above |
+| `.claude/skills/*` | The 23 skills above |
 
 Other client decks and Freedom Plans (May Ly, Hank Chu, Tom Warriner, Rob Zhang, Krystie Cekic, KayPark, Henry Young, Matt Stone, Kinsen Siu, Mariana, Dr Kelishadi, Jordan & Jennifer Smith, Fractional pricing) were saved on other `claude/…` branches of this repo.

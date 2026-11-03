@@ -62,6 +62,7 @@ Notion proposal codes: FT ADV, PT ADV, PT Specialist, FT Specialist, PT Tech, et
 - Time zones: convert US PT/CT, Sydney/Melbourne and WA to PHT. Mention daylight-saving changes (US clocks change early November; AU east coast is on daylight saving Oct–Apr).
 
 ## Known tool limits
+- **Fathom is connected** (read-only). Use `/call-analysis` for any recorded call. Always read the full transcript, not just the summary.
 - GoHighLevel (GHL), JustCall and Google Chat are **not connected**. Give paste-ready text for GHL.
 - HubSpot is read-only. HubSQL and aggregate reports return "Forbidden"; use search instead.
 - Notion SQL has a usage limit. If it's used up, page through the view instead.
