@@ -46,7 +46,7 @@ Gail works in Philippine time (PHT). PHT is the same as Perth/WA time.
 | Charyl | Recruitment Manager | charyl@outsourcingangel.com.au |
 | Heidi | Other sales consultant | |
 | Ms Cha | Helped set up Claude | |
-| Scott Empringham | X100 referral partner | scott@empmediagroup.com. Updates go in the "Scott Leads Update and Follow-Up" thread, CC Yuki and Linh. |
+| Scott Empringham | X100 referral partner | scott@empmediagroup.com. New referrals: use `/scott-referrals` (sheet + intro email). Updates go in the "Scott Leads Update and Follow-Up" thread, CC Yuki and Linh. |
 | Yuki | Referral source | |
 | Rob Lee | Bright Coast AI, Fractional AI partner | OA keeps 15%, Rob gets 85%. |
 
