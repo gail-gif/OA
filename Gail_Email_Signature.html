@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gail Email Signature</title>
+<style>
+  body { margin: 0; padding: 24px 16px; background: #f4f5f7; font-family: Arial, Helvetica, sans-serif; color: #1f2937; }
+  .howto { max-width: 640px; margin: 0 auto 24px; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px 20px; font-size: 14px; line-height: 1.5; }
+  .howto h1 { font-size: 16px; margin: 0 0 8px; }
+  .howto code { background: #f3f4f6; padding: 1px 4px; border-radius: 3px; }
+  .frame { max-width: 640px; margin: 0 auto; background: #fff; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 24px; }
+  .btn { display: inline-block; margin-top: 12px; padding: 8px 14px; border: 0; border-radius: 6px; background: #0b2a4a; color: #fff; font-size: 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="howto">
+  <h1>How to install (Gmail)</h1>
+  1. Replace the 5 placeholder links marked <code>REPLACE</code> in this file (booking link + 4 socials).<br>
+  2. Open this file in Chrome → click <b>Copy signature</b> below (or select everything inside the dashed box and Ctrl/Cmd+C).<br>
+  3. Gmail → ⚙ Settings → See all settings → General → Signature → paste → Save changes.<br>
+  <span style="color:#6b7280">Outlook: Settings → Mail → Compose and reply → Email signature → paste.</span>
+  <br><button class="btn" onclick="copySig()">Copy signature</button> <span id="msg" style="font-size:13px;color:#059669"></span>
+</div>
+
+<div class="frame">
+<!-- ===== SIGNATURE START (everything below is email-safe: tables + inline styles only) ===== -->
+<table id="sig" cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.4;color:#1f2937;border-collapse:collapse;">
+  <tr>
+    <td style="padding:0 16px 0 0;border-right:3px solid #c9a227;vertical-align:top;">
+      <div style="font-size:18px;font-weight:bold;color:#0b2a4a;margin:0;">Gail Galima-Mendoza</div>
+      <div style="font-size:13px;color:#c9a227;font-weight:bold;margin:2px 0 0;">Your Freedom Plan Specialist</div>
+      <div style="font-size:12px;color:#6b7280;margin:2px 0 0;">Outsourcing Angel</div>
+    </td>
+    <td style="padding:0 0 0 16px;vertical-align:top;">
+      <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-size:13px;">
+        <tr>
+          <td style="padding:0 6px 3px 0;color:#c9a227;font-weight:bold;">E</td>
+          <td style="padding:0 0 3px 0;"><a href="mailto:gail@outsourcingangel.com.au" style="color:#0b2a4a;text-decoration:none;">gail@outsourcingangel.com.au</a></td>
+        </tr>
+        <tr>
+          <td style="padding:0 6px 3px 0;color:#c9a227;font-weight:bold;">W</td>
+          <td style="padding:0 0 3px 0;"><a href="https://outsourcingangel.com" style="color:#0b2a4a;text-decoration:none;">outsourcingangel.com</a></td>
+        </tr>
+      </table>
+      <!-- Social badges: text-based so they show even when email images are blocked -->
+      <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:6px;">
+        <tr>
+          <td style="padding:0 5px 0 0;"><a href="https://www.facebook.com/REPLACE" title="Facebook" style="display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:12px;background:#0b2a4a;color:#ffffff;font-size:12px;font-weight:bold;text-decoration:none;">f</a></td>
+          <td style="padding:0 5px 0 0;"><a href="https://x.com/REPLACE" title="X (Twitter)" style="display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:12px;background:#0b2a4a;color:#ffffff;font-size:12px;font-weight:bold;text-decoration:none;">X</a></td>
+          <td style="padding:0 5px 0 0;"><a href="https://www.linkedin.com/in/REPLACE" title="LinkedIn" style="display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:12px;background:#0b2a4a;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;">in</a></td>
+          <td style="padding:0;"><a href="https://www.instagram.com/REPLACE" title="Instagram" style="display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:12px;background:#0b2a4a;color:#ffffff;font-size:10px;font-weight:bold;text-decoration:none;">IG</a></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding:12px 0 0 0;">
+      <a href="https://REPLACE-with-your-GHL-booking-link" style="display:inline-block;padding:8px 16px;background:#c9a227;color:#0b2a4a;font-size:13px;font-weight:bold;text-decoration:none;border-radius:4px;">Book your free Freedom Audit &rarr;</a>
+    </td>
+  </tr>
+</table>
+<!-- ===== SIGNATURE END ===== -->
+</div>
+
+<script>
+function copySig() {
+  var el = document.getElementById('sig');
+  var range = document.createRange();
+  range.selectNode(el);
+  var sel = window.getSelection();
+  sel.removeAllRanges(); sel.addRange(range);
+  var ok = false;
+  try { ok = document.execCommand('copy'); } catch (e) {}
+  sel.removeAllRanges();
+  document.getElementById('msg').textContent = ok ? 'Copied! Now paste into Gmail settings.' : 'Select the signature and press Ctrl/Cmd+C.';
+}
+</script>
+</body>
+</html>
