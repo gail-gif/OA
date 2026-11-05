@@ -5,6 +5,8 @@ description: Turn a client call (Fathom) into deal notes for the CRM - update th
 
 # Deal notes: Notion card + GHL paste block
 
+> After a **Freedom Audit**, use `/post-audit` instead. It covers every GHL field, the full notes, the P.A.I.N. score and follow-up tasks. Use this skill for quick GHL notes after other calls.
+
 Read `.claude/skills/oa-basics/SKILL.md` first. Gail's CRM is **GHL, not HubSpot**. GHL is **not connected**, so always produce text she can paste.
 
 ## 1. Gather

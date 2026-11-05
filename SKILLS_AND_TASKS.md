@@ -19,7 +19,7 @@
 
 ---
 
-## PART 1: Your skills (24)
+## PART 1: Your skills (25)
 
 | # | Skill (type `/name`) | What it does | How often | Status |
 |---|---|---|---|---|
@@ -47,6 +47,7 @@
 | 22 | `/sales-calendar-notes` | Write the Notion Sales Calendar card notes: dated Notes / Status line, fields by stage, page notes in your 8-part format. | Every call / deal | 🆕 New (3 Nov) |
 | 23 | `/call-analysis` | Analyse any Fathom call: summary, client needs in their words, coaching scorecard, objections, P.A.I.N., pricing check, promises, next steps; compare calls for patterns. | Every call | 🆕 New (3 Nov) |
 | 24 | `/scott-referrals` | New Scott/X100 leads: adds missing names to Scott's Leads sheet and drafts your intro reply in Scott's thread (CEO video, brochure, eBooks). | Every Scott referral | 🆕 New (5 Nov) |
+| 25 | `/post-audit` | After every Freedom Audit: full GHL Update Pack (opportunity + contact fields, stage, Freedom Audit notes, P.A.I.N., follow-up tasks) + Notion card + referral tracker. | Every Freedom Audit | 🆕 New (5 Nov) |
 
 ---
 
@@ -423,6 +424,6 @@ See Fractional Partner #9, #12, #17, #18 and Promotions #5.
 | `OA_Q2_Sales_Rock_Recap_Refined.pptx` | 12-slide Q2 recap + next-quarter Rocks |
 | `OA_Q2_Sales_Rock_Recap_Original_Updated.pptx` | Your original deck with the "10 ways to buy" tile |
 | `Yasmine_Johnson_Freedom_Plan_v2.pptx` | Living Freedom Plan template (30 slides) |
-| `.claude/skills/*` | The 24 skills above |
+| `.claude/skills/*` | The 25 skills above |
 
 Other client decks and Freedom Plans (May Ly, Hank Chu, Tom Warriner, Rob Zhang, Krystie Cekic, KayPark, Henry Young, Matt Stone, Kinsen Siu, Mariana, Dr Kelishadi, Jordan & Jennifer Smith, Fractional pricing) were saved on other `claude/…` branches of this repo.

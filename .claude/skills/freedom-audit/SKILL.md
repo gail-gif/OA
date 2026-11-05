@@ -107,6 +107,10 @@ Add page notes in Gail's format:
 7. Readiness Snapshot
 8. Next Steps (as a checklist)
 
+### 4b. Update GHL
+
+Run the `post-audit` skill for the full GHL Update Pack (fields, notes, P.A.I.N., tasks).
+
 ### 5. Report back to Gail
 
 Report briefly:
