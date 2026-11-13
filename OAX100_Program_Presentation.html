@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OAX100 Marketing Program</title>
+<title>OAX100 Marketing Team Builder</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -274,6 +274,25 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
 .why .note,.proc .note{display:inline-block;background:#fff;border-radius:99px;padding:10px 18px;font-size:.92rem;color:var(--teal-ink);font-weight:600}
 .fp .price .credit{font-size:1rem}
 @media (max-width:700px){.path{grid-template-columns:1fr}.path .arrow{transform:rotate(90deg);justify-self:center}}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.opt{background:#fff;border-radius:16px;padding:24px 26px;border-top:6px solid var(--teal);display:flex;flex-direction:column}
+.opt.gold{border-top-color:var(--amber);box-shadow:0 14px 30px -18px rgba(176,125,6,.45)}
+.opt .k{font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-deep)}
+.opt.gold .k{color:#b07d06}
+.opt h3{font-size:1.45rem;font-weight:800;margin:6px 0 4px}
+.opt .for{color:var(--ink-soft);font-size:.95rem}
+.opt ul{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px;flex:1}
+.opt li{padding-left:24px;position:relative;font-size:.95rem}
+.opt li::before{content:"✓";position:absolute;left:0;color:var(--teal-deep);font-weight:800}
+.opt.gold li::before{color:#c48d08}
+.opt .pkg{margin-top:16px;font-size:.8rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:10px}
+.cmp td small{color:var(--ink-soft);font-weight:400}
+.cmp td:nth-child(2),.cmp th:nth-child(2){text-align:left;max-width:360px}
+.flow.f4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.flow .d{display:block;font-size:.75rem;font-weight:600;color:var(--teal-deep);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.ess .tiles div{background:var(--mist)}
+@media (max-width:900px){.flow.f4{grid-template-columns:1fr}.options{grid-template-columns:1fr}}
+
 </style>
 
 </head>
@@ -284,81 +303,118 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
   <section class="slide cover" aria-label="Cover">
     <div class="inner">
       <img class="logo" src="data:image/png;base64,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" alt="Outsourcing Angel">
-      <div class="eyebrow">Exclusive to Outsourcing Angel clients</div>
+      <div class="eyebrow">In partnership with X100</div>
       <h1>OA<span class="amp">X100</span></h1>
-      <span class="tag">Turn your Angel into an AI-powered marketing team.</span>
-      <p class="sub">A 3-month AI marketing program that teaches your team to plan, create and run marketing faster, without adding headcount.</p>
+      <span class="tag">Marketing Team Builder</span>
+      <p class="sub">Build a marketing system and team that does not depend on you.</p>
       <span class="hint2">Scroll or press → to begin</span>
     </div>
         <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#f8c040" d="M0 70 C 320 10, 620 120, 960 60 S 1300 30, 1440 55 V120 H0Z"/><path fill="#ffffff" d="M0 95 C 360 50, 700 130, 1040 85 S 1340 70, 1440 88 V120 H0Z"/></svg>
   </section>
 
   <!-- 2 -->
-  <section class="slide how proc" aria-label="Your Angel first">
+  <section class="slide how why" aria-label="The partnership">
     <div class="inner">
-      <div class="eyebrow">Why your Angel comes first</div>
-      <h2 class="h2">Your Angel first. Then multiply.</h2>
-      <p class="lede">OAX100 works through your team. Your Angel is the one who turns new AI skills into real campaigns, so the program is open only to Outsourcing Angel clients.</p>
-      <div class="path">
-        <div class="pstep"><span class="k">Step 1</span><b>Get your Angel</b><p>Start with Angel Essentials, Managed or Accelerate and build a trusted working rhythm.</p></div>
-        <div class="arrow" aria-hidden="true">→</div>
-        <div class="pstep gold"><span class="k">Step 2</span><b>Add OAX100</b><p>Train your Angel and team to use AI, so they do in a day what used to take a week.</p></div>
+      <div class="eyebrow">The partnership</div>
+      <h2 class="h2">OA's people engine, plus X100's AI marketing system</h2>
+      <div class="split">
+        <div class="col think">
+          <div class="lbl">Outsourcing Angel brings</div>
+          <ul><li>10+ years building remote teams for 2,000+ founders</li><li>Recruitment, management and execution support</li><li>Our 5D Freedom Staffing System™</li></ul>
+        </div>
+        <div class="col do">
+          <div class="lbl">X100 brings</div>
+          <ul><li>The AI marketing system, led by Scott Empringham</li><li>300+ members trained</li><li>1,000+ prompts, workflows and AI recipes</li></ul>
+        </div>
       </div>
+      <p class="note">Together: marketing strategy + AI workflows + leadership + execution.</p>
     </div>
   </section>
 
   <!-- 3 -->
-  <section class="slide how why" aria-label="What is OAX100">
+  <section class="slide ess" aria-label="Included in every option">
     <div class="inner">
-      <div class="eyebrow">What's inside OAX100</div>
-      <h2 class="h2">Your team, trained to market faster with AI</h2>
-      <p class="lede">Delivered with our partner X100, led by AI marketing expert Scott Empringham in the US. Our own team went through it, and it changed how we work.</p>
+      <div class="eyebrow">Included in every option</div>
+      <h2 class="h2">The OAX100 foundation</h2>
       <div class="tiles">
-        <div><b>3 seats for your team</b><span>Your Angel and two more team members join the program.</span></div>
-        <div><b>Weekly live coaching</b><span>Group sessions that walk your team through real marketing work.</span></div>
-        <div><b>Hands-on AI training</b><span>Practical training with AI tools like Claude and Grok.</span></div>
-        <div><b>100 marketing prompts</b><span>Ready to use. A full customer analysis in seconds, not days.</span></div>
-        <div><b>24/7 support</b><span>Unlimited access to the X100 coaches whenever you're stuck.</span></div>
-        <div><b>Your Angel does the doing</b><span>New skills turn straight into content and campaigns.</span></div>
+        <div><b>10-Day AI Marketing Boot Camp</b><span>Gets your team aligned, fast.</span></div>
+        <div><b>Brand Brain</b><span>Your voice, offers and audience in one place.</span></div>
+        <div><b>Strategy session</b><span>Clear priorities and direction.</span></div>
+        <div><b>90-Day Execution Plan</b><span>Owners, outcomes and rhythm.</span></div>
+        <div><b>AI recipes + prompt stacks</b><span>Repeatable workflows for content and campaigns.</span></div>
+        <div><b>Weekly live training + 24/7 support</b><span>WhatsApp support and a training vault when your team gets stuck.</span></div>
       </div>
-      <p class="note">Need more? Add Fractional Marketing leadership or more Marketing Angels, only when you need them.</p>
     </div>
   </section>
 
   <!-- 4 -->
-  <section class="slide fp" aria-label="Investment">
-    <div class="inner grid">
-      <div class="price">
-        <div class="k">OAX100 Marketing Program</div>
-        <div class="big">$10,000</div>
-        <div class="unit">3-month program</div>
-        <div class="credit">Or spread it out: pay in 3 instalments with 3Gives.</div>
-      </div>
-      <div>
-        <div class="eyebrow">Your investment</div>
-        <h2 class="h2">Three months to a marketing team that keeps up with AI.</h2>
-        <ul class="checks">
-          <li><i>1</i><div><b>Exclusive to OA clients</b><span>Available once your Angel is on board.</span></div></li>
-          <li><i>2</i><div><b>Three seats included</b><span>Train your Angel and your team together.</span></div></li>
-          <li><i>3</i><div><b>More output, same headcount</b><span>Better marketing, faster, without hiring anyone new.</span></div></li>
-        </ul>
+  <section class="slide how opts" aria-label="Two ways to join">
+    <div class="inner">
+      <div class="eyebrow">Two ways to join</div>
+      <h2 class="h2">Enrol your team, or add your Angel too</h2>
+      <div class="options">
+        <div class="opt">
+          <span class="k">Option 1</span>
+          <h3>Enrol your team</h3>
+          <p class="for">You already have people who can do the marketing.</p>
+          <ul>
+            <li>OAX100 AI Marketing Training</li>
+            <li><b>3 seats</b> for your team or current VA</li>
+            <li>Weekly live training &amp; community</li>
+            <li>24/7 WhatsApp support</li>
+          </ul>
+          <div class="pkg">OAX100 Marketing System</div>
+        </div>
+        <div class="opt gold">
+          <span class="k">Option 2 · Recommended</span>
+          <h3>Your Angel + OAX100</h3>
+          <p class="for">You need someone to lead and someone to do the work.</p>
+          <ul>
+            <li>Everything in Option 1</li>
+            <li><b>Fractional Marketing Manager</b>, 1:1 every week</li>
+            <li><b>Your own marketing Angel</b>, recruited by OA</li>
+            <li>Choose part-time (80 hrs/month) or full-time (160 hrs/month)</li>
+          </ul>
+          <div class="pkg">OAX100 Marketing Angel Lite or Premium</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- 5 -->
-  <section class="slide how proc" aria-label="How it works">
+  <section class="slide how cmp" aria-label="Investment">
     <div class="inner">
-      <div class="eyebrow">How it works</div>
-      <h2 class="h2">From your first Angel to marketing that multiplies</h2>
-      <ol class="flow">
-        <li><span class="n">1</span><b>Get your Angel</b><p>Hire your Angel through Outsourcing Angel and settle into a rhythm.</p></li>
-        <li><span class="n">2</span><b>Alignment Call</b><p>We check OAX100 fits your goals and choose your 3 seats.</p></li>
-        <li><span class="n">3</span><b>Join X100</b><p>Your team gets access to the program, prompts and coaches.</p></li>
-        <li><span class="n">4</span><b>Weekly coaching</b><p>Live sessions each week, then your Angel puts it to work.</p></li>
-        <li><span class="n">5</span><b>3-month review</b><p>Look at results and decide your next step together.</p></li>
+      <div class="eyebrow">Your investment · AUD</div>
+      <h2 class="h2">Pay upfront, or spread it over 6 months</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Option</th><th>Includes</th><th>Upfront</th><th class="pick">Payment plan</th></tr></thead>
+          <tbody>
+            <tr><td><b>1 · Marketing System</b><br><small>Enrol your team</small></td><td>AI training, 3 seats, weekly live training, 24/7 support</td><td><b>$10,000</b></td><td class="pick"><b>$2,000 × 6</b><br><small>= $12,000</small></td></tr>
+            <tr class="diff"><td><b>2 · Angel Lite</b><br><small>Part-time Angel</small></td><td>Everything in 1 + Fractional Marketing Manager + part-time Angel (80 hrs/month)</td><td><b>$35,000</b></td><td class="pick"><b>$6,000 × 6</b><br><small>= $36,000</small></td></tr>
+            <tr class="diff"><td><b>2 · Angel Premium</b><br><small>Full-time Angel</small></td><td>Everything in 1 + Fractional Marketing Manager + full-time Angel (160 hrs/month)</td><td><b>$40,000</b></td><td class="pick"><b>$7,000 × 6</b><br><small>= $42,000</small></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="terms">
+        <span><b>6-month</b> engagement</span>
+        <span><b>After 6 months</b>, adjust your support to suit your business and budget</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide how proc" aria-label="Your first 90 days">
+    <div class="inner">
+      <div class="eyebrow">Implementation journey</div>
+      <h2 class="h2">Your first 90 days with OAX100</h2>
+      <ol class="flow f4">
+        <li><span class="n">1</span><b>Align</b><small class="d">Days 1–10</small><p>Onboarding, Boot Camp and team access.</p></li>
+        <li><span class="n">2</span><b>Plan</b><small class="d">Days 10–20</small><p>Brand Brain, strategy session and 90-day priorities.</p></li>
+        <li><span class="n">3</span><b>Build</b><small class="d">Days 20–45</small><p>Create core assets, campaigns and workflows.</p></li>
+        <li><span class="n">4</span><b>Execute</b><small class="d">Days 45–90</small><p>Publish, review, improve and build rhythm.</p></li>
       </ol>
-      <p class="note">Not an Outsourcing Angel client yet? Your first step is a free Freedom Audit.</p>
+      <p class="note">By day 90: a clearer strategy, repeatable AI workflows and a stronger execution rhythm.</p>
     </div>
   </section>
 
@@ -366,9 +422,9 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
   <section class="slide cta" aria-label="Next step">
     <div class="inner">
       <div class="eyebrow" style="color:#fff;opacity:.85">Your next step</div>
-      <h2>Ready to <u>multiply</u> your marketing?</h2>
-      <p>Talk to your Account Manager about adding OAX100. New to Outsourcing Angel? Start with a free Freedom Audit and your first Angel.</p>
-      <a class="btn" href="https://outsourcingangel.com.au" target="_blank" rel="noopener">Get started with OAX100</a>
+      <h2>Build marketing that <u>doesn't depend on you.</u></h2>
+      <p>We'll confirm your gap (system, leadership or execution), recommend the right option and get your team onboarded.</p>
+      <a class="btn" href="https://outsourcingangel.com.au" target="_blank" rel="noopener">Book your OAX100 call</a>
       <div class="contact">
         <div><small>Phone</small><span>+61 481 612 698</span></div>
         <div><small>Email</small><span>info@outsourcingangel.com.au</span></div>
@@ -383,7 +439,7 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
 
 <nav class="nav" aria-label="Slide navigation">
   <button type="button" id="prev" aria-label="Previous slide">↑</button>
-  <output id="count">1 / 6</output>
+  <output id="count">1 / 7</output>
   <button type="button" id="next" aria-label="Next slide">↓</button>
 </nav>
 
