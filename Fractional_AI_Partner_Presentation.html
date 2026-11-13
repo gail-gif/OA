@@ -238,6 +238,17 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
 .tiles span{color:var(--ink-soft);font-size:.92rem}
 @media (max-width:900px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){.tiles{grid-template-columns:1fr}}
+
+.flow{list-style:none;padding:0;margin:30px 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;position:relative}
+.flow::before{content:"";position:absolute;left:22px;right:22px;top:21px;height:3px;background:linear-gradient(90deg,var(--teal),var(--amber));z-index:0}
+.flow li{position:relative;z-index:1}
+.flow .n{width:44px;height:44px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.1rem;box-shadow:0 0 0 6px var(--mist)}
+.flow li:nth-child(2) .n{background:var(--amber);color:var(--ink)}
+.flow b{display:block;font-family:var(--display);font-size:1.02rem;margin:16px 0 6px}
+.flow p{color:var(--ink-soft);font-size:.92rem}
+.proc .note{margin-top:28px;display:inline-block;background:#fff;border-radius:99px;padding:10px 18px;font-size:.92rem;color:var(--teal-ink);font-weight:600}
+@media (max-width:900px){.flow{grid-template-columns:1fr;gap:18px}.flow::before{left:21px;right:auto;width:3px;top:22px;bottom:22px;height:auto;background:linear-gradient(180deg,var(--teal),var(--amber))}
+ .flow li{display:grid;grid-template-columns:44px 1fr;column-gap:16px}.flow li .n{grid-row:span 2}.flow b{margin:8px 0 2px}}
 </style>
 
 </head>
@@ -302,8 +313,8 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
         <div class="eyebrow">Package one</div>
         <h2 class="h2">AI &amp; Systems Advisory</h2>
         <div class="motto">Get clear on AI. Then act.</div>
-        <div class="fee"><b>$2,500</b><span>per month + GST</span></div>
-        <p class="plus"><strong>2 × 90-minute</strong> working sessions a month (3 hours)</p>
+        <div class="fee"><b>2 sessions</b><span>a month · 90 minutes each</span></div>
+        <p class="plus">A working session every <strong>fortnight</strong>, about 3 hours of senior time a month.</p>
         <div class="best"><b>Best for:</b> businesses asking "how do we use AI?" that want senior guidance before, or alongside, their next hire.</div>
       </div>
       <div class="incl">
@@ -324,11 +335,11 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
   <section class="slide ess acc" aria-label="Advisory Plus">
     <div class="inner grid">
       <div>
-        <div class="eyebrow">Package two · Best value</div>
+        <div class="eyebrow">Package two · Weekly</div>
         <h2 class="h2">AI &amp; Systems Advisory Plus</h2>
         <div class="motto">Weekly support while you redesign.</div>
-        <div class="fee"><b>$4,500</b><span>per month + GST</span></div>
-        <p class="plus"><strong>4 × 90-minute</strong> sessions a month (6 hours). That's <strong>$500 a month less</strong> than two Advisory packages.</p>
+        <div class="fee"><b>4 sessions</b><span>a month · 90 minutes each</span></div>
+        <p class="plus">A working session every <strong>week</strong>, about 6 hours of senior time a month.</p>
         <div class="best"><b>Best for:</b> businesses actively redesigning how they work that want a strategic partner every week.</div>
       </div>
       <div class="incl">
@@ -351,7 +362,6 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
         <table>
           <thead><tr><th></th><th>Advisory</th><th class="pick">Advisory Plus</th></tr></thead>
           <tbody>
-            <tr><td>Monthly fee (+ GST)</td><td><b>$2,500</b></td><td class="pick"><b>$4,500</b></td></tr>
             <tr><td>90-minute working sessions</td><td><b>2 a month</b></td><td class="pick"><b>4 a month</b></td></tr>
             <tr><td>AI &amp; systems diagnostic</td><td><span class="y">✓</span></td><td class="pick"><span class="y">✓</span></td></tr>
             <tr><td>AI &amp; automation recommendations</td><td><span class="y">✓</span></td><td class="pick"><span class="y">✓</span></td></tr>
@@ -367,10 +377,27 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
         <div class="gold"><b>Choose Advisory Plus if</b> you're changing how the business runs and want weekly hands-on strategy.</div>
       </div>
       <div class="terms">
+        <span><b>Pricing</b> confirmed on your Alignment Call</span>
         <span><b>3-month minimum</b>, then ongoing</span>
         <span><b>Building, coding &amp; training</b> scoped separately</span>
         <span><b>Need hands to implement?</b> Add an AI-ready Angel</span>
       </div>
+    </div>
+  </section>
+
+  <!-- 6b -->
+  <section class="slide how proc" aria-label="How it works">
+    <div class="inner">
+      <div class="eyebrow">How it works</div>
+      <h2 class="h2">From first call to clear results</h2>
+      <ol class="flow">
+        <li><span class="n">1</span><b>Freedom Audit</b><p>A free call to understand your business and where AI could help.</p></li>
+        <li><span class="n">2</span><b>Alignment Call</b><p>We agree your goals, choose your package and confirm your investment.</p></li>
+        <li><span class="n">3</span><b>AI &amp; systems diagnostic</b><p>Your specialist maps your tools, workflows and biggest opportunities.</p></li>
+        <li><span class="n">4</span><b>Working sessions</b><p>Regular 90-minute sessions to make decisions and redesign how work gets done.</p></li>
+        <li><span class="n">5</span><b>Written actions</b><p>Clear priorities after every session, so progress keeps moving.</p></li>
+      </ol>
+      <p class="note">Need help building it? Implementation and AI-ready Angels can be added at any stage.</p>
     </div>
   </section>
 
@@ -395,7 +422,7 @@ td b{font-family:var(--display);font-variant-numeric:tabular-nums}
 
 <nav class="nav" aria-label="Slide navigation">
   <button type="button" id="prev" aria-label="Previous slide">↑</button>
-  <output id="count">1 / 7</output>
+  <output id="count">1 / 8</output>
   <button type="button" id="next" aria-label="Next slide">↓</button>
 </nav>
 
