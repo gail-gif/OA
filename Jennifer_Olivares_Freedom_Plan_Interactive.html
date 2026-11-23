@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jennifer Olivares Freedom Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400..700&family=Lato:wght@400;700&display=swap">
+<style>
+:root{
+  --navy:#1B2430;--navy2:#243041;--bg:#FAFBF9;--card:#FFFFFF;--tint:#E4F2EC;--grey:#F1F4F2;--line:#DDE4E0;
+  --green:#187A5E;--deep:#11604A;--mint:#3CC29A;--body:#4A5563;--muted:#6B7480;--amber:#9A5A08;--amberBg:#FFF6E8;--amberLine:#D9A35A;
+  --red:#B42318;--redBg:#FDECEA;
+  --serif:'Source Serif 4',Georgia,serif;--sans:'Lato',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;background:var(--bg);color:var(--navy);font:16px/1.55 var(--sans)}
+a{color:var(--green)}
+h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.15}
+p{margin:0}
+.bar{position:sticky;top:0;z-index:20;background:rgba(250,251,249,.97);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1220px;margin:auto;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.12em;font-size:12px;text-transform:uppercase;color:var(--green);white-space:nowrap}
+.tabs{display:flex;gap:6px;background:var(--grey);padding:4px;border-radius:99px}
+.tabs button{border:0;background:none;border-radius:99px;padding:7px 14px;font:700 13px var(--sans);color:var(--body);cursor:pointer}
+.tabs button.on{background:var(--navy);color:#fff}
+.progress{flex:1;min-width:140px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.track{flex:1;height:8px;background:var(--grey);border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--green);transition:width .3s}
+.btn{border:0;border-radius:99px;padding:8px 14px;font:700 13px var(--sans);cursor:pointer;background:var(--green);color:#fff;white-space:nowrap}
+.btn.ghost{background:var(--grey);color:var(--navy)}
+.btn.small{padding:5px 10px;font-size:12px}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,.tabs button:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+.saved{font-size:12px;color:var(--muted);white-space:nowrap}
+.wrap{max-width:1220px;margin:auto;padding:0 16px;display:grid;grid-template-columns:230px 1fr;gap:32px}
+nav.side{position:sticky;top:72px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;padding:24px 0;font-size:14px}
+nav.side b{display:block;margin:14px 0 6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+nav.side a{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;border-radius:8px;color:var(--navy);text-decoration:none}
+nav.side a:hover{background:var(--grey)}
+nav.side a.on{background:var(--tint);color:var(--deep);font-weight:700}
+nav.side a .dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex:none;margin-top:7px}
+nav.side a.done .dot{background:var(--green)}
+main{padding:24px 0 80px;min-width:0}
+.view{display:none}.view.on{display:block}
+.hero{background:var(--navy);color:#F4F6F3;border-radius:20px;padding:44px 44px;position:relative;overflow:hidden;margin-bottom:24px}
+.hero:after{content:"";position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;background:var(--navy2)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.hero .eyebrow{color:var(--mint)}
+.hero h1{font-size:clamp(34px,5.5vw,56px);margin:12px 0 10px}
+.hero h1 span{color:var(--mint)}
+.hero .for{font-size:20px}
+.hero p.lead{color:#BFC9D3;max-width:700px;margin-top:12px}
+section.s{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px;margin-bottom:22px}
+section.s>header{margin-bottom:18px}
+section.s h2{font-size:29px;margin:6px 0 6px}
+.sub{color:var(--body)}
+.part{margin:34px 0 14px;font:700 13px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid2>*,.grid3>*{min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card.tint{background:var(--tint);border-color:var(--tint)}
+.card.grey{background:var(--grey);border-color:var(--grey)}
+.card.dark{background:var(--navy);border-color:var(--navy);color:#F4F6F3}
+.card h3{font-size:19px;margin-bottom:8px}
+.label{font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:8px;display:block}
+.note{font-size:14px;color:var(--muted)}
+ul.clean{margin:0;padding-left:20px}ul.clean li{margin:4px 0}
+.field{display:block;margin-top:14px}
+.field>span{display:block;font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+textarea,input[type=text],input[type=date],input[type=number],select{width:100%;font:15px/1.5 var(--sans);color:var(--navy);background:var(--amberBg);border:1.5px dashed var(--amberLine);border-radius:10px;padding:9px 11px}
+textarea{min-height:78px;resize:vertical}
+textarea::placeholder,input::placeholder{color:#8E8676;font-style:italic}
+.choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.chip span{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1.5px solid var(--amberLine);border-radius:99px;font-size:14px;background:#fff;cursor:pointer;user-select:none}
+.chip span:before{content:"";width:14px;height:14px;border:1.5px solid var(--amberLine);border-radius:4px;background:#fff}
+.chip input[type=radio]+span:before{border-radius:50%}
+.chip input:checked+span{background:var(--green);border-color:var(--green);color:#fff}
+.chip input:checked+span:before{background:#fff;border-color:#fff;box-shadow:inset 0 0 0 3px var(--green)}
+.chip input:focus-visible+span{outline:3px solid var(--mint);outline-offset:2px}
+.fb{margin-top:20px;padding:16px;border-radius:14px;background:var(--amberBg);border:1px solid #F1DDBD}
+.fb .label{color:var(--amber);margin:0 0 8px}
+.fb textarea{background:#fff}
+.quote{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 16px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.quote q{font:italic 17px var(--serif)}
+.quote small{display:block;color:var(--muted);margin-top:2px}
+.stages{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:8px 0 14px 160px}
+.stage{text-align:center;padding:14px 8px;border-radius:14px;border:1px solid var(--line);background:#fff}
+.stage .n{width:44px;height:44px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;font-weight:700;border:2px solid var(--line);color:var(--body)}
+.stage.today .n{background:var(--navy);border-color:var(--navy);color:#fff}
+.stage.target .n{background:var(--green);border-color:var(--green);color:#fff}
+.stage h4{margin:0;font:700 15px var(--serif)}
+.stage p{font-size:12.5px;color:var(--muted);margin-top:4px}
+.stage .tag{font:700 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-top:6px;min-height:14px}
+.markrow{display:grid;grid-template-columns:150px repeat(5,1fr);gap:10px;align-items:center;margin-top:6px}
+.markrow>b{font-size:13px;color:var(--amber)}
+.markrow label{display:flex;justify-content:center}
+.markrow input{width:20px;height:20px;accent-color:var(--green)}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl th{background:var(--green);color:#fff;text-align:left;padding:9px 10px;font-size:13px;white-space:nowrap}
+.tbl td{border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:middle}
+.tbl td input,.tbl td select,.tbl td textarea{padding:6px 8px;font-size:14px}
+.tbl td textarea{min-height:40px;min-width:170px}
+.tbl td input[type=text]{min-width:170px}
+.tbl td.c{text-align:center}
+.tbl input[type=checkbox]{width:20px;height:20px;accent-color:var(--green)}
+.tbl .x{border:0;background:var(--grey);border-radius:6px;cursor:pointer;padding:4px 8px;color:var(--navy)}
+.scroll{overflow-x:auto}
+.share{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:14px}
+.share span{white-space:nowrap}
+.share input{flex:1;min-width:0;accent-color:var(--green)}
+.share output{font-weight:700;color:var(--green);min-width:44px;text-align:right}
+.rate{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.stars{display:flex;gap:6px}
+.stars label{position:relative}
+.stars input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.stars span{display:grid;place-items:center;width:34px;height:34px;border-radius:8px;border:1.5px solid var(--amberLine);font-weight:700;color:var(--amber);background:#fff;cursor:pointer}
+.stars input:checked+span{background:var(--green);border-color:var(--green);color:#fff}
+.stars input:focus-visible+span{outline:3px solid var(--mint)}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.board>*{min-width:0}
+.col{border-radius:14px;padding:14px;min-height:200px;border:1px solid var(--line)}
+.col h3{font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.item{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:8px;font-size:14px}
+.item span{flex:1}
+.item button{border:0;background:var(--grey);border-radius:6px;cursor:pointer;font-size:12px;padding:3px 7px;color:var(--navy)}
+.add{display:flex;gap:6px;margin-top:6px}
+.add input{padding:7px 9px;font-size:14px}
+.num{width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;flex:none;font-size:14px}
+.out{display:flex;gap:12px;align-items:flex-start;margin:10px 0}
+.price{font:700 34px var(--serif);color:var(--green)}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.days>*{min-width:0}
+.day{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+.day h3{font:700 15px var(--serif);margin-bottom:2px}
+.day .hrs{font-size:12px;color:var(--muted);margin-bottom:8px}
+.task{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;padding:5px 0;border-top:1px solid var(--grey)}
+.task input{margin-top:3px;width:17px;height:17px;accent-color:var(--green);flex:none}
+.task.done span{color:var(--muted);text-decoration:line-through}
+.tag2{display:inline-block;font:700 10px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--amber);background:var(--amberBg);border-radius:6px;padding:1px 6px;margin-left:4px}
+.weekbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.weekbar input{width:auto}
+.pill{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:700}
+.pill.ok{background:var(--tint);color:var(--deep)}
+.pill.soon{background:var(--amberBg);color:var(--amber)}
+.pill.late{background:var(--redBg);color:var(--red)}
+.callout{padding:14px 16px;border-radius:12px;background:var(--tint);color:var(--deep);font-weight:700;font-size:14.5px;margin-top:14px}
+.kpi td.c select{min-width:84px}
+.howto{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 0}
+@media (max-width:960px){
+  .wrap{grid-template-columns:1fr}
+  nav.side{display:none}
+  .grid2,.grid3,.board,.howto{grid-template-columns:1fr}
+  .stages{grid-template-columns:1fr 1fr;margin-left:0}
+  .markrow{grid-template-columns:110px repeat(5,1fr)}
+  section.s{padding:22px 16px}
+  .hero{padding:32px 20px}
+  .quote{grid-template-columns:1fr}
+}
+@media (max-width:560px){.days{grid-template-columns:1fr}}
+@media print{
+  .bar,nav.side,.btn,.add,.item button,.tbl .x{display:none!important}
+  .wrap{display:block}.view{display:block!important}
+  section.s{break-inside:avoid;border-color:#ccc}
+  body{background:#fff}
+}
+.weekbar .btn.small{margin-left:4px}
+input[type=month]{width:100%;font:15px/1.5 var(--sans);color:var(--navy);background:var(--amberBg);border:1.5px dashed var(--amberLine);border-radius:10px;padding:9px 11px}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">
+  <div class="brand">Outsourcing Angel · Freedom Plan™</div>
+  <div class="tabs" role="tablist" aria-label="Plan views">
+    <button type="button" role="tab" data-view="review" class="on" aria-selected="true">1 · Review the plan</button>
+    <button type="button" role="tab" data-view="toolkit" aria-selected="false">2 · Working toolkit</button>
+  </div>
+  <div class="progress" aria-live="polite"><div class="track"><div class="fill" id="fill"></div></div><span id="pct">0% reviewed</span></div>
+  <span class="saved" id="saved">Not saved yet</span>
+  <button class="btn ghost" id="moreBtn" type="button" aria-haspopup="true">Save &amp; share ▾</button>
+</div>
+<div id="menu" hidden style="max-width:1220px;margin:auto;padding:0 16px 12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+  <button class="btn" type="button" id="dlBtn">Download feedback summary</button>
+  <button class="btn ghost" type="button" id="exportBtn">Back up everything (file)</button>
+  <button class="btn ghost" type="button" id="importBtn">Load a backup</button>
+  <button class="btn ghost" type="button" onclick="window.print()">Print / PDF</button>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</div>
+</div>
+
+<div class="wrap">
+<nav class="side" id="side" aria-label="Sections"></nav>
+<main id="main">
+
+<!-- ======================= VIEW 1: REVIEW ======================= -->
+<div class="view on" id="view-review">
+<div class="hero">
+  <div class="eyebrow">Outsourcing Angel · Interactive edition</div>
+  <h1>The Freedom <span>Plan™</span></h1>
+  <p class="for">Prepared for <b>Jennifer Olivares</b> | <b>Counseling Center Group</b></p>
+  <p class="lead">Your plan for one Marketing Specialist role, shared by two Angels: <b>Brent</b> (30 hrs/week) and <b>Cris</b> (20 hrs/week), both starting Tuesday 1 December. Built from our Freedom Audit (20 October), your team’s role brief and the November interviews. Tick what’s right, change what isn’t, and comment on any section. Then keep using the <b>Working toolkit</b> with Brent and Cris every week.</p>
+</div>
+
+<section class="s" data-title="How to use this plan" id="howto">
+  <header><div class="eyebrow">Getting started</div><h2>How to use this interactive plan</h2><p class="sub">Two minutes to read. Everything you type saves automatically in this browser.</p></header>
+  <div class="howto">
+    <div class="card"><div class="num">1</div><h3 style="margin-top:10px">Review</h3><p class="note">Go through tab 1. Tick, rate and comment in the amber boxes on each section.</p></div>
+    <div class="card"><div class="num">2</div><h3 style="margin-top:10px">Split the work</h3><p class="note">On “The role”, choose who owns each area: Brent, Cris or both.</p></div>
+    <div class="card"><div class="num">3</div><h3 style="margin-top:10px">Send feedback</h3><p class="note">“Save &amp; share” → “Download feedback summary”, and email it to Gail.</p></div>
+    <div class="card"><div class="num">4</div><h3 style="margin-top:10px">Work together</h3><p class="note">From 1 December, use tab 2 with Brent and Cris: weekly rhythm, trackers, logs and KPIs.</p></div>
+  </div>
+</section>
+
+<div class="part">Part A · Our recommendation</div>
+
+<section class="s" data-title="The goal" id="goal" data-review>
+  <header><div class="eyebrow">Part A · 01</div><h2>The goal</h2><p class="sub">What this plan is for, in one line.</p></header>
+  <div class="grid2">
+    <div class="card dark"><div class="eyebrow" style="color:var(--mint)">Two Angels, one marketing role</div><h3 style="font-size:28px;color:#F4F6F3;margin:8px 0 10px">More inquiries, less doing</h3><p style="color:#BFC9D3">Not just extra hands, but a marketing team that runs the plan. Jennifer sets the strategy, while Brent and Cris keep every profile, post and page working towards 3–4x inquiries.</p></div>
+    <div class="card tint"><span class="label">Three outcomes we’re aiming for</span>
+      <div class="out"><div class="num">1</div><b>Inquiries growing towards 3–4x, tracked monthly by channel</b></div>
+      <div class="out"><div class="num">2</div><b>Every Google Business Profile and directory listing current, optimised and posted to</b></div>
+      <div class="out"><div class="num">3</div><b>No AI mistakes published, and Jennifer steps out of day-to-day tasks by Month 6</b></div>
+    </div>
+  </div>
+  <div class="choices" data-k="goal.ok" data-type="radio" data-options="Yes, that’s the goal|Close, let’s reword it"></div>
+  <div class="fb"><span class="label">Your comments</span><textarea data-k="goal.c" placeholder="The goal in your own words, or anything to change…"></textarea></div>
+</section>
+
+<section class="s" data-title="What we heard" id="heard" data-review>
+  <header><div class="eyebrow">Part A · 02</div><h2>What we heard</h2><p class="sub">In your words, from our Freedom Audit and your team’s emails. Tell us if we got any of it wrong.</p></header>
+  <div id="quotes"></div>
+  <div class="fb"><span class="label">Anything we missed?</span><textarea data-k="heard.c" placeholder="What else should Brent and Cris know about the practice, the team or your clients?"></textarea></div>
+</section>
+
+<section class="s" data-title="Key observations" id="observations" data-review>
+  <header><div class="eyebrow">Part A · 03</div><h2>Key observations</h2><p class="sub">How marketing runs today, and why this role exists.</p></header>
+  <p>Counseling Center Group is growing, and the marketing team (Jennifer as CMO, a content manager, a digital growth director and a part-time team member) keeps needing more hands. This is the team’s first offshore hire, alongside the X100 program with Scott.</p>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card"><span class="label">What we heard</span><p>Several Google Business Profiles to post on and optimise, AI-generated social posts that need a human check, automated blog content to publish in WordPress (Elementor), directory profiles such as Psychology Today, and light video and podcast editing.</p>
+      <div class="choices" data-k="obs.a" data-type="radio" data-options="Accurate|Needs a tweak"></div></div>
+    <div class="card"><span class="label">Hiring insight</span><p>Jennifer doesn’t want to teach marketing. The team needs focused implementers who already know social media, analytics and website back ends, and can take the strategic plan and run with it.</p>
+      <div class="choices" data-k="obs.b" data-type="radio" data-options="Accurate|Needs a tweak"></div></div>
+  </div>
+  <div class="fb"><span class="label">Your comments</span><textarea data-k="obs.c" placeholder="Locations, channels, team members, how things really work…"></textarea></div>
+</section>
+
+<section class="s" data-title="Leverage gap" id="gap" data-review>
+  <header><div class="eyebrow">Part A · 04</div><h2>Leverage gap analysis</h2><p class="sub">The biggest leverage point: the channels that bring in inquiries, which need steady, skilled hands every day.</p></header>
+  <div class="grid2">
+    <div class="card"><span class="label" style="color:var(--muted)">Today</span><div id="gapToday"></div></div>
+    <div class="card tint"><span class="label">Where we’re going</span><div id="gapGoing"></div></div>
+  </div>
+  <div class="fb"><span class="label">What would make the biggest difference first?</span><textarea data-k="gap.c" placeholder="If Brent and Cris could only fix one thing in December…"></textarea></div>
+</section>
+
+<section class="s" data-title="Freedom Stage" id="stage" data-review>
+  <header><div class="eyebrow">Part A · 05</div><h2>Your Freedom Stage</h2><p class="sub">Where marketing support is today, and the path this plan takes. Mark where you are and where you want to be.</p></header>
+  <div class="stages" id="stages"></div>
+  <div class="markrow" id="markToday"></div>
+  <div class="markrow" id="markTarget"></div>
+  <div class="callout">Outcome Owner by Day 90: the marketing plan runs with light oversight. Freedom by Month 6: two Angels who run it day to day and bring ideas back.</div>
+  <div class="fb"><span class="label">What would “Freedom” look like for you?</span><textarea data-k="stage.c" placeholder="e.g. a monthly report lands and I only make the decisions…"></textarea></div>
+</section>
+
+<section class="s" data-title="The role" id="role" data-review>
+  <header><div class="eyebrow">Part A · 06</div><h2>The role: six areas, two Angels</h2><p class="sub">One Marketing Specialist role. For each area, agree the scope and choose who owns it. We’ve pre-selected a suggested starting split.</p></header>
+  <div class="grid3" id="areas"></div>
+  <div class="callout" id="splitStat"></div>
+  <div class="fb"><span class="label">Anything to add or remove?</span><textarea data-k="role.c" placeholder="Tasks that belong here, or shouldn’t…"></textarea></div>
+</section>
+
+<section class="s" data-title="Your Angels" id="angels" data-review>
+  <header><div class="eyebrow">Part A · 07</div><h2>Meet your Angels</h2><p class="sub">You interviewed both on 17 November and offered both a role on 20 November. They overlap 9am–1pm ET every day.</p></header>
+  <div class="grid2" id="angelCards"></div>
+  <div class="fb"><span class="label">Who should cover for whom during leave?</span><textarea data-k="angels.cover" placeholder="e.g. Cris covers GBP posts when Brent is on leave…"></textarea></div>
+</section>
+
+<section class="s" data-title="Client privacy & BAA" id="privacy" data-review>
+  <header><div class="eyebrow">Part A · 08 · Safeguards</div><h2>Client privacy &amp; your BAA</h2><p class="sub">You asked whether both Angels would sign a BAA. Yes: both Brent and Cris will review and sign it before Day 1. These safeguards keep marketing work away from client health information.</p></header>
+  <div class="scroll"><table class="tbl"><thead><tr><th>Safeguard</th><th>Set up by</th><th class="c">Done</th></tr></thead><tbody id="secBody"></tbody></table></div>
+  <div class="grid2">
+    <label class="field"><span>Who approves replies to Google reviews?</span><input type="text" data-k="sens.reviews" placeholder="e.g. Jennifer, or the content manager"></label>
+    <label class="field"><span>Topics the Angels should never post or reply about</span><input type="text" data-k="sens.never" placeholder="e.g. anything about a specific client or session"></label>
+  </div>
+  <div class="fb"><span class="label">Your comments</span><textarea data-k="sens.c" placeholder="Anything else about access, privacy or approvals…"></textarea></div>
+</section>
+
+<section class="s" data-title="Investment" id="investment" data-review>
+  <header><div class="eyebrow">Part A · 09</div><h2>Investment</h2><p class="sub">Angel Managed, in USD per month, as confirmed by Charyl on 22 November.</p></header>
+  <div class="grid3">
+    <div class="card" style="border:2px solid var(--green)"><span class="label">Brent · 30 hrs/week</span><div class="price">$2,750</div><p class="note">US$1,950 rate (US$15/hr) + US$800 management, the 2nd-Angel rate</p></div>
+    <div class="card"><span class="label">Cris · 20 hrs/week</span><div class="price">$1,954</div><p class="note">US$954 rate (US$11/hr) + US$1,000 management</p></div>
+    <div class="card tint"><span class="label">Both Angels</span><div class="price" style="color:var(--deep)">$4,704</div><p class="note">per month. Management covers your Account Manager, CAX check-ins, team leaders, payroll, health vouchers and incentives.</p></div>
+  </div>
+  <p class="note" style="margin-top:12px">$500 refundable USD deposit (paid) · 3-month minimum, then 30-day notice · a monthly auto-debit for each Angel · free replacement any time, with a 1-week trial.</p>
+  <div class="fb"><span class="label">Questions about the investment</span><textarea data-k="inv.c" placeholder="Anything you’d like walked through again?"></textarea></div>
+</section>
+
+<section class="s" data-title="Next steps" id="next">
+  <header><div class="eyebrow">Part A · 10</div><h2>Next steps</h2><p class="sub">Tick each one off as it’s done.</p></header>
+  <div id="steps"></div>
+</section>
+
+<section class="s" data-title="Your overall feedback" id="feedback" data-review>
+  <header><div class="eyebrow">Over to you</div><h2>Your overall feedback</h2><p class="sub">Rate each part from 1 (not right yet) to 5 (spot on).</p></header>
+  <div id="ratings"></div>
+  <div class="grid2">
+    <label class="field"><span>What would you change?</span><textarea data-k="fb.change" placeholder="Anything that doesn’t fit how your team works…"></textarea></label>
+    <label class="field"><span>What did we miss?</span><textarea data-k="fb.miss" placeholder="Channels, tools, locations or busy periods…"></textarea></label>
+  </div>
+  <div class="choices" data-k="fb.ready" data-type="radio" data-options="Happy with the plan|Let’s talk first"></div>
+  <div class="grid2"><label class="field"><span>Your name</span><input type="text" data-k="fb.name" placeholder="Jennifer Olivares"></label><label class="field"><span>Date</span><input type="date" data-k="fb.date"></label></div>
+  <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="button" onclick="downloadSummary()">Download feedback summary</button><button class="btn ghost" type="button" onclick="showView('toolkit',true)">Go to the Working toolkit →</button></div>
+</section>
+</div>
+
+<!-- ======================= VIEW 2: TOOLKIT ======================= -->
+<div class="view" id="view-toolkit">
+<div class="hero" style="padding:34px 40px">
+  <div class="eyebrow">Part B · Working toolkit</div>
+  <h1 style="font-size:clamp(30px,4.5vw,46px)">Working with <span>Brent &amp; Cris</span></h1>
+  <p class="lead">Use these pages every week with your Angels and at each check-in with Outsourcing Angel. One role, one task board, two people: Jennifer sets the strategy, and Brent and Cris run it.</p>
+</div>
+
+<div class="part">Getting started</div>
+
+<section class="s" data-title="Day 1 setup" id="dayone">
+  <header><div class="eyebrow">Toolkit · 01</div><h2>Day 1 setup checklist</h2><p class="sub">Assign an owner and a date. Tick when done. Day 1 is Tuesday 1 December.</p></header>
+  <div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Owner</th><th>Done by</th><th class="c">Done</th></tr></thead><tbody id="setupBody"></tbody></table></div>
+</section>
+
+<section class="s" data-title="Working with Jennifer" id="working">
+  <header><div class="eyebrow">Toolkit · 02</div><h2>Working with Jennifer</h2><p class="sub">Fill this in together in Week 1. It becomes Brent and Cris’s guide to working with you.</p></header>
+  <div class="grid3" style="margin-bottom:6px">
+    <div class="card grey"><span class="label">How Jennifer works</span><p class="note">Sets the strategy and wants implementers who run with it. Leads this project directly from December, alongside the X100 program with Scott’s team.</p></div>
+    <div class="card grey"><span class="label">What matters most</span><p class="note">Marketing know-how and accuracy: on-brand posts, no AI mistakes, correct details on every profile. Client privacy always comes first.</p></div>
+    <div class="card grey"><span class="label">Repeat it back</span><p class="note">Before starting a new task, repeat the instructions back to Jennifer in your own words, so you get it right the first time.</p></div>
+  </div>
+  <div class="grid3" id="workingGrid"></div>
+</section>
+
+<div class="part">Every week</div>
+
+<section class="s" data-title="Weekly marketing rhythm" id="rhythm">
+  <header><div class="eyebrow">Toolkit · 03</div><h2>Weekly marketing rhythm</h2><p class="sub">A suggested starting rhythm for the suggested split. Agree it in Week 1. Brent and Cris tick tasks off each week; Jennifer can see at a glance what’s done.</p></header>
+  <div class="weekbar"><label for="weekPick"><b>Week starting</b></label><input type="date" id="weekPick"><button class="btn small ghost" type="button" id="prevWeek">← Previous</button><button class="btn small ghost" type="button" id="nextWeek">Next →</button><span id="weekStat" class="pill ok"></span></div>
+  <div class="day" style="margin-bottom:12px"><h3>Every day</h3><div id="dailyTasks"></div></div>
+  <div class="days" id="days"></div>
+  <label class="field"><span>Notes for this week</span><textarea id="weekNote" placeholder="Campaigns, holidays, new locations, anything the team should know…"></textarea></label>
+  <p class="note" style="margin-top:8px">Tags show the suggested owner: <span class="tag2">Brent</span> <span class="tag2">Cris</span> <span class="tag2">Both</span>. Brent works 9am–3:30 or 4pm ET; Cris works 9am–1pm ET.</p>
+</section>
+
+<section class="s" data-title="AI post QC log" id="qc">
+  <header><div class="eyebrow">Toolkit · 04</div><h2>AI post QC log</h2><p class="sub">Every issue caught before an AI-generated post or blog went live, and how to stop it happening again.</p></header>
+  <div class="scroll"><table class="tbl" id="log-qc"></table></div>
+  <button class="btn small" type="button" data-addrow="qc" style="margin-top:10px">+ Log a catch</button>
+</section>
+
+<section class="s" data-title="Website requests" id="web">
+  <header><div class="eyebrow">Toolkit · 05</div><h2>Website update requests</h2><p class="sub">One list for every WordPress change, so nothing gets lost between the team and the Angels.</p></header>
+  <div class="scroll"><table class="tbl" id="log-web"></table></div>
+  <button class="btn small" type="button" data-addrow="web" style="margin-top:10px">+ Add a request</button>
+</section>
+
+<div class="part">Every month</div>
+
+<section class="s" data-title="Inquiry tracker" id="inquiries">
+  <header><div class="eyebrow">Toolkit · 06</div><h2>Inquiry tracker</h2><p class="sub">The goal is 3–4x inquiries. Set the baseline once, then add each month; the multiple updates itself.</p></header>
+  <div class="grid2" style="margin-bottom:12px"><label class="field" style="margin-top:0"><span>Baseline: monthly inquiries before Day 1</span><input type="number" min="0" data-k="inq.base" id="inqBase" placeholder="e.g. 40"></label><div class="callout" id="inqStat" style="margin-top:0"></div></div>
+  <div class="scroll"><table class="tbl" id="log-inq"></table></div>
+  <button class="btn small" type="button" data-addrow="inq" style="margin-top:10px">+ Add a month</button>
+</section>
+
+<section class="s" data-title="Profiles & listings" id="listings">
+  <header><div class="eyebrow">Toolkit · 07</div><h2>Google Business Profiles &amp; directory listings</h2><p class="sub">One row per profile or listing. Add every location and directory in Week 1.</p></header>
+  <div class="scroll"><table class="tbl" id="log-list"></table></div>
+  <button class="btn small" type="button" data-addrow="list" style="margin-top:10px">+ Add a profile</button>
+  <p class="note" id="listStat" style="margin-top:8px"></p>
+</section>
+
+<section class="s" data-title="Monthly KPI check-in" id="kpis">
+  <header><div class="eyebrow">Toolkit · 08</div><h2>Monthly KPI check-in</h2><p class="sub">Go through this once a month with Brent and Cris. Mark each KPI Met or Not yet.</p></header>
+  <div class="grid2" id="kpiCards" style="margin-bottom:16px"></div>
+  <div class="scroll"><table class="tbl kpi"><thead><tr id="kpiHead"></tr></thead><tbody id="kpiBody"></tbody></table></div>
+  <div class="callout">Two “Not yet” months in a row? Raise it with your Account Manager. We’ll coach, adjust the plan, or step in.</div>
+</section>
+
+<div class="part">Every milestone</div>
+
+<section class="s" data-title="First 90 days" id="ninety">
+  <header><div class="eyebrow">Toolkit · 09</div><h2>First 90 days</h2><p class="sub">Learn, own, operate. Set your own goal for each stage and tick it at the review.</p></header>
+  <div class="grid3" id="ninetyCards"></div>
+</section>
+
+<section class="s" data-title="Freedom Scorecard" id="scorecard">
+  <header><div class="eyebrow">Toolkit · 10</div><h2>Freedom Scorecard</h2><p class="sub">Fill this in together at Day 30, Day 90, Month 6 and Month 12.</p></header>
+  <div class="scroll"><table class="tbl"><thead><tr><th>Measure</th><th>Start</th><th>Day 30</th><th>Day 90</th><th>Month 6</th><th>Month 12</th></tr></thead><tbody id="scoreBody"></tbody></table></div>
+</section>
+
+<section class="s" data-title="Skills & readiness" id="skills">
+  <header><div class="eyebrow">Toolkit · 11</div><h2>Skills &amp; readiness</h2><p class="sub">Rate each Angel at every milestone: NT = Needs training · D = Developing · C = Confident.</p></header>
+  <div class="weekbar" id="skillWho"></div>
+  <div class="scroll"><table class="tbl"><thead><tr><th>Skill</th><th>Day 30</th><th>Day 90</th><th>Month 6</th><th>Month 12</th></tr></thead><tbody id="skillBody"></tbody></table></div>
+</section>
+
+<section class="s" data-title="Delegation board" id="delegation">
+  <header><div class="eyebrow">Toolkit · 12</div><h2>Delegation board</h2><p class="sub">What comes off Jennifer’s plate. Move items across as Brent and Cris take them on, and add new ones any time.</p></header>
+  <div class="board" id="board"></div>
+</section>
+
+<section class="s" data-title="SOP library" id="sops">
+  <header><div class="eyebrow">Toolkit · 13</div><h2>SOP &amp; knowledge library</h2><p class="sub">Every process Brent and Cris document is linked here. Over time it becomes Counseling Center Group’s marketing playbook.</p></header>
+  <div class="scroll"><table class="tbl" id="log-sops"></table></div>
+  <button class="btn small" type="button" data-addrow="sops" style="margin-top:10px">+ Add a process</button>
+</section>
+
+<section class="s" data-title="Wins & review notes" id="wins">
+  <header><div class="eyebrow">Toolkit · 14</div><h2>Wins &amp; review notes</h2><p class="sub">Capture the moments that show the plan is working, and what you agreed at each review.</p></header>
+  <div class="scroll"><table class="tbl" id="log-wins"></table></div>
+  <button class="btn small" type="button" data-addrow="wins" style="margin-top:10px">+ Add a win</button>
+  <div class="grid2" id="reviewNotes" style="margin-top:12px"></div>
+</section>
+</div>
+
+<footer>Freedom Plan™ for Counseling Center Group · Version 1 · November 2026 · Prepared by Gail Galima-Mendoza, Outsourcing Angel · Confidential</footer>
+</main>
+</div>
+
+<script>
+const KEY = 'oa-freedom-plan-jennifer-olivares-v1';
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const choices = (k, type, opts) => `<div class="choices" data-k="${k}" data-type="${type}" data-options="${esc(opts.join('|'))}"></div>`;
+
+/* ---------- Part A content ---------- */
+const quotes = [
+  ['We are looking for some additional hands on the marketing team.', 'Freedom Audit'],
+  ['They might be doing a QC of that, kind of the human oversight to make sure all of our posts look good, that they’re on brand, that there’s no mistakes that the AI made.', 'Freedom Audit'],
+  ['If I’m having to teach what social media is and how to look at analytics, or how to access the back end of a website, that doesn’t really save me a lot of time.', 'Freedom Audit'],
+  ['The goal is to 3–4x inquiries, which will help us reach our revenue goals.', 'Your team’s role brief, October'],
+  ['We are contemplating hiring both of them as there is no shortage of work.', 'Your email, November'],
+];
+$('#quotes').innerHTML = quotes.map(([q, s], i) => `<div class="quote"><div><q>${esc(q)}</q><small>${s}</small></div>${choices('heard.q' + i, 'radio', ['Spot on', 'Not quite', 'Let’s discuss'])}</div>`).join('');
+
+const gapRow = (t, k, lab) => `<div style="display:flex;gap:12px;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)"><span>${esc(t)}</span><label class="chip"><input type="checkbox" data-k="${k}"><span>${lab}</span></label></div>`;
+$('#gapToday').innerHTML = ['Profiles and directories updated when someone has time', 'AI posts and blogs waiting for a human check and someone to publish', 'No structure yet for offshore support: this is new for the team'].map((t, i) => gapRow(t, 'gap.t' + i, 'True today')).join('');
+$('#gapGoing').innerHTML = ['Every profile and directory listing posted to, optimised and consistent', 'Every AI post checked and every blog published on time', 'Inquiries growing 3–4x, with a monthly read on what’s working'].map((t, i) => gapRow(t, 'gap.g' + i, 'Agree')).join('');
+
+const stages = [['Task Delegator', 'You hand over tasks one at a time', 'Today', 'today'], ['Process Builder', 'Processes are written down', '', ''], ['Outcome Owner', 'The Angels own results, not just tasks', 'Day 90 target', 'target'], ['Operator', 'The Angels run marketing day to day', '', ''], ['Freedom', 'It runs without you; you lead strategy', 'Month 6 target', 'target']];
+$('#stages').innerHTML = stages.map(([t, d, tag, cls], i) => `<div class="stage ${cls}"><div class="n">${i + 1}</div><h4>${t}</h4><p>${d}</p><div class="tag">${tag}</div></div>`).join('');
+const markRow = (id, lab, k) => { $(id).innerHTML = `<b>${lab}</b>` + stages.map((s, i) => `<label title="${s[0]}"><input type="radio" name="${k}" value="${i + 1}" data-k="${k}" aria-label="${lab}: ${s[0]}"></label>`).join(''); };
+markRow('#markToday', 'You are here today', 'stage.today');
+markRow('#markTarget', 'Where you want to be by Month 6', 'stage.target');
+
+const TEAM_HRS = { Brent: 30, Cris: 20 };
+const areas = [
+  ['Google Business Profiles', 'Regular posts and an optimisation project for every profile.', 25, 'Brent'],
+  ['Directory listings', 'Psychology Today and other directories, optimised and consistent.', 10, 'Brent'],
+  ['Social media QC', 'A human check of AI-generated posts: on brand, accurate, no AI mistakes.', 20, 'Cris'],
+  ['Website & blog', 'Publishing blog content and making updates in WordPress (Elementor).', 15, 'Brent'],
+  ['Research & reporting', 'Marketing research, performance reviews, data gathering and the monthly inquiry report.', 10, 'Brent'],
+  ['Outreach & channels', 'Reddit and community channels, light PR and outreach, light video editing and YouTube uploads.', 20, 'Cris'],
+];
+$('#areas').innerHTML = areas.map(([t, d, pct], i) => `<div class="card"><div class="num">${i + 1}</div><h3 style="margin-top:10px">${t}</h3><p class="note">${d}</p>${choices('role.a' + i, 'radio', ['Agree', 'Change it'])}<span class="label" style="margin-top:12px">Owner</span>${choices('role.o' + i, 'radio', ['Brent', 'Cris', 'Both'])}<div class="share"><span>Share of team hours</span><input type="range" min="0" max="60" step="5" value="${pct}" data-k="role.p${i}" aria-label="Share of team hours for ${t}"><output>${pct}%</output></div><label class="field"><span>Changes</span><textarea data-k="role.n${i}" placeholder="Add or remove tasks…" style="min-height:58px"></textarea></label></div>`).join('');
+function splitStat() {
+  const total = TEAM_HRS.Brent + TEAM_HRS.Cris, h = { Brent: 0, Cris: 0 };
+  areas.forEach((a, i) => {
+    const o = ($(`input[name="role.o${i}"]:checked`) || {}).value || a[3];
+    const hrs = (+($(`[data-k="role.p${i}"]`).value) / 100) * total;
+    if (o === 'Both') { h.Brent += hrs / 2; h.Cris += hrs / 2; } else h[o] += hrs;
+  });
+  const sum = areas.reduce((s, a, i) => s + +$(`[data-k="role.p${i}"]`).value, 0);
+  const f = n => Math.round(n * 2) / 2;
+  $('#splitStat').textContent = `Estimated weekly hours: Brent ≈ ${f(h.Brent)} of 30 · Cris ≈ ${f(h.Cris)} of 20` + (sum !== 100 ? ` · shares add up to ${sum}%, not 100%` : '');
+}
+$('#areas').addEventListener('input', splitStat); $('#areas').addEventListener('change', splitStat);
+
+const angels = [
+  ['Brent', '30 hrs/week · Mon–Fri · 9am–3:30 or 4pm ET', ['Starts Tuesday 1 December 2026', 'US$15/hr, paid to Brent in full', 'Suggested lane: Google Business Profiles, directory listings, website and blog publishing, research and the monthly inquiry report']],
+  ['Cris', '20 hrs/week · Mon–Fri · 9am–1pm ET', ['Starts Tuesday 1 December 2026', 'US$11/hr, paid to Cris in full', 'Suggested lane: quality checks on AI social posts, Reddit and community channels, light PR and outreach, light video editing and YouTube uploads']],
+];
+$('#angelCards').innerHTML = angels.map(([n, line, pts], i) => `<div class="card"><div style="display:flex;gap:12px;align-items:center;margin-bottom:10px"><div class="num" style="width:44px;height:44px;font-size:20px">${n[0]}</div><div><h3>${n}</h3><div class="note" style="color:var(--green);font-weight:700">${line}</div></div></div>${pts.map(p => `<p class="note" style="margin-top:6px">${esc(p)}</p>`).join('')}${choices('angel.' + i, 'radio', ['Split looks right', 'Let’s adjust'])}<label class="field"><span>First priorities for ${n}</span><textarea data-k="angel.n${i}" placeholder="What should ${n} tackle in December?" style="min-height:58px"></textarea></label></div>`).join('');
+
+const sec = [['BAA reviewed and signed by Brent', 'Brent & Outsourcing Angel'], ['BAA reviewed and signed by Cris', 'Cris & Outsourcing Angel'], ['Separate work logins for each Angel, never shared passwords', 'Jennifer'], ['Password manager for any shared logins', 'Jennifer'], ['Two-factor authentication on every account', 'Brent & Cris'], ['No client health information in marketing tools, chats or files', 'Brent & Cris'], ['Review replies never confirm that someone is a client', 'Brent & Cris']];
+$('#secBody').innerHTML = sec.map(([t, o], i) => `<tr><td><b>${t}</b></td><td>${o}</td><td class="c"><input type="checkbox" data-k="sec.${i}" aria-label="${esc(t)} done"></td></tr>`).join('');
+
+const steps = [['Deposit paid and role brief agreed', 'October', true], ['Interviews held, and roles offered to Brent and Cris', '17 and 20 November', true], ['BAA reviewed and signed by Brent and Cris', 'Before Day 1', false], ['Monthly auto-debit set up for each Angel, with the confirmation emails sent to Charyl', 'Before Day 1', false], ['Freedom Plan reviewed and the work split agreed', 'This week', false], ['Day 1, then kick-off with Part B', 'Tuesday 1 December', false]];
+$('#steps').innerHTML = steps.map(([t, w, done], i) => `<div class="out" style="padding:10px 0;border-bottom:1px solid var(--line);align-items:center"><div class="num">${i + 1}</div><div style="flex:1"><b>${t}</b><div class="note">${w}</div></div><label class="chip"><input type="checkbox" data-k="step.${i}" ${done ? 'data-default="1"' : ''}><span>Done</span></label></div>`).join('');
+
+const ratings = ['The goal & what we heard', 'Leverage gap & Freedom Stage', 'The role & the work split', 'Your Angels & privacy safeguards', 'Overall: does this feel like Counseling Center Group?'];
+$('#ratings').innerHTML = ratings.map((r, i) => `<div class="rate"><span>${r}</span><div class="stars" role="radiogroup" aria-label="${esc(r)}">${[1, 2, 3, 4, 5].map(n => `<label><input type="radio" name="fb.r${i}" value="${n}" data-k="fb.r${i}" aria-label="${n}"><span>${n}</span></label>`).join('')}</div></div>`).join('');
+
+/* ---------- Toolkit content ---------- */
+const setup = ['Team chat and a shared task board', 'Work email for Brent and Cris', 'Google Business Profile manager access for each location', 'WordPress (Elementor) user accounts', 'Directory logins (e.g. Psychology Today)', 'Social content system access for QC', 'Analytics access: website and Google Business Profile insights', 'Brand voice and style guide shared', 'BAA signed by both Angels', 'Confirm hours: Brent 9am–3:30/4pm ET, Cris 9am–1pm ET'];
+$('#setupBody').innerHTML = setup.map((t, i) => `<tr><td><b>${t}</b></td><td><input type="text" data-k="setup.${i}.o" placeholder="Owner"></td><td><input type="date" data-k="setup.${i}.d" aria-label="Done by"></td><td class="c"><input type="checkbox" data-k="setup.${i}.x" aria-label="${esc(t)} done"></td></tr>`).join('');
+
+$('#workingGrid').innerHTML = [['Preferred update format and time', 'e.g. EOD note in team chat by 1pm ET…'], ['When to interrupt, and when to wait', 'Urgent = a review or message that needs a reply today…'], ['Tone for posts and profiles', 'Warm, professional, never clinical…'], ['Decisions the Angels can make alone', 'Without asking first…'], ['Pet peeves and must-nots', 'e.g. never reply to a review without approval…'], ['Each Angel’s own goals', 'Brent: … · Cris: …']]
+  .map(([t, p], i) => `<label class="field" style="margin-top:0"><span>${t}</span><textarea data-k="work.${i}" placeholder="${p}"></textarea></label>`).join('');
+
+const DAILY = ['9am ET stand-up in team chat: today’s priorities|Both', 'Check Google Business Profile and directory messages, questions and reviews; flag to Jennifer|Brent', 'QC today’s AI social posts before they go live|Cris', 'Send the EOD report: done, in progress, questions, tomorrow|Both'];
+const WEEK = [
+  ['Monday', 'Brent 6 hrs · Cris 4 hrs', ['Plan this week’s Google Business Profile posts for each location|Brent', 'Pull last week’s numbers: inquiries, profile views and calls, web traffic|Brent', 'Queue this week’s AI social posts and blog drafts for QC|Cris']],
+  ['Tuesday', 'Brent 6 hrs · Cris 4 hrs', ['Publish this week’s blog post in WordPress and check it on mobile|Brent', 'Google Business Profile posts live for each location|Brent', 'Reddit and community research: threads worth joining|Cris']],
+  ['Wednesday', 'Brent 6 hrs · Cris 4 hrs', ['Directory updates: Psychology Today and others|Brent', 'Light video editing and YouTube uploads|Cris']],
+  ['Thursday', 'Brent 6 hrs · Cris 4 hrs', ['Profile optimisation project: photos, services, Q&A|Brent', 'Light PR and outreach: new contacts and follow-ups|Cris']],
+  ['Friday', 'Brent 6 hrs · Cris 4 hrs', ['Clear the website update requests|Brent', 'Weekly note to Jennifer: results, wins and next week’s ideas|Both', 'Add anything learned this week to an SOP|Both']],
+];
+const monday = d => { const x = new Date(d + 'T00:00:00'); const day = (x.getDay() + 6) % 7; x.setDate(x.getDate() - day); return x.toISOString().slice(0, 10); };
+const todayISO = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
+let week = monday(todayISO());
+const shift = n => { const x = new Date(week + 'T00:00:00'); x.setDate(x.getDate() + n * 7); week = monday(new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 10)); renderWeek(); };
+function taskHTML(t, k) {
+  const [text, f] = t.split('|'); const on = !!(state.weeks && state.weeks[week] && state.weeks[week][k]);
+  return `<label class="task ${on ? 'done' : ''}"><input type="checkbox" data-wk="${k}" ${on ? 'checked' : ''}><span>${esc(text)}${f ? `<span class="tag2">${esc(f)}</span>` : ''}</span></label>`;
+}
+const weekTotal = () => DAILY.length + WEEK.reduce((a, w) => a + w[2].length, 0);
+function renderWeekStatOnly() { const done = Object.values((state.weeks || {})[week] || {}).filter(Boolean).length; const s = $('#weekStat'); s.textContent = `${done} of ${weekTotal()} done`; s.className = 'pill ' + (done === weekTotal() ? 'ok' : done ? 'soon' : 'late'); }
+function renderWeek() {
+  $('#weekPick').value = week;
+  $('#dailyTasks').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 16px">${DAILY.map((t, i) => taskHTML(t, 'd' + i)).join('')}</div>`;
+  $('#days').innerHTML = WEEK.map(([d, h, ts], di) => `<div class="day"><h3>${d}</h3><div class="hrs">${h}</div>${ts.map((t, ti) => taskHTML(t, di + '.' + ti)).join('')}</div>`).join('');
+  $('#weekNote').value = (state.weekNotes || {})[week] || '';
+  renderWeekStatOnly();
+}
+$('#days').parentElement.addEventListener('change', e => {
+  const k = e.target.dataset.wk; if (!k) return;
+  state.weeks = state.weeks || {}; state.weeks[week] = state.weeks[week] || {}; state.weeks[week][k] = e.target.checked;
+  e.target.closest('.task').classList.toggle('done', e.target.checked); renderWeekStatOnly(); save();
+});
+$('#weekPick').addEventListener('change', e => { if (e.target.value) { week = monday(e.target.value); renderWeek(); } });
+$('#prevWeek').onclick = () => shift(-1); $('#nextWeek').onclick = () => shift(1);
+$('#weekNote').addEventListener('input', e => { state.weekNotes = state.weekNotes || {}; state.weekNotes[week] = e.target.value; debounceSave(); });
+
+
+/* ---------- reusable logs ---------- */
+const WHO = ['', 'Brent', 'Cris'];
+const LOGS = {
+  qc: { cols: [['date', 'Date', 'date'], ['item', 'Post or blog', 'text', 'e.g. Instagram post for 3 Dec'], ['issue', 'What was wrong?', 'textarea', 'Wrong fact, off-brand tone, an AI error…'], ['fixed', 'Fixed before going live', 'check'], ['by', 'Caught by', 'select', WHO], ['prevent', 'How do we stop it next time?', 'textarea', 'Prompt change? Checklist item?']], seed: [], dated: true },
+  web: { cols: [['date', 'Date', 'date'], ['page', 'Page', 'text', 'e.g. /locations'], ['req', 'Request', 'textarea', ''], ['from', 'Requested by', 'text', ''], ['owner', 'Owner', 'select', WHO], ['done', 'Done', 'check']], seed: [], dated: true },
+  inq: { cols: [['month', 'Month', 'month'], ['total', 'Total inquiries', 'num'], ['gbp', 'From Google', 'num'], ['dir', 'From directories', 'num'], ['site', 'From website', 'num'], ['x', 'vs baseline', 'auto'], ['note', 'Notes', 'text', '']], seed: [] },
+  list: { cols: [['name', 'Profile / listing', 'text', 'e.g. Location name'], ['type', 'Type', 'select', ['', 'Google Business Profile', 'Psychology Today', 'Other directory']], ['owner', 'Owner', 'select', WHO], ['upd', 'Last updated', 'date'], ['opt', 'Optimised', 'check'], ['note', 'Notes', 'text', '']],
+    seed: [{ type: 'Google Business Profile', owner: 'Brent' }, { type: 'Google Business Profile', owner: 'Brent' }, { type: 'Psychology Today', owner: 'Brent' }] },
+  sops: { cols: [['proc', 'Process', 'text', ''], ['owner', 'Owner', 'text', ''], ['link', 'Link to SOP', 'text', ''], ['upd', 'Last updated', 'date']],
+    seed: [{ proc: 'Google Business Profile posting', owner: 'Brent' }, { proc: 'Directory profile standards', owner: 'Brent' }, { proc: 'AI post QC checklist', owner: 'Cris' }, { proc: 'Blog publishing in WordPress', owner: 'Brent' }, { proc: 'Privacy & BAA rules', owner: 'Both + Jennifer' }, { proc: 'Monthly inquiry report', owner: 'Brent' }, { proc: 'Reddit & outreach guide', owner: 'Cris' }] },
+  wins: { cols: [['date', 'Date', 'date'], ['win', 'Win', 'text', 'e.g. Best month for inquiries so far'], ['by', 'Added by', 'text', '']], seed: [{ win: '' }], dated: true },
+};
+function cell(col, v, li, ri) {
+  const [k, , type, opt] = col, a = `data-log="${li}" data-row="${ri}" data-col="${k}"`;
+  if (type === 'check') return `<td class="c"><input type="checkbox" ${a} ${v ? 'checked' : ''}></td>`;
+  if (type === 'date' || type === 'month') return `<td><input type="${type}" ${a} value="${esc(v)}"></td>`;
+  if (type === 'num') return `<td><input type="number" min="0" ${a} value="${esc(v)}" style="min-width:80px"></td>`;
+  if (type === 'select') return `<td><select ${a}>${opt.map(o => `<option ${o === v ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select></td>`;
+  if (type === 'textarea') return `<td><textarea ${a} placeholder="${esc(opt || '')}">${esc(v)}</textarea></td>`;
+  if (type === 'auto') return `<td data-auto="${li}-${ri}"></td>`;
+  return `<td><input type="text" ${a} value="${esc(v)}" placeholder="${esc(opt || '')}"></td>`;
+}
+function multiple(total) {
+  const base = +state['inq.base'];
+  if (!base || total === '' || total === undefined) return '<span class="note">–</span>';
+  const m = +total / base; return `<span class="pill ${m >= 3 ? 'ok' : m >= 1.5 ? 'soon' : 'late'}">${m.toFixed(1)}x</span>`;
+}
+function inqStat() {
+  const rows = ((state.logs || {}).inq || []).filter(r => r.total !== undefined && r.total !== '');
+  ((state.logs || {}).inq || []).forEach((r, ri) => { const td = $(`[data-auto="inq-${ri}"]`); if (td) td.innerHTML = multiple(r.total); });
+  const base = +state['inq.base'], last = rows[rows.length - 1];
+  $('#inqStat').textContent = !base ? 'Add the baseline to start tracking towards 3–4x.' : last ? `Latest month: ${last.total} inquiries, ${(last.total / base).toFixed(1)}x the baseline of ${base}. Goal: ${base * 3}–${base * 4}.` : `Baseline ${base} a month. Goal: ${base * 3}–${base * 4} a month.`;
+}
+function listStat() { const r = (state.logs || {}).list || []; $('#listStat').textContent = `${r.filter(x => x.opt).length} of ${r.length} profiles and listings optimised.`; }
+function renderLog(li) {
+  const L = LOGS[li]; state.logs = state.logs || {}; if (!state.logs[li]) state.logs[li] = JSON.parse(JSON.stringify(L.seed));
+  const rows = state.logs[li];
+  $('#log-' + li).innerHTML = `<thead><tr>${L.cols.map(c => `<th>${c[1]}</th>`).join('')}<th></th></tr></thead><tbody>${rows.map((r, ri) => `<tr>${L.cols.map(c => cell(c, r[c[0]] ?? '', li, ri)).join('')}<td><button class="x" type="button" data-delrow="${li}" data-i="${ri}" aria-label="Remove row">✕</button></td></tr>`).join('') || `<tr><td colspan="${L.cols.length + 1}" class="note">Nothing logged yet.</td></tr>`}</tbody>`;
+  if (li === 'inq') inqStat();
+  if (li === 'list') listStat();
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-addrow]'); if (a) { const li = a.dataset.addrow; state.logs[li].push(LOGS[li].dated ? { date: todayISO() } : li === 'inq' ? { month: todayISO().slice(0, 7) } : {}); renderLog(li); save(); return; }
+  const d = e.target.closest('[data-delrow]'); if (d) { if (!confirm('Remove this row?')) return; state.logs[d.dataset.delrow].splice(+d.dataset.i, 1); renderLog(d.dataset.delrow); save(); }
+});
+function logInput(e) {
+  const el = e.target; if (!el.dataset.log) return false;
+  const r = state.logs[el.dataset.log][+el.dataset.row]; r[el.dataset.col] = el.type === 'checkbox' ? el.checked : el.value;
+  if (el.dataset.log === 'inq') inqStat();
+  if (el.dataset.log === 'list') listStat();
+  return true;
+}
+$('#inqBase').addEventListener('input', () => setTimeout(inqStat, 0));
+
+/* KPIs */
+const KPIS = [['Inquiry growth', 'Inquiries trending towards 3–4x, tracked monthly by channel.', 'Ask: “How many inquiries this month, and from where?”'],
+  ['Profiles & listings', 'Every Google Business Profile and directory listing current, complete and posted to.', 'Ask: “Which profile needs attention next?”'],
+  ['Content accuracy', 'No AI mistakes published; blogs and website updates live on schedule.', 'Ask: “What did you catch before it went live?”'],
+  ['Reporting & ideas', 'A monthly report on what worked, with ideas for next month.', 'Ask: “What should we do more of?”']];
+$('#kpiCards').innerHTML = KPIS.map(([t, d, q], i) => `<div class="card"><h3><span style="color:var(--green)">${i + 1}</span> ${t}</h3><p class="note">${d}</p><p style="margin-top:8px;font-size:13px;font-weight:700;color:var(--deep)">${q}</p></div>`).join('');
+$('#kpiHead').innerHTML = '<th>KPI</th>' + Array.from({ length: 12 }, (_, i) => `<th class="c">M${i + 1}</th>`).join('');
+$('#kpiBody').innerHTML = KPIS.map(([t], i) => `<tr><td><b>${t}</b></td>${Array.from({ length: 12 }, (_, m) => `<td class="c"><select data-k="kpi.${i}.${m}" aria-label="${t} month ${m + 1}"><option value="">–</option><option>✓ Met</option><option>✗ Not yet</option></select></td>`).join('')}</tr>`).join('') +
+  `<tr><td><b>Notes</b></td><td colspan="12"><textarea data-k="kpi.notes" placeholder="What we agreed this month…"></textarea></td></tr>`;
+
+const ninety = [['Days 1–30', 'Learn', 'Learn the brand, the team, every profile, directory and tool. Audit each Google Business Profile, QC AI posts with Jennifer reviewing, and publish blogs on schedule.', 'Every profile posted to and every AI post checked, on time.'],
+  ['Days 31–60', 'Own', 'Own the profile optimisation project and the directory clean-up, start Reddit and outreach, and send the first monthly report.', 'Profiles optimised; first inquiry report delivered.'],
+  ['Days 61–90', 'Operate', 'Run the weekly rhythm end to end, report monthly on inquiries by channel, and pitch new ideas from the data.', 'Jennifer sets the strategy; the Angels run it.']];
+$('#ninetyCards').innerHTML = ninety.map(([d, t, x, g], i) => `<div class="card"><span class="label">${d}</span><h3>${t}</h3><p class="note">${x}</p><p style="margin-top:8px;font-size:13.5px;font-weight:700;color:var(--deep)">Goal: ${g}</p><label class="field"><span>Jennifer’s own goal for this stage</span><textarea data-k="ninety.${i}" placeholder="What would make you happy?"></textarea></label>${choices('ninety.done' + i, 'checkbox', ['Achieved (tick at review)'])}</div>`).join('');
+
+const score = [['Monthly inquiries', 'Baseline TBC'], ['Marketing tasks Jennifer still does', 'Most'], ['Google Business Profiles optimised', 'To confirm'], ['AI issues caught before going live', '–'], ['Freedom Stage (1–5)', '1 · Task Delegator'], ['Brent’s self-rating (1–5)', ''], ['Cris’s self-rating (1–5)', ''], ['Jennifer’s satisfaction (1–5)', '']];
+$('#scoreBody').innerHTML = score.map(([m, s], i) => `<tr><td><b>${m}</b></td><td class="note">${s}</td>${['30', '90', 'm6', 'm12'].map(c => `<td><input type="text" data-k="score.${i}.${c}" aria-label="${esc(m)} ${c}"></td>`).join('')}</tr>`).join('');
+
+const skills = ['Google Business Profile posting & optimisation', 'Directory profiles (e.g. Psychology Today)', 'Quality-checking AI social posts', 'WordPress & Elementor updates', 'Publishing blog content', 'Analytics & inquiry reporting', 'Marketing research', 'Reddit, PR & outreach', 'Light video editing & YouTube uploads'];
+let who = 'Brent';
+function renderSkills() {
+  $('#skillWho').innerHTML = '<b>Rating</b>' + ['Brent', 'Cris'].map(n => `<button type="button" class="btn small ${n === who ? '' : 'ghost'}" data-who="${n}" aria-pressed="${n === who}">${n}</button>`).join('');
+  $('#skillBody').innerHTML = skills.map((s, i) => `<tr><td><b>${s}</b></td>${['30', '90', 'm6', 'm12'].map(c => `<td><select data-k="skill.${who}.${i}.${c}" aria-label="${who}: ${esc(s)} ${c}"><option value="">–</option><option>NT</option><option>D</option><option>C</option></select></td>`).join('')}</tr>`).join('');
+  $$('#skillBody select').forEach(el => { if (state[el.dataset.k] !== undefined) el.value = state[el.dataset.k]; });
+}
+$('#skillWho').addEventListener('click', e => { const b = e.target.closest('[data-who]'); if (b) { who = b.dataset.who; renderSkills(); } });
+renderSkills();
+
+$('#reviewNotes').innerHTML = ['Day 30', 'Day 90', 'Month 6', 'Month 12'].map((r, i) => `<label class="field"><span>${r} review: what we agreed</span><textarea data-k="review.${i}" placeholder="Decisions, changes to the split or hours, next to delegate…"></textarea></label>`).join('');
+
+/* delegation board */
+const COLS = [['Delegated', 'var(--tint)'], ['In progress', 'var(--grey)'], ['Next to delegate', '#fff']];
+if (!state.board) state.board = [['Google Business Profile posts', 'AI social post QC', 'Blog publishing'], ['Directory listings', 'Website updates', 'Inquiry tracking'], ['Reddit & community', 'Light PR & outreach', 'Video edits & YouTube']];
+function renderBoard() {
+  $('#board').innerHTML = COLS.map(([t, bg], c) => `<div class="col" style="background:${bg}"><h3>${t}</h3>${state.board[c].map((it, j) =>
+    `<div class="item"><span>${esc(it)}</span>${c > 0 ? `<button type="button" data-mv="${c},${j},-1" aria-label="Move left">←</button>` : ''}${c < 2 ? `<button type="button" data-mv="${c},${j},1" aria-label="Move right">→</button>` : ''}<button type="button" data-rm="${c},${j}" aria-label="Remove">✕</button></div>`).join('')}
+    <div class="add"><input type="text" placeholder="Add a task…" data-add="${c}" aria-label="Add a task to ${t}"><button class="btn small" type="button" data-addbtn="${c}">Add</button></div></div>`).join('');
+}
+$('#board').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.mv) { const [c, j, d] = b.dataset.mv.split(',').map(Number); const [it] = state.board[c].splice(j, 1); state.board[c + d].push(it); }
+  if (b.dataset.rm) { const [c, j] = b.dataset.rm.split(',').map(Number); state.board[c].splice(j, 1); }
+  if (b.dataset.addbtn) { const c = +b.dataset.addbtn, inp = $(`[data-add="${c}"]`); if (inp.value.trim()) state.board[c].push(inp.value.trim()); }
+  renderBoard(); save();
+});
+$('#board').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.dataset.add) $(`[data-addbtn="${e.target.dataset.add}"]`).click(); });
+
+function applyDefaults() {
+  areas.forEach((a, i) => { if (state['role.o' + i] === undefined) { const r = $(`input[name="role.o${i}"][value="${a[3]}"]`); if (r) r.checked = true; } });
+  $$('[data-default]').forEach(el => { if (state[el.dataset.k] === undefined) el.checked = true; });
+  splitStat();
+}
+
+/* ---------- state ---------- */
+function renderChoices(el) {
+  const k = el.dataset.k, type = el.dataset.type, opts = el.dataset.options.split('|');
+  el.setAttribute('role', type === 'radio' ? 'radiogroup' : 'group');
+  el.innerHTML = opts.map((o, i) => `<label class="chip"><input type="${type}" name="${k}" value="${esc(o)}" data-k="${type === 'radio' ? k : k + '.' + i}"><span>${esc(o)}</span></label>`).join('');
+}
+$$('.choices[data-type]').forEach(renderChoices);
+const fields = () => $$('[data-k]').filter(el => el.matches('input,textarea,select'));
+function load() {
+  fields().forEach(el => {
+    const v = state[el.dataset.k]; if (v === undefined) return;
+    if (el.type === 'radio') el.checked = el.value === v; else if (el.type === 'checkbox') el.checked = !!v; else el.value = v;
+    if (el.type === 'range') el.nextElementSibling.value = v + '%';
+  });
+  Object.keys(LOGS).forEach(renderLog); renderBoard(); renderWeek(); progress();
+}
+let t;
+const debounceSave = () => { clearTimeout(t); t = setTimeout(save, 300); };
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); $('#saved').textContent = 'Saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+  catch (e) { $('#saved').textContent = 'Not saving here: use “Back up everything”'; }
+  progress();
+}
+document.addEventListener('input', e => {
+  if (logInput(e)) { debounceSave(); return; }
+  const el = e.target; if (!el.dataset || !el.dataset.k) return;
+  state[el.dataset.k] = el.type === 'checkbox' ? el.checked : el.value;
+  if (el.type === 'range') el.nextElementSibling.value = el.value + '%';
+  debounceSave();
+});
+document.addEventListener('change', e => { if (e.target.dataset && (e.target.dataset.log || e.target.dataset.k) && e.target.matches('select,input[type=checkbox],input[type=radio],input[type=date]')) { if (!logInput(e) && e.target.dataset.k) state[e.target.dataset.k] = e.target.type === 'checkbox' ? e.target.checked : e.target.value; save(); } });
+const answered = sec => [...new Set($$('[data-k]', sec).filter(el => el.matches('input,textarea,select') && el.type !== 'range').map(el => el.dataset.k))].some(k => { const v = state[k]; return v !== undefined && v !== '' && v !== false; });
+function progress() {
+  const secs = $$('section[data-review]'); const done = secs.filter(answered).length; const p = Math.round(done / secs.length * 100);
+  $('#fill').style.width = p + '%'; $('#pct').textContent = p + '% reviewed';
+  $$('section.s').forEach(s => { const a = $(`#side a[href="#${s.id}"]`); if (a) a.classList.toggle('done', answered(s)); });
+}
+
+/* ---------- views & nav ---------- */
+function buildSide(view) {
+  let html = view === 'review' ? '<b>Start</b>' : '';
+  $$(`#view-${view} > .part, #view-${view} > section.s`).forEach(el => {
+    if (el.classList.contains('part')) html += `<b>${esc(el.textContent.split('·').pop().trim())}</b>`;
+    else html += `<a href="#${el.id}"><span>${esc(el.dataset.title)}</span><i class="dot"></i></a>`;
+  });
+  $('#side').innerHTML = html; progress();
+}
+function showView(v, top) {
+  $$('.view').forEach(x => x.classList.toggle('on', x.id === 'view-' + v));
+  $$('.tabs button').forEach(b => { const on = b.dataset.view === v; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+  buildSide(v); try { localStorage.setItem(KEY + '-view', v); } catch (e) {}
+  if (top) window.scrollTo({ top: 0 });
+}
+$$('.tabs button').forEach(b => b.onclick = () => showView(b.dataset.view, true));
+const obs = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) $$('#side a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+$$('section.s').forEach(s => obs.observe(s));
+$('#moreBtn').onclick = () => { const m = $('#menu'); m.hidden = !m.hidden; m.style.display = m.hidden ? 'none' : 'flex'; };
+$('#menu').style.display = 'none';
+
+/* ---------- export / import / summary ---------- */
+function dl(name, text, type) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); }
+$('#exportBtn').onclick = () => dl(`Jennifer_Olivares_Freedom_Plan_backup_${todayISO()}.json`, JSON.stringify({ app: KEY, saved: new Date().toISOString(), state }, null, 1), 'application/json');
+$('#importBtn').onclick = () => $('#importFile').click();
+$('#importFile').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  f.text().then(txt => { const d = JSON.parse(txt); if (d.app !== KEY || !d.state) throw new Error('not this plan'); if (!confirm('Replace what’s on this page with the backup from ' + new Date(d.saved).toLocaleString() + '?')) return; state = d.state; save(); location.reload(); })
+    .catch(() => alert('That file isn’t a backup of this Freedom Plan.'));
+};
+function downloadSummary() {
+  const rows = [];
+  $$('section[data-review]').forEach(sec => {
+    const items = [];
+    $$('.choices', sec).forEach(c => { const k = c.dataset.k; const v = c.dataset.type === 'radio' ? state[k] : c.dataset.options.split('|').filter((o, i) => state[k + '.' + i]).join(', '); if (v) items.push([c.closest('.quote') ? c.closest('.quote').querySelector('q').textContent : (c.closest('.card') ? c.closest('.card').querySelector('h3,.label').textContent : sec.dataset.title), v]); });
+    $$('input[type=checkbox][data-k]', sec).filter(el => !el.closest('.choices')).forEach(el => { if (state[el.dataset.k]) items.push([el.closest('tr') ? el.closest('tr').cells[0].textContent : el.closest('div').querySelector('span').textContent, '✓']); });
+    $$('input[type=range]', sec).forEach(r => { if (state[r.dataset.k] !== undefined) items.push([r.getAttribute('aria-label'), state[r.dataset.k] + '%']); });
+    $$('textarea[data-k], input[type=text][data-k], input[type=number][data-k], input[type=date][data-k]', sec).forEach(el => { const v = state[el.dataset.k]; if (v) items.push([(el.closest('label,.fb') || sec).querySelector('span,.label').textContent, v]); });
+    $$('.stars', sec).forEach((s, i) => { const v = state['fb.r' + i]; if (v) items.push([ratings[i], v + ' / 5']); });
+    if (sec.id === 'stage') { if (state['stage.today']) items.push(['Stage today', stages[state['stage.today'] - 1][0]]); if (state['stage.target']) items.push(['Month 6 target', stages[state['stage.target'] - 1][0]]); }
+    if (items.length) rows.push(`<h2>${esc(sec.dataset.title)}</h2><table>${items.map(([a, b]) => `<tr><th>${esc(a)}</th><td>${esc(b)}</td></tr>`).join('')}</table>`);
+  });
+  const doc = `<!doctype html><html><head><meta charset="utf-8"><title>Freedom Plan feedback</title><style>body{font:15px/1.5 Arial,sans-serif;max-width:820px;margin:30px auto;padding:0 16px;color:#1B2430}h1{color:#187A5E}h2{font-size:18px;margin-top:24px;color:#11604A}table{width:100%;border-collapse:collapse}th,td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid #DDE4E0;white-space:pre-wrap}th{width:40%;font-weight:600}</style></head><body><h1>Freedom Plan feedback · Counseling Center Group</h1><p>${esc(state['fb.name'] || 'Jennifer Olivares')} · ${esc(state['fb.date'] || todayISO())}</p>${rows.join('') || '<p>No feedback yet.</p>'}</body></html>`;
+  dl('Jennifer_Olivares_Freedom_Plan_feedback.html', doc, 'text/html');
+}
+$('#dlBtn').onclick = downloadSummary;
+
+load(); applyDefaults();
+let v0 = 'review'; try { v0 = localStorage.getItem(KEY + '-view') || 'review'; } catch (e) {}
+showView(location.hash === '#toolkit' ? 'toolkit' : v0);
+</script>
+</body>
+</html>
