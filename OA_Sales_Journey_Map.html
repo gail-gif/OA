@@ -1,0 +1,793 @@
+<title>OA Sales Journey Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Lato:wght@400;700;900&display=swap">
+<style>
+/* Layout: navy hero band, then a single reading column with one big vertical "road" map; reference sections below. OA deck palette. */
+:root{
+  --navy:#212B35; --navy-2:#263240;
+  --teal:#1F8A6D; --mint:#7FE0C2; --mint-soft:#E1F3EC;
+  --gold:#A86A12; --gold-soft:#FBF1DF; --red:#B4473A; --red-soft:#F8E6E3;
+  --bg:#F6F8F7; --surface:#FFFFFF; --line:#DBE3E6; --fg:#212B35; --muted:#5E6A76;
+  --rail:#C9D6D2; --on-navy:#FFFFFF; --on-navy-muted:#AEB9BD;
+  --serif:"Source Serif 4", Cambria, Georgia, serif;
+  --sans:Lato, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141B21; --surface:#1C252E; --line:#2E3A45; --fg:#E8EEF0; --muted:#A3AFB9;
+  --teal:#3DB48F; --mint-soft:#1D3530; --gold:#E2A53D; --gold-soft:#3A2E1A; --red:#E58A7D; --red-soft:#3B2421;
+  --rail:#34433F; --navy:#0F151A; --navy-2:#18222B; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#141B21; --surface:#1C252E; --line:#2E3A45; --fg:#E8EEF0; --muted:#A3AFB9;
+  --teal:#3DB48F; --mint-soft:#1D3530; --gold:#E2A53D; --gold-soft:#3A2E1A; --red:#E58A7D; --red-soft:#3B2421;
+  --rail:#34433F; --navy:#0F151A; --navy-2:#18222B; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);text-wrap:balance;line-height:1.2;margin:0}
+h2{font-size:clamp(1.6rem,3.2vw,2.2rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+a{color:var(--teal)}
+.eyebrow{font-size:.75rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.lede{color:var(--muted);max-width:68ch;font-size:1.05rem}
+section{padding-block:56px;border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px}
+.num{font-variant-numeric:tabular-nums}
+
+/* HERO */
+.hero{background:var(--navy);color:var(--on-navy);margin-top:calc(-1 * env(safe-area-inset-top,0px));padding-top:calc(env(safe-area-inset-top,0px) + 36px);padding-bottom:48px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:340px;height:340px;border-radius:50%;background:var(--navy-2)}
+.hero .wrap{position:relative;z-index:1;display:grid;gap:18px}
+.logo{display:inline-flex;background:#fff;border-radius:8px;padding:8px 14px;font-weight:900;font-size:.85rem;letter-spacing:.04em;width:max-content}
+.logo b{color:#1F8A6D}.logo span{color:#212B35}
+.hero h1{font-size:clamp(2.2rem,6vw,3.8rem)}
+.hero h1 em{font-style:normal;color:var(--mint)}
+.hero p{color:var(--on-navy-muted);max-width:66ch}
+.hero .eyebrow{color:var(--mint)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:10px}
+.stat{border-top:2px solid var(--mint);padding-top:10px}
+.stat strong{display:block;font-family:var(--serif);font-size:1.9rem;color:#fff}
+.stat span{font-size:.85rem;color:var(--on-navy-muted)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.toc a{color:#fff;text-decoration:none;font-size:.85rem;border:1px solid #3A4856;border-radius:999px;padding:5px 12px}
+.toc a:hover,.toc a:focus-visible{border-color:var(--mint);outline:none}
+
+/* OVERVIEW SVG */
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.overview svg{min-width:900px;width:100%;height:auto;display:block}
+.ph-box{fill:var(--surface);stroke:var(--line)}
+.ph-top{fill:var(--teal)}
+.ph-top.last{fill:var(--navy)}
+.t-ph{fill:#fff;font:900 12px var(--sans);letter-spacing:.12em}
+.t-step{fill:var(--fg);font:700 14px var(--sans)}
+.t-own{fill:var(--muted);font:400 12px var(--sans)}
+.t-gold{fill:var(--gold);font:700 13px var(--sans)}
+.t-money{fill:var(--teal);font:900 13px var(--sans)}
+.arrow{stroke:var(--teal);stroke-width:2.5;fill:none}
+.arrowhead{fill:var(--teal)}
+.loop{stroke:var(--gold);stroke-width:2.5;fill:none;stroke-dasharray:7 6}
+.loophead{fill:var(--gold)}
+.dot{fill:var(--mint-soft);stroke:var(--teal)}
+.hint{font-size:.85rem;color:var(--muted);margin-top:8px}
+
+/* ROAD MAP */
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--muted);margin-bottom:22px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.road{display:grid;gap:0}
+.phase-label{display:grid;grid-template-columns:48px 1fr;align-items:center;margin:18px 0 6px}
+.phase-label span{grid-column:2;font-size:.75rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);padding-left:14px}
+.stage{display:grid;grid-template-columns:48px minmax(0,1fr) minmax(0,300px);column-gap:14px}
+.rail{position:relative;display:flex;justify-content:center}
+.rail::before{content:"";position:absolute;top:0;bottom:0;width:4px;background:var(--rail);border-radius:2px}
+.stage:last-child .rail::before{bottom:auto;height:30px}
+.badge{position:relative;z-index:1;width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:900;margin-top:14px}
+.stage.money .badge{background:var(--gold)}
+.stage.after .badge{background:var(--navy);border:2px solid var(--mint)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:16px;min-width:0;display:grid;gap:10px}
+.stage.money .card{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.card h3{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.card h3 small{font-family:var(--sans);font-size:.78rem;font-weight:700;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.75rem;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--mint-soft);color:var(--teal);white-space:nowrap}
+.chip.who{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.card ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+.card .gets{font-size:.9rem;background:var(--bg);border-radius:8px;padding:8px 12px}
+.card .gets b{color:var(--teal)}
+.branch{align-self:start;margin-top:14px;border-radius:10px;padding:12px 14px;font-size:.88rem;display:grid;gap:6px;border:1px dashed var(--gold);background:var(--gold-soft)}
+.branch.red{border-color:var(--red);background:var(--red-soft)}
+.branch b.t{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.branch.red b.t{color:var(--red)}
+.branch.empty{visibility:hidden}
+.flag{font-size:.85rem;border-left:3px solid var(--red);padding:4px 0 4px 10px;color:var(--muted)}
+.flag b{color:var(--red)}
+
+/* GRIDS & TABLES */
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid > *{min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:10px;align-content:start}
+.panel h3{font-size:1.1rem}
+.panel ul,.panel ol{margin:0;padding-left:1.1em;display:grid;gap:5px}
+.quote{font-family:var(--serif);font-size:1.15rem;line-height:1.5;border-left:4px solid var(--teal);padding:4px 0 4px 16px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.92rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:900}
+.tablebox{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.status{font-size:.72rem;font-weight:900;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.s-core{background:var(--teal);color:#fff}
+.s-on{background:var(--mint-soft);color:var(--teal)}
+.s-legacy{background:var(--line);color:var(--muted)}
+.s-risk{background:var(--red-soft);color:var(--red)}
+
+/* 5D + stages */
+.fived{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.fived div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start}
+.fived .L{font-family:var(--serif);font-size:2rem;color:var(--teal);line-height:1}
+.fived b{font-size:.95rem}
+.fived p{font-size:.86rem;color:var(--muted)}
+.ladder{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;align-items:end}
+.ladder > div{display:grid;gap:4px;padding:12px;border-left:1px solid var(--line)}
+.ladder .stepbar{border-radius:8px 8px 0 0;background:var(--mint-soft);border-top:4px solid var(--teal)}
+.ladder small{color:var(--muted);font-size:.8rem}
+
+/* Pricing example */
+.calc{display:grid;gap:8px;font-variant-numeric:tabular-nums}
+.calc div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.calc .total{border-bottom:0;font-weight:900;color:var(--teal);font-size:1.1rem}
+
+/* Timelines */
+.tl{display:grid;gap:0;position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--rail)}
+.tl div{position:relative;padding:0 0 12px 6px;font-size:.9rem}
+.tl div::before{content:"";position:absolute;left:-21px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--teal)}
+.tl div.g::before{border-color:var(--gold)}
+.tl b{display:inline-block;min-width:72px;color:var(--teal)}
+.tl div.g b{color:var(--gold)}
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+
+/* No section */
+.objection{display:grid;gap:6px}
+.objection .say{font-family:var(--serif);font-size:1.05rem}
+.objection .do{font-size:.9rem;color:var(--muted)}
+.objection .do b{color:var(--teal)}
+.pain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.pain div{border-radius:10px;padding:12px;display:grid;gap:2px;font-size:.88rem}
+.pain strong{font-family:var(--serif);font-size:1.3rem}
+.p1{background:var(--teal);color:#fff}.p2{background:var(--mint-soft)}.p3{background:var(--gold-soft)}.p4{background:var(--red-soft)}
+
+/* Health */
+.health{display:grid;gap:12px}
+.hrow{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.hrow .lvl{font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;align-self:start;padding:4px 8px;border-radius:6px;text-align:center}
+.hrow.hi .lvl{background:var(--red-soft);color:var(--red)}
+.hrow.md .lvl{background:var(--gold-soft);color:var(--gold)}
+.hrow.ok .lvl{background:var(--mint-soft);color:var(--teal)}
+.hrow p{font-size:.92rem;color:var(--muted)}
+.hrow p b{color:var(--fg)}
+.fix{font-size:.9rem;margin-top:4px}
+.fix b{color:var(--teal)}
+
+dl.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px 28px;margin:0}
+dl.gloss div{border-bottom:1px solid var(--line);padding-bottom:10px}
+dl.gloss dt{font-weight:900}
+dl.gloss dd{margin:2px 0 0;color:var(--muted);font-size:.92rem}
+footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+@media (max-width:860px){
+  .stage{grid-template-columns:40px minmax(0,1fr)}
+  .branch{grid-column:2;margin-top:-6px;margin-bottom:16px}
+  .branch.empty{display:none}
+  .phase-label{grid-template-columns:40px 1fr}
+  .fived,.ladder{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .ladder > div{border-left:0}
+  .pain{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hrow{grid-template-columns:1fr}
+  .hrow .lvl{justify-self:start}
+}
+@media (prefers-reduced-motion:no-preference){.toc a{transition:border-color .15s}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="logo"><b>OUTSOURCING</b><span>ANGEL</span></div>
+    <div class="eyebrow">Sales &amp; Business Development · How it runs today · November 2026</div>
+    <h1>The OA Sales Journey, <em>from first click to happy client</em></h1>
+    <p>This is how a stranger becomes an Outsourcing Angel client today. It covers every call, every follow-up, what happens when someone says no, and what happens after they pay the $500 Freedom Plan fee. It is written so that someone new to OA can follow it end to end. It is built from our call recordings, SOPs, CRM data and sent emails, not from how we wish it worked.</p>
+    <div class="stats">
+      <div class="stat"><strong class="num">11</strong><span>steps from lead to live client</span></div>
+      <div class="stat"><strong class="num">4</strong><span>sales calls before anyone is hired</span></div>
+      <div class="stat"><strong class="num">3–5 wks</strong><span>target time from audit to kick-off</span></div>
+      <div class="stat"><strong class="num">$500</strong><span>Freedom Plan fee: the moment a lead commits</span></div>
+    </div>
+    <nav class="toc" aria-label="Sections">
+      <a href="#overview">Overview</a><a href="#map">Step-by-step map</a><a href="#calls">Our calls</a><a href="#freedom-plan">Explaining the Freedom Plan</a><a href="#follow-ups">Follow-ups</a><a href="#no">When they say no</a><a href="#after-deposit">After the deposit</a><a href="#tools">Tools</a><a href="#review">Review</a><a href="#glossary">Glossary</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- OVERVIEW -->
+<section id="overview" style="border-top:0">
+  <div class="sec-head">
+    <div class="eyebrow">The journey on one page</div>
+    <h2>Five phases, one loop back</h2>
+    <p class="lede">Every client moves left to right through five phases. Leads who aren't ready or say no follow the gold loop instead: we nurture them and bring them back to a new Freedom Audit later.</p>
+  </div>
+  <div class="scroll overview">
+    <svg viewBox="0 0 1140 350" role="img" aria-label="Five phases: Get found, Win the yes, Build the plan, Hire and start, Grow together, with a loop from Win the yes back to Get found for leads who are not ready.">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker>
+        <marker id="gh" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="loophead"/></marker>
+      </defs>
+      <!-- phase 1 -->
+      <g transform="translate(10,20)">
+        <rect class="ph-box" width="200" height="230" rx="14"/>
+        <path class="ph-top" d="M0,14 a14,14 0 0 1 14,-14 h172 a14,14 0 0 1 14,14 v26 h-200z"/>
+        <text class="t-ph" x="16" y="26">1 · GET FOUND</text>
+        <circle class="dot" cx="24" cy="72" r="6"/><text class="t-step" x="38" y="77">Lead comes in</text>
+        <circle class="dot" cx="24" cy="106" r="6"/><text class="t-step" x="38" y="111">Books a free</text>
+        <text class="t-step" x="38" y="129">Freedom Audit</text>
+        <text class="t-own" x="16" y="198">Workshops, referrals,</text>
+        <text class="t-own" x="16" y="215">Google, ebooks, BDM</text>
+      </g>
+      <!-- phase 2 -->
+      <g transform="translate(240,20)">
+        <rect class="ph-box" width="200" height="230" rx="14"/>
+        <path class="ph-top" d="M0,14 a14,14 0 0 1 14,-14 h172 a14,14 0 0 1 14,14 v26 h-200z"/>
+        <text class="t-ph" x="16" y="26">2 · WIN THE YES</text>
+        <circle class="dot" cx="24" cy="72" r="6"/><text class="t-step" x="38" y="77">Freedom Audit call</text>
+        <circle class="dot" cx="24" cy="106" r="6"/><text class="t-step" x="38" y="111">Proposal + follow-ups</text>
+        <circle class="dot" cx="24" cy="140" r="6"/><text class="t-money" x="38" y="145">$500 Freedom Plan fee</text>
+        <text class="t-own" x="16" y="198">Owner: Sales</text>
+        <text class="t-own" x="16" y="215">(Freedom Plan Specialist)</text>
+      </g>
+      <!-- phase 3 -->
+      <g transform="translate(470,20)">
+        <rect class="ph-box" width="200" height="230" rx="14"/>
+        <path class="ph-top" d="M0,14 a14,14 0 0 1 14,-14 h172 a14,14 0 0 1 14,14 v26 h-200z"/>
+        <text class="t-ph" x="16" y="26">3 · BUILD THE PLAN</text>
+        <circle class="dot" cx="24" cy="72" r="6"/><text class="t-step" x="38" y="77">Alignment Call</text>
+        <circle class="dot" cx="24" cy="106" r="6"/><text class="t-step" x="38" y="111">Candidate search +</text>
+        <text class="t-step" x="38" y="129">Freedom Plan build</text>
+        <circle class="dot" cx="24" cy="158" r="6"/><text class="t-step" x="38" y="163">Strategy Session</text>
+        <text class="t-own" x="16" y="198">Owner: Sales +</text>
+        <text class="t-own" x="16" y="215">Recruitment</text>
+      </g>
+      <!-- phase 4 -->
+      <g transform="translate(700,20)">
+        <rect class="ph-box" width="200" height="230" rx="14"/>
+        <path class="ph-top" d="M0,14 a14,14 0 0 1 14,-14 h172 a14,14 0 0 1 14,14 v26 h-200z"/>
+        <text class="t-ph" x="16" y="26">4 · HIRE &amp; START</text>
+        <circle class="dot" cx="24" cy="72" r="6"/><text class="t-step" x="38" y="77">Interviews + pick</text>
+        <circle class="dot" cx="24" cy="106" r="6"/><text class="t-step" x="38" y="111">DDR, invoice,</text>
+        <text class="t-step" x="38" y="129">contract</text>
+        <circle class="dot" cx="24" cy="158" r="6"/><text class="t-step" x="38" y="163">Kick-off call</text>
+        <text class="t-own" x="16" y="198">Owner: Recruitment +</text>
+        <text class="t-own" x="16" y="215">People &amp; Finance</text>
+      </g>
+      <!-- phase 5 -->
+      <g transform="translate(930,20)">
+        <rect class="ph-box" width="200" height="230" rx="14"/>
+        <path class="ph-top last" d="M0,14 a14,14 0 0 1 14,-14 h172 a14,14 0 0 1 14,14 v26 h-200z"/>
+        <text class="t-ph" x="16" y="26">5 · GROW TOGETHER</text>
+        <circle class="dot" cx="24" cy="72" r="6"/><text class="t-step" x="38" y="77">CAX check-ins</text>
+        <circle class="dot" cx="24" cy="106" r="6"/><text class="t-step" x="38" y="111">Day 30 · Day 90</text>
+        <circle class="dot" cx="24" cy="140" r="6"/><text class="t-step" x="38" y="145">Month 6 · Month 12</text>
+        <circle class="dot" cx="24" cy="174" r="6"/><text class="t-step" x="38" y="179">Upgrades, Angel #2</text>
+        <text class="t-own" x="16" y="215">Owner: CAX + Team Leader</text>
+      </g>
+      <!-- forward arrows -->
+      <line class="arrow" x1="212" y1="135" x2="236" y2="135" marker-end="url(#ah)"/>
+      <line class="arrow" x1="442" y1="135" x2="466" y2="135" marker-end="url(#ah)"/>
+      <line class="arrow" x1="672" y1="135" x2="696" y2="135" marker-end="url(#ah)"/>
+      <line class="arrow" x1="902" y1="135" x2="926" y2="135" marker-end="url(#ah)"/>
+      <!-- loop -->
+      <path class="loop" d="M340,252 V300 H110 V258" marker-end="url(#gh)"/>
+      <text class="t-gold" x="356" y="296">Not ready, no-show or said no → nurture + reactivation → new Freedom Audit</text>
+      <text class="t-own" x="10" y="336">Sales officially hands over at the Strategy Session. CAX owns the client from kick-off onwards.</text>
+    </svg>
+  </div>
+  <p class="hint">On a phone, swipe the diagram sideways to see all five phases.</p>
+</section>
+
+<!-- ROAD MAP -->
+<section id="map">
+  <div class="sec-head">
+    <div class="eyebrow">Step by step</div>
+    <h2>The full map: 11 steps, who does what, and what happens if it goes sideways</h2>
+    <p class="lede">Each step lists who owns it, which tool it happens in, and what the lead gets from us. The box on the right shows what happens when the step doesn't go to plan.</p>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--teal)"></i>Sales step</span>
+    <span><i style="background:var(--gold)"></i>Money moment</span>
+    <span><i style="background:var(--navy);border:2px solid var(--mint)"></i>After the sale</span>
+    <span><i style="background:var(--gold-soft);border:1px dashed var(--gold)"></i>If it goes sideways</span>
+  </div>
+
+  <div class="road">
+    <div class="phase-label"><span>Phase 1 · Get found</span></div>
+
+    <div class="stage">
+      <div class="rail"><div class="badge">1</div></div>
+      <div class="card">
+        <h3>A lead comes in</h3>
+        <div class="meta"><span class="chip">GoHighLevel forms</span><span class="chip">Messenger</span><span class="chip">Bottleneck quiz</span><span class="chip who">Marketing + Sales</span></div>
+        <ul>
+          <li><b>Workshops:</b> the monthly Founder Freedom Workshop with Ms Linh. This is our biggest new-lead source right now.</li>
+          <li><b>Referrals:</b> Scott / X100, Ms Linh's network, EO members and happy clients.</li>
+          <li><b>Inbound:</b> Google search, the website, Facebook Messenger, ChirpAI web chat, and lead magnets such as the 40 AI Tasks ebook, the 360 book giveaway and the Bottleneck quiz.</li>
+          <li><b>Outbound:</b> BDM reactivation emails to past leads (see Follow-ups).</li>
+        </ul>
+        <div class="gets"><b>The lead gets:</b> a link to book a free Freedom Audit. Messenger enquiries get an automatic "an Angel will reply within one business day".</div>
+      </div>
+      <div class="branch empty"></div>
+    </div>
+
+    <div class="stage">
+      <div class="rail"><div class="badge">2</div></div>
+      <div class="card">
+        <h3>They book a Freedom Audit <small>aim: call within 1–2 business days</small></h3>
+        <div class="meta"><span class="chip">Calendly</span><span class="chip">GHL calendar</span><span class="chip who">Automated</span></div>
+        <ul>
+          <li>Booking creates a GoHighLevel opportunity in <b>Freedom Audit Booked</b> automatically and tags the contact "booked a discovery call".</li>
+          <li>Automatic emails go out from the Freedom Plan Specialist's address:
+            <ul>
+              <li>a welcome email with an intro video and 3 questions to prepare</li>
+              <li>"Today's the start of something big" the day before</li>
+              <li>a reminder on the day</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="gets"><b>The lead gets:</b> a 20-minute Google Meet invite, plus a video so they know who they're meeting.</div>
+      </div>
+      <div class="branch">
+        <b class="t">If they no-show</b>
+        <span>Wait 10 minutes, then send a same-day "we missed each other" email with a rebook link and offer one rebook. The documented plan is a Day 2 call and a Day 5 final message. In practice it is a few manual emails, and some no-shows wait weeks for the next touch.</span>
+      </div>
+    </div>
+
+    <div class="phase-label"><span>Phase 2 · Win the yes</span></div>
+
+    <div class="stage">
+      <div class="rail"><div class="badge">3</div></div>
+      <div class="card">
+        <h3>Call 1: the Freedom Audit <small>20–40 min · usually ~25</small></h3>
+        <div class="meta"><span class="chip">Google Meet</span><span class="chip">Fathom records it</span><span class="chip who">Freedom Plan Specialist</span></div>
+        <p>A discovery call that we frame as "not a pitch, I'm here to listen". The rep follows the 13-phase script, listens 60–70% of the time, and scores the lead with <b>P.A.I.N.</b> (Problem, Aligned need, Investment readiness, Now; 0–2 points each).</p>
+        <ul>
+          <li>Business snapshot → why now → what they want to hand off → past VA experience → hours (20/week minimum) and timeline</li>
+          <li>Screen-share the 5D system, the Freedom Stages, how the process works, pricing and the guarantee</li>
+          <li>Pre-close: "Any pushbacks or hesitations? What would you need to feel confident?"</li>
+          <li>Close: "I'll send you a proposal and the deposit link."</li>
+        </ul>
+        <div class="gets"><b>The lead gets:</b> clarity on what to delegate, a rough price range, and a clear next step.</div>
+      </div>
+      <div class="branch">
+        <b class="t">If they're not a fit yet</b>
+        <span><b>Score 3–4:</b> goes to nurture. <b>Score 0–2:</b> disqualified, e.g. no budget, too small, or well under 20 hours a week. Log it in the CRM within 24 hours.</span>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="rail"><div class="badge">4</div></div>
+      <div class="card">
+        <h3>Proposal + follow-ups <small>within 24 hours</small></h3>
+        <div class="meta"><span class="chip">Claude / ChatGPT</span><span class="chip">Gmail</span><span class="chip">GHL: Proposal Sent</span><span class="chip who">Sales</span></div>
+        <ul>
+          <li>The proposal is drafted with AI from the Fathom recording. It covers a summary of the call, their pain points, the recommended package and price, the deposit link and next steps. It is sent as a PPTX or Google Doc with a short email summary.</li>
+          <li>Hesitant leads also get sample candidate profiles with intro videos.</li>
+          <li>Then the follow-up sequence starts (see <a href="#follow-ups">Follow-ups</a>). Every follow-up repeats the deposit link and offers to answer by email instead of a call.</li>
+        </ul>
+        <div class="gets"><b>The lead gets:</b> a written plan in their own words, the investment, and two easy actions: reply, or pay the deposit.</div>
+      </div>
+      <div class="branch red">
+        <b class="t">If they say no or go quiet</b>
+        <span>Move to <b>Closed Lost</b> with a lost reason, or to nurture if it's a "not yet". Answer their objection (see <a href="#no">When they say no</a>). Older threads end with a breakup email: "reply 1, 2 or 3".</span>
+      </div>
+    </div>
+
+    <div class="stage money">
+      <div class="rail"><div class="badge">5</div></div>
+      <div class="card">
+        <h3>They pay the $500 Freedom Plan fee <small>aim: 1–7 business days after the audit</small></h3>
+        <div class="meta"><span class="chip">payments.outsourcingangel.com (AUD / USD)</span><span class="chip">Stripe</span><span class="chip">Make.com</span><span class="chip">Xero</span><span class="chip who">Sales + Finance</span></div>
+        <p>This is the moment of commitment. The deposit starts the recruitment search and pays for the Freedom Plan. It is credited in full toward their package. GHL moves to <b>Deposit Made</b>. A Make.com automation ("Payment Received Pipeline") is meant to kick off the next steps, and Finance issues the Freedom Plan invoice and receipt in Xero.</p>
+        <div class="gets"><b>The lead gets:</b> a receipt and a "Next steps: Alignment Call 🚀" email with a booking link.</div>
+        <p class="flag"><b>Known gap:</b> there's a quiet period between paying and the Alignment Call. A welcome video from Ms Linh is being made to fill it.</p>
+      </div>
+      <div class="branch empty"></div>
+    </div>
+
+    <div class="phase-label"><span>Phase 3 · Build the plan</span></div>
+
+    <div class="stage">
+      <div class="rail"><div class="badge">6</div></div>
+      <div class="card">
+        <h3>Call 2: the Alignment Call <small>18–30 min · within 1–2 business days of paying</small></h3>
+        <div class="meta"><span class="chip">Calendly (alignment link)</span><span class="chip">Fathom</span><span class="chip">GHL: Alignment Call Booked</span><span class="chip who">Sales</span></div>
+        <p>We lock in exactly who they need. The call covers the role, KPIs, non-negotiables, tools, working hours and time zone, preferences, and whether they want a test project.</p>
+        <div class="gets"><b>The lead gets:</b> a call summary by email, and the Strategy Session booked on the call for about 1–2 weeks later. <b>Recruitment gets:</b> the job description and brief.</div>
+      </div>
+      <div class="branch empty"></div>
+    </div>
+
+    <div class="stage">
+      <div class="rail"><div class="badge">7</div></div>
+      <div class="card">
+        <h3>Candidate search + Freedom Plan build <small>1–2 weeks</small></h3>
+        <div class="meta"><span class="chip">GHL recruitment pipelines</span><span class="chip">Claude</span><span class="chip">Google Drive</span><span class="chip who">Recruitment + Sales</span></div>
+        <ul>
+          <li><b>Recruitment</b> searches our talent pool first, then advertises externally. Candidates go through a panel interview, skills tests and video reference checks with past clients.</li>
+          <li><b>Sales</b> builds the client's Freedom Plan with AI. Part A is our recommendation; Part B is their Freedom Playbook. It is saved to the client's Drive folder.</li>
+        </ul>
+        <div class="gets"><b>The lead gets:</b> nothing visible yet. This is another quiet stretch worth filling with a progress update.</div>
+      </div>
+      <div class="branch empty"></div>
+    </div>
+
+    <div class="stage">
+      <div class="rail"><div class="badge">8</div></div>
+      <div class="card">
+        <h3>Call 3: the Strategy Session <small>17–47 min</small></h3>
+        <div class="meta"><span class="chip">Google Meet</span><span class="chip">Freedom Plan deck</span><span class="chip who">Sales</span></div>
+        <p>We walk them through their Freedom Plan (today vs. where they're going, their Freedom Stage, the 5D sections, the 90-day plan and CAX support), then present <b>3–5 candidate profiles</b>. Each profile has an intro video, bio, work history, personality test, AI competency score and GWC rating.</p>
+        <div class="gets"><b>The lead gets:</b> their Freedom Plan and profiles by email, and an introduction to the Recruitment Manager to book interviews that week. The plan is posted to the CAX channel. <b>Sales hands over here.</b></div>
+      </div>
+      <div class="branch">
+        <b class="t">If no candidate fits</b>
+        <span>Recruitment sources more profiles. If the client changes direction <i>before any interviews</i>, the deposit is refundable.</span>
+      </div>
+    </div>
+
+    <div class="phase-label"><span>Phase 4 · Hire &amp; start</span></div>
+
+    <div class="stage after">
+      <div class="rail"><div class="badge">9</div></div>
+      <div class="card">
+        <h3>Call 4: interviews and picking their Angel</h3>
+        <div class="meta"><span class="chip">GHL: Client Interview</span><span class="chip who">Recruitment</span></div>
+        <p>The client interviews the 1–2 candidates they shortlisted, sometimes after a paid test project, then chooses their Angel.</p>
+      </div>
+      <div class="branch empty"></div>
+    </div>
+
+    <div class="stage after">
+      <div class="rail"><div class="badge">10</div></div>
+      <div class="card">
+        <h3>Paperwork, then kick-off <small>kick-off ~30 min</small></h3>
+        <div class="meta"><span class="chip">Xero</span><span class="chip">DDR</span><span class="chip">Google Meet</span><span class="chip who">People &amp; Finance + CAX</span></div>
+        <ul>
+          <li><b>DDR</b> (the onboarding and billing record) is completed and the first invoice is issued. The contract is signed and the Angel is onboarded.</li>
+          <li><b>Kick-off call</b> with the client and their Angel: tool access, the work plan, who receives the daily EOD report, and 10–15 min daily stand-ups for the first 30 days.</li>
+        </ul>
+        <div class="gets"><b>The client gets:</b> the Freedom Playbook starter pack, including a setup checklist, the 5-part delegation brief, their first 10 tasks and an "honest first month" guide.</div>
+      </div>
+      <div class="branch empty"></div>
+    </div>
+
+    <div class="phase-label"><span>Phase 5 · Grow together</span></div>
+
+    <div class="stage after">
+      <div class="rail"><div class="badge">11</div></div>
+      <div class="card">
+        <h3>CAX: ongoing support and growth</h3>
+        <div class="meta"><span class="chip">Freedom Playbook</span><span class="chip">EOD reports</span><span class="chip who">CAX team · Team Leader · Account Manager</span></div>
+        <ul>
+          <li><b>CAX manager</b> runs monthly check-ins and the Day 30, Day 90, Month 6 and Month 12 reviews, and updates the Freedom Scorecard.</li>
+          <li><b>Team Leader</b> manages the Angel day to day: EOD reports ("no EOD, no pay"), coaching, training and PIPs.</li>
+          <li><b>Growth:</b> more hours, a second Angel, upgrades and AI add-ons. Fractional-partner clients get a monthly follow-up.</li>
+        </ul>
+        <div class="gets"><b>The client gets:</b> the Angel Happiness Lifetime Guarantee, with a free replacement and a 1-week free trial of the new Angel.</div>
+      </div>
+      <div class="branch">
+        <b class="t">If it isn't working</b>
+        <span>Coach and retrain first. If that fails, replace the Angel through the Replacement pipeline. Billing pauses until the new Angel's free trial week ends. When a client leaves, the opportunity moves to <b>Closed Client End of Service</b>.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALLS -->
+<section id="calls">
+  <div class="sec-head">
+    <div class="eyebrow">The calls we run</div>
+    <h2>Four calls take a lead from hello to hired</h2>
+    <p class="lede">Every sales call is on Google Meet and recorded in Fathom. The Fathom summary is pasted into the GoHighLevel opportunity, so anyone can catch up on a lead.</p>
+  </div>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Call</th><th>When</th><th>Length</th><th>Who's on it</th><th>The job of the call</th><th>Ends with</th></tr></thead>
+      <tbody>
+        <tr><td><b>Freedom Audit</b><br><small>a.k.a. discovery call</small></td><td>1–2 days after booking</td><td class="num">20–40 min</td><td>Freedom Plan Specialist (a trainee sometimes listens)</td><td>Understand the business and the bottleneck, qualify with P.A.I.N., explain how OA works and roughly what it costs</td><td>Proposal + deposit link within 24h</td></tr>
+        <tr><td><b>Alignment Call</b></td><td>1–2 days after the deposit</td><td class="num">18–30 min</td><td>Sales (plus a fractional partner on partner deals)</td><td>Define the exact role, KPIs, tools, schedule and test project</td><td>JD to Recruitment; Strategy Session booked</td></tr>
+        <tr><td><b>Strategy Session</b></td><td>~1–2 weeks later</td><td class="num">17–47 min</td><td>Sales</td><td>Present the Freedom Plan and 3–5 candidate profiles</td><td>Interviews booked with Recruitment</td></tr>
+        <tr><td><b>Client interviews</b></td><td>That week</td><td>Varies</td><td>Client + candidates; Recruitment coordinates</td><td>Client meets and picks their Angel</td><td>DDR, invoice, contract</td></tr>
+        <tr><td><b>Kick-off</b></td><td>Start date</td><td class="num">~30 min</td><td>Client, Angel, OA</td><td>Access, work plan, EOD reporting, stand-ups</td><td>Day 1</td></tr>
+        <tr><td><b>CAX reviews</b></td><td>Monthly, plus Day 30 / 90 / Month 6 / 12</td><td>Varies</td><td>CAX manager, Team Leader</td><td>Check KPIs and the scorecard, fix issues, plan growth</td><td>Updated Freedom Playbook</td></tr>
+        <tr><td><b>Founder Freedom Workshop</b></td><td>Monthly</td><td>Group</td><td>Ms Linh, on Zoom</td><td>Teach and build trust at scale</td><td>Freedom Audit bookings</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FREEDOM PLAN -->
+<section id="freedom-plan">
+  <div class="sec-head">
+    <div class="eyebrow">How we explain it</div>
+    <h2>Explaining the Freedom Plan to a lead</h2>
+    <p class="lede">This is how the Freedom Plan, the 5D system and the price come across on our calls today.</p>
+  </div>
+
+  <div class="grid" style="margin-bottom:16px">
+    <div class="panel">
+      <h3>The 30-second version</h3>
+      <p class="quote">"For a $500 refundable deposit, we start your search. We map exactly what to hand off, build your Freedom Plan, and present you 3–5 hand-picked candidates within 1–2 weeks. The $500 comes off your package when you go ahead."</p>
+      <p style="color:var(--muted);font-size:.92rem">We describe the plan to clients as "the Bible for you and your Angel": KPIs, success metrics, a not-to-do list, training guides and a personal operating manual.</p>
+    </div>
+    <div class="panel">
+      <h3>The lines we lean on</h3>
+      <ul>
+        <li>"We're not the typical BPO. Our motto is to create freedom for our clients."</li>
+        <li>"You're not just hiring one person, you're hiring the whole Client &amp; Angel Experience team."</li>
+        <li>"We only hire the top 1%, all with 3+ years' experience. You only teach them your process, not the skills."</li>
+        <li>Your Angel becomes "your number two, your accountability partner." Say Executive Assistant or Specialist, not "VA".</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:24px 0 12px">The 5D Freedom Staffing System™ is the structure of every Freedom Plan</h3>
+  <div class="fived">
+    <div><span class="L">D</span><b>Design</b><p>Map the bottlenecks: where the owner's time goes today.</p></div>
+    <div><span class="L">D</span><b>Define</b><p>Set the success metrics and KPIs for the role.</p></div>
+    <div><span class="L">D</span><b>Discover</b><p>Find the right hire: skills, experience and tools.</p></div>
+    <div><span class="L">D</span><b>Deploy</b><p>A 1–90 day onboarding plan: shadow, then run, then own.</p></div>
+    <div><span class="L">D</span><b>Develop</b><p>CAX, Team Leader, training and coaching for the long run.</p></div>
+  </div>
+
+  <div class="grid" style="margin-top:16px">
+    <div class="panel">
+      <h3>What's inside the plan</h3>
+      <p><b>Part A: Our Recommendation.</b> Used once, to decide: key observations, the leverage gap, their Freedom Stage, the role, candidate profiles, the investment and next steps.</p>
+      <p><b>Part B: The Freedom Playbook.</b> Used for the whole relationship: a first-time starter pack, the 12-month journey, the first 90 days, the Freedom Scorecard, KPIs, a delegation list, an SOP library, a wins log and the CAX framework.</p>
+    </div>
+    <div class="panel">
+      <h3>The Freedom Stages</h3>
+      <p>Where the owner sits today, and where we aim to take them:</p>
+      <ol>
+        <li>Task Delegator <small style="color:var(--muted)">(most clients start here)</small></li>
+        <li>Process Builder</li>
+        <li>Outcome Owner <small style="color:var(--muted)">(typical Day 90 target)</small></li>
+        <li>Operator</li>
+        <li>Freedom <small style="color:var(--muted)">(typical Month 6 target)</small></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <h3>How we explain the price</h3>
+      <p style="font-size:.92rem;color:var(--muted)">Two parts: the Angel's hourly rate, which is paid to them in full with no cut taken, plus the OA agency fee. The fee covers recruitment, payroll, HR, a health card, bonuses, meetups, the Team Leader and CAX. Example: a part-time Angel on Angel Managed.</p>
+      <div class="calc">
+        <div><span>Angel: $10/hr × 20 hrs × 4.33 wks</span><span>$867</span></div>
+        <div><span>OA agency fee (Angel Managed)</span><span>$1,200</span></div>
+        <div class="total"><span>≈ per month (AUD, ex tax)</span><span>$2,067</span></div>
+      </div>
+      <p style="font-size:.85rem;color:var(--muted)">Ranges we quote: part-time ~$1,700–$2,300 a month; full-time ~$2,500–$3,300 a month. EO members and referrals get 10% off the agency fee. The Angel's rate is never discounted.</p>
+    </div>
+    <div class="panel">
+      <h3>Terms we state</h3>
+      <ul>
+        <li>$500 refundable deposit, credited to the package</li>
+        <li>20 hrs/week minimum, 40 maximum. Hours can grow gradually.</li>
+        <li>3-month minimum, then month to month with 30 days' notice</li>
+        <li>Angel Happiness Lifetime Guarantee: free replacement any time, with a 1-week free trial</li>
+        <li>Trust points: daily EOD reports, insurance, a Philippine legal entity, and 10% of profit to charity</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:28px 0 12px">The product ladder: 10 ways to buy, one client journey</h3>
+  <div class="ladder">
+    <div class="stepbar" style="min-height:90px"><small>PLAN</small><b>Freedom Plan</b><small>$500, the start for everyone</small></div>
+    <div class="stepbar" style="min-height:110px"><small>HIRE</small><b>Angel Match</b><small>$2,500–4,000 one-off, recruitment only</small></div>
+    <div class="stepbar" style="min-height:150px"><small>MANAGE</small><b>Angel Essentials</b><small>$800/mo (pilot), client manages the Angel</small><b>Angel Managed ★</b><small>$1,200/mo flagship, full CAX</small></div>
+    <div class="stepbar" style="min-height:170px"><small>OPTIMISE</small><b>Angel Accelerate</b><small>$1,800–2,000/mo</small><b>Angel Growth + AI</b><small>$2,500–3,500/mo</small></div>
+    <div class="stepbar" style="min-height:190px"><small>SCALE</small><b>Angel Teams</b><small>Multi-Angel pricing</small><b>Angel Departments</b><small>Custom</small></div>
+  </div>
+  <p class="hint">Plus: Fractional AI and Marketing partners ($2,000–4,500/mo) and the OAX100 marketing program ($10k–$35k). Monthly fees are the OA fee only; the Angel's hourly rate is added on top.</p>
+</section>
+
+<!-- FOLLOW-UPS -->
+<section id="follow-ups">
+  <div class="sec-head">
+    <div class="eyebrow">Follow-ups</div>
+    <h2>Who gets which message, and when</h2>
+    <p class="lede">Most follow-ups are personal emails sent from Gmail. They are warm, short and question-led, and each one repeats the booking or deposit link. SMS and calls go through JustCall. Teal dots are documented in our SOPs; gold dots are what our sent emails show we actually do.</p>
+  </div>
+  <div class="vs">
+    <div class="panel">
+      <h3>Before the Freedom Audit</h3>
+      <div class="tl">
+        <div><b>Booked</b> Welcome email with an intro video and 3 prep questions (automated)</div>
+        <div><b>Day before</b> "Today's the start of something big" (automated)</div>
+        <div><b>On the day</b> Reminder email (automated)</div>
+        <div><b>24h + 1h</b> Reminders are planned in Notion; an SMS reminder is the Q4 goal</div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>After a no-show</h3>
+      <div class="tl">
+        <div><b>+10 min</b> Grace period, then a manual SMS ("I'm waiting on Google Meet…")</div>
+        <div><b>Same day</b> "We missed each other" email with a rebook link</div>
+        <div><b>Day 2</b> Call (documented)</div>
+        <div><b>Day 5</b> Final message (documented)</div>
+        <div class="g"><b>Actual</b> +6 days: "What was the main thing you wanted help with?" Then a month-end offer. Some leads waited ~6 weeks.</div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>After the proposal</h3>
+      <div class="tl">
+        <div><b>Day 1</b> Proposal + summary + deposit link</div>
+        <div><b>Day 2</b> Check they received it</div>
+        <div><b>Day 4</b> Objection-handling email</div>
+        <div><b>Day 7</b> Offer a short call</div>
+        <div><b>Day 10</b> Close the loop</div>
+        <div class="g"><b>Actual</b> +4 urgency · +5 ask for a 10-min call · +7 "just reply with your date" · +12 "anything to adjust?" · +17 month-end offer: deposit by 30 Nov keeps 10% off</div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Nurture and reactivation</h3>
+      <div class="tl">
+        <div><b>Day 30</b> Value email (documented; no content yet)</div>
+        <div><b>Day 60</b> Check-in</div>
+        <div><b>Day 90</b> Re-engage</div>
+        <div class="g"><b>Daily</b> BDM habit: review 20 old leads and send 20 personal emails, logged in the Lost Leads Outreach Tracker</div>
+        <div class="g"><b>Nov wk 3</b> ~120 "It's been a while, {name}" emails to 2024 leads, tailored by industry</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NO -->
+<section id="no">
+  <div class="sec-head">
+    <div class="eyebrow">When they say no</div>
+    <h2>Lost leads are paused, not finished</h2>
+    <p class="lede">Our Q2 review found that most lost deals come down to timing and comparison, not OA's quality. The three main reasons are: still comparing, not ready yet, and still shopping around.</p>
+  </div>
+
+  <h3 style="margin-bottom:12px">Step 1: score every Freedom Audit with P.A.I.N. (out of 8)</h3>
+  <div class="pain" style="margin-bottom:24px">
+    <div class="p1"><strong>7–8</strong>Freedom Plan ready. Send the proposal and push for the deposit.</div>
+    <div class="p2"><strong>5–6</strong>Qualified. Send the proposal and follow up.</div>
+    <div class="p3"><strong>3–4</strong>Nurture. Stay in touch until the timing is right.</div>
+    <div class="p4"><strong>0–2</strong>Disqualified. Log the reason and close.</div>
+  </div>
+
+  <h3 style="margin-bottom:12px">Step 2: answer the objection</h3>
+  <div class="grid" style="margin-bottom:24px">
+    <div class="panel objection"><span class="say">"We're weighing it up" / "We're talking to others"</span><span class="do"><b>Answer:</b> lead with outcomes and value, and present the $500 Freedom Plan as a low-commitment first step that's refundable before interviews.</span></div>
+    <div class="panel objection"><span class="say">"We're not ready to hire yet"</span><span class="do"><b>Answer:</b> send the proposal "for future reference", note their target start date, and nurture. Don't pressure a lead who has said no.</span></div>
+    <div class="panel objection"><span class="say">"It's more than we expected"</span><span class="do"><b>Answer:</b> show that the price is all-in, sell the whole team rather than one person, apply the EO or referral 10%, step down to Angel Essentials, or re-scope the role.</span></div>
+    <div class="panel objection"><span class="say">"We had a bad VA before" / "3 months is a big commitment"</span><span class="do"><b>Answer:</b> point to Team Leader oversight, EOD reports and free replacement. Ask "What would make you confident?" and send sample profiles.</span></div>
+    <div class="panel objection"><span class="say">"I only need 5 hours a week"</span><span class="do"><b>Answer:</b> hold the 20-hour minimum and frame it as a growth plan. Send the proposal and profiles anyway.</span></div>
+    <div class="panel objection"><span class="say">"Is our data safe?" / "Will they understand our market?"</span><span class="do"><b>Answer:</b> a virtual desktop, a password manager (LastPass or Keeper), insurance, and Angels with Australian market experience. The Freedom Plan sets the brief.</span></div>
+  </div>
+
+  <h3 style="margin-bottom:12px">Step 3: if it's still a no, this is the lost-lead loop</h3>
+  <div class="grid">
+    <div class="panel"><span class="eyebrow">1 · Record</span><p>Move the opportunity to <b>Closed Lost</b> in GoHighLevel and record the lost reason and lead source.</p></div>
+    <div class="panel"><span class="eyebrow">2 · Nurture</span><p>Send value emails at Day 30, 60 and 90. Workshop invites and lead magnets keep OA front of mind.</p></div>
+    <div class="panel"><span class="eyebrow">3 · Reactivate</span><p>Daily BDM: 20 leads, 20 emails. The five touches are the Bottleneck quiz, a call, a "tasks you can outsource" email, an AI and systems angle, and a downsell to Ms Linh's programs.</p></div>
+    <div class="panel"><span class="eyebrow">4 · Back to the start</span><p>Offer a new 20-minute Freedom Audit. This is how 2 lost clients were won back in Q2.</p></div>
+  </div>
+</section>
+
+<!-- AFTER DEPOSIT -->
+<section id="after-deposit">
+  <div class="sec-head">
+    <div class="eyebrow">After the deposit</div>
+    <h2>Once they've paid: who looks after them, and how</h2>
+    <p class="lede">From the deposit onwards, the lead moves through four teams. Sales stays the face of OA until the Strategy Session. Then Recruitment, Finance and CAX take over.</p>
+  </div>
+  <div class="tablebox" style="margin-bottom:20px">
+    <table>
+      <thead><tr><th>When</th><th>What the client experiences</th><th>OA owner</th><th>GoHighLevel stage</th></tr></thead>
+      <tbody>
+        <tr><td>Day 0</td><td>Pays $500 and gets a receipt and the Alignment Call booking email</td><td>Sales · Finance (Xero invoice)</td><td>Deposit Made</td></tr>
+        <tr><td>Day 1–2</td><td>Alignment Call, then a summary email</td><td>Sales</td><td>Alignment Call Booked</td></tr>
+        <tr><td>Week 1–2</td><td>Search and Freedom Plan build, with few touchpoints for the client</td><td>Recruitment · Sales</td><td>Freedom Plan – Recruitment</td></tr>
+        <tr><td>Week 2–3</td><td>Strategy Session, then Freedom Plan and profiles by email</td><td>Sales → hands over to Recruitment</td><td>Strategy Session</td></tr>
+        <tr><td>Week 3–4</td><td>Optional test project, then interviews, then picks their Angel</td><td>Recruitment</td><td>Client Interview</td></tr>
+        <tr><td>Week 4–5</td><td>DDR, first invoice, contract, kick-off call</td><td>People &amp; Finance · CAX</td><td>Client</td></tr>
+        <tr><td>Day 30 / 90</td><td>First check-in, then the onboarding review against the Freedom Scorecard</td><td>CAX · Team Leader</td><td>Client</td></tr>
+        <tr><td>Month 6 / 12</td><td>Freedom Review, then the anniversary review: hours back, next stage, Angel #2</td><td>CAX · Account Manager</td><td>Client</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid">
+    <div class="panel"><h3>Sales</h3><p>Freedom Plan Specialist. Runs the audit, proposal, Alignment Call and Strategy Session. Stays the main contact for Angel Essentials and fractional-partner clients.</p></div>
+    <div class="panel"><h3>Recruitment</h3><p>Recruitment Manager and team. Sourcing, screening, test projects and interview scheduling. Pipelines: Candidates, Recruitment and Replacement.</p></div>
+    <div class="panel"><h3>People &amp; Finance</h3><p>Xero invoices, the DDR, contracts, Angel onboarding and payroll.</p></div>
+    <div class="panel"><h3>CAX (Client &amp; Angel Experience)</h3><p>CAX manager for the client relationship and reviews. A Team Leader manages the Angel: EOD reports, coaching and PIPs.</p></div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="sec-head">
+    <div class="eyebrow">The tool stack</div>
+    <h2>The tools we're actively using today</h2>
+    <p class="lede">Checked against live data on 24 November 2026. GoHighLevel is the main CRM. HubSpot is now legacy: no new deals since 13 August, but its Gmail extension still tracks emails.</p>
+  </div>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Tool</th><th>What we use it for</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><b>GoHighLevel</b></td><td>Main CRM. Sales pipeline (Lead → … → Client), recruitment and replacement pipelines, booking calendar, email and SMS templates, Facebook Messenger, candidate database</td><td><span class="status s-core">Core</span></td></tr>
+        <tr><td><b>Fathom</b></td><td>Records and summarises every sales call. The summary is pasted into GHL.</td><td><span class="status s-core">Core</span></td></tr>
+        <tr><td><b>Claude / ChatGPT</b></td><td>Writing proposals and Freedom Plans from call transcripts (19 sales Claude skills)</td><td><span class="status s-core">Core</span></td></tr>
+        <tr><td><b>Gmail + Google Workspace</b></td><td>All 1:1 follow-ups, Google Meet calls, and Drive client folders (JD, proposal, Freedom Plan)</td><td><span class="status s-core">Core</span></td></tr>
+        <tr><td><b>Calendly</b></td><td>Freedom Audit and Alignment Call booking links</td><td><span class="status s-on">Active</span></td></tr>
+        <tr><td><b>Notion</b></td><td>Sales Calendar (a card per lead with source, outcome and follow-up timeline), SOPs, the weekly sales update</td><td><span class="status s-on">Active</span></td></tr>
+        <tr><td><b>JustCall</b></td><td>Phone and SMS (AU and US numbers), with call recordings and AI notes logged in GHL</td><td><span class="status s-on">Active</span></td></tr>
+        <tr><td><b>Deposit forms (Stripe)</b></td><td>payments.outsourcingangel.com: $500 deposit in AUD or USD</td><td><span class="status s-on">Active</span></td></tr>
+        <tr><td><b>Xero</b></td><td>Freedom Plan invoice and receipt, client invoices</td><td><span class="status s-on">Active</span></td></tr>
+        <tr><td><b>Zoom</b></td><td>Founder Freedom Workshops</td><td><span class="status s-on">Active</span></td></tr>
+        <tr><td><b>Google Sheets</b></td><td>Lost Leads Outreach Tracker, referral trackers</td><td><span class="status s-on">Active</span></td></tr>
+        <tr><td><b>Loom / YouTube</b></td><td>Intro videos for candidates and the welcome email</td><td><span class="status s-on">Active</span></td></tr>
+        <tr><td><b>Make.com</b></td><td>"Payment Received Pipeline" automation after the deposit. Stopped with errors on 28 Oct.</td><td><span class="status s-risk">At risk</span></td></tr>
+        <tr><td><b>HubSpot</b></td><td>Old CRM (18.5k contacts, 4.3k deals). Still syncs contacts and tracks Gmail. Not used for new deals.</td><td><span class="status s-legacy">Legacy</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- REVIEW -->
+<section id="review">
+  <div class="sec-head">
+    <div class="eyebrow">Review</div>
+    <h2>What's working, and what to fix next</h2>
+    <p class="lede">Findings from comparing what our SOPs say with what our calls, emails and CRM actually show.</p>
+  </div>
+  <div class="health">
+    <div class="hrow ok"><span class="lvl">Working</span><div><p><b>The call structure is strong and consistent.</b> Audit → Alignment → Strategy Session runs the same way on almost every recorded call. Clients get a personalised, AI-built Freedom Plan that doubles as our best sales asset. The product ladder gives hesitant leads a smaller yes (Essentials, Match).</p></div></div>
+    <div class="hrow ok"><span class="lvl">Working</span><div><p><b>Follow-ups are personal and persistent.</b> Real emails run 5–6 touches with a clear deadline offer. The daily BDM habit won back 2 lost clients in Q2.</p></div></div>
+    <div class="hrow hi"><span class="lvl">Fix first</span><div><p><b>We say different things about the deposit and terms.</b> The deposit is described as "fully refundable if we can't find a fit", "refundable before interviews or at contract end", and "credited to your package". Internally it becomes non-refundable once interviews start, but we don't tell clients that. Agency fees have been quoted at $720, $800, $997, $1,000, $1,080 and $1,200, in a mix of AUD and USD. The replacement terms and the 3-month minimum also differ between the product sheet and our emails.</p><p class="fix"><b>Fix:</b> one approved "Terms in plain English" card that every call, proposal and email uses.</p></div></div>
+    <div class="hrow hi"><span class="lvl">Fix first</span><div><p><b>No-shows and lost leads depend on memory.</b> About 1 in 4 booked audits no-showed or cancelled in Q2. There's no automated no-show sequence, and some no-shows waited ~6 weeks for the next touch. Lost reasons were recorded on 0 of 60 Q2 calls and on 5 of 585 GHL opportunities.</p><p class="fix"><b>Fix:</b> a GHL no-show workflow (same-day email and SMS, Day 2, Day 5), and a required lost-reason dropdown of about 8 options instead of free text.</p></div></div>
+    <div class="hrow md"><span class="lvl">Tidy up</span><div><p><b>Three places to update for every lead.</b> SOPs ask for updates in GoHighLevel, HubSpot <i>and</i> Notion. 422 of 585 opportunities have no owner, deal values are almost never filled in, and 93 "Closed Lost" records are still marked open. Two booking tools (Calendly and the GHL calendar) split the data.</p><p class="fix"><b>Fix:</b> make GoHighLevel the single source of truth, retire HubSpot deals, and move bookings into GHL calendars.</p></div></div>
+    <div class="hrow md"><span class="lvl">Tidy up</span><div><p><b>Quiet gaps after the deposit.</b> There's little contact between payment and the Alignment Call, and again during the 1–2 week search. The Make.com payment automation has been stopping with errors. The day-of reminder shows Perth/PH time to Australian east-coast clients, and workshop SMS reminders sometimes send twice.</p><p class="fix"><b>Fix:</b> finish the welcome video, add a "your search is underway" update at Day 5, repair the Make scenario, and set reminders to the contact's own time zone.</p></div></div>
+    <div class="hrow md"><span class="lvl">Tidy up</span><div><p><b>Three different follow-up cadences on paper.</b> The SOP says Day 2/5/final, Notion says 2/4/7/10, and practice is 4/5/7/12/17. The nurture sequence (Day 30/60/90) has no written content yet.</p><p class="fix"><b>Fix:</b> pick one cadence, write the templates once, and load them into GHL.</p></div></div>
+    <div class="hrow md"><span class="lvl">Watch</span><div><p><b>Lead volume is down.</b> There were 6 Freedom Audits in November to date, against 29 in September and 32 in November last year. Workshops and referrals now bring in most new leads.</p></div></div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section id="glossary">
+  <div class="sec-head">
+    <div class="eyebrow">New to OA?</div>
+    <h2>Glossary</h2>
+  </div>
+  <dl class="gloss">
+    <div><dt>Angel</dt><dd>Our name for the offshore professional (usually in the Philippines) placed with a client. Also called an Associate, EA or Specialist; we avoid "VA" on calls.</dd></div>
+    <div><dt>Freedom Audit</dt><dd>The free first call, also called the discovery call. We learn the business, qualify the lead and explain how OA works.</dd></div>
+    <div><dt>Freedom Plan / Freedom Plan fee</dt><dd>The client's personalised hiring and onboarding plan. It's paid for by the $500 refundable deposit, which is credited to their package.</dd></div>
+    <div><dt>Freedom Playbook</dt><dd>Part B of the Freedom Plan: the living document used at every review for 12 months.</dd></div>
+    <div><dt>P.A.I.N.</dt><dd>Our qualification score: Problem, Aligned need, Investment readiness, Now. Each scores 0–2, for a total out of 8.</dd></div>
+    <div><dt>5D Freedom Staffing System™</dt><dd>Design, Define, Discover, Deploy, Develop: our method and the structure of every Freedom Plan.</dd></div>
+    <div><dt>Freedom Stages</dt><dd>Task Delegator → Process Builder → Outcome Owner → Operator → Freedom: how far the owner has stepped back.</dd></div>
+    <div><dt>Alignment Call</dt><dd>The call after the deposit where we define the role, KPIs and brief for Recruitment.</dd></div>
+    <div><dt>Strategy Session</dt><dd>The call where we present the Freedom Plan and 3–5 candidate profiles.</dd></div>
+    <div><dt>DDR</dt><dd>The onboarding and billing record completed when a client hires. It triggers invoicing, the contract and Angel onboarding.</dd></div>
+    <div><dt>CAX</dt><dd>Client &amp; Angel Experience: the team that looks after clients and Angels after the sale.</dd></div>
+    <div><dt>EOD report</dt><dd>The end-of-day report every Angel sends the client: done, in progress, questions, tomorrow.</dd></div>
+    <div><dt>BDM</dt><dd>Business development: our daily outreach to past and lost leads (20 leads, 20 emails).</dd></div>
+    <div><dt>GHL</dt><dd>GoHighLevel, our main CRM and automation platform.</dd></div>
+    <div><dt>EO</dt><dd>Entrepreneurs' Organization. Members are a key referral source and get 10% off the agency fee.</dd></div>
+    <div><dt>Angel Happiness Lifetime Guarantee</dt><dd>A free replacement Angel at any time, with a 1-week free trial before billing resumes.</dd></div>
+  </dl>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Outsourcing Angel · Sales &amp; Business Development · Sales Journey Map, as at 24 November 2026. Sources: Fathom recordings (Jul–Nov 2026), Notion Sales SOPs, GoHighLevel and HubSpot pipelines, sent sales emails, and the Q2 Sales Rock Recap.</div>
+</footer>
